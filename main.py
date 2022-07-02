@@ -1,3 +1,4 @@
+import random
 from enemy import *
 from map import *
 chef = Enemy(100,10)
@@ -6,14 +7,21 @@ me = Player(55, 10, ["eins", "zwei"], 42)
 townhall = TownHall()
 
 #townhall.start()
-#print(me.inventory)
-#chef.fight(me)
 
-
-#villager.fight(me)
-
-
-while 1 > 0:
-    me.move()
-    #fight(mylives)
- #  me.move(v, h)
+i = 8
+while i > 5:
+    print ("Was mächtest du machen?")
+    doing = input(">")
+    if doing == "umschauen":
+        fight = random.randint(1,2)
+        if fight == 1:
+            villager.fight(me)
+        else:
+            if me.positionNow == 42:
+                townhall.explore()
+   
+        print(me.positionNow)
+    elif doing == "laufen":
+        me.move()
+    else:
+        print("ungültige eingabe")
