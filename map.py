@@ -11,8 +11,15 @@ class TownHall:
         print("Wuhuu")
 class Waterfall:
     def explore(self):
-        pass
-
+        print('Rainer: "Oh man, hier war mal ein schöner Wasserfall, aber irgenjemand musste ja unbedingt ein Staudamm in Richtung Norden bauen...')
+        print('Kannst du der Sache auf den Grund gehen? (yes / no)"')
+        option = input(">")
+        if option.lower() == "yes":
+            pass
+        elif option.lower() == "no":
+            print('Rainer: "Okay schade, vielleicht ja später!"')
+        else:
+            print("ungültige eingabe")
 class Dam:
     def explore(self):
         pass
@@ -26,8 +33,9 @@ class BirdHouse:
         pass
 
 class Woods:
-    def explore(self):
-        pass
+    def explore(self, player):
+        player.inventory.append("potion")
+        print(player.inventory)
 
 class SouthWoods:
     def explore(self):
