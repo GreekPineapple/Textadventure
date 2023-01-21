@@ -1,7 +1,3 @@
-from ast import Name
-from unicodedata import name
-
-
 class Person:
     def __init__(self, lives, strength, name):
         self.lives = lives
