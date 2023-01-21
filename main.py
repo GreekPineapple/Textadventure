@@ -1,29 +1,64 @@
-import random
-from enemy import *
+import random, time
+from person import Player, Villain
 from map import *
-chef = Enemy(100,10)
-villager = Enemy(50, 10)
-me = Player(55, 10, ["eins", "zwei"], 42)
+from notes import *
+me = Player(200, 10, "myself", ["eins", "zwei"], 42) #Start: Townhall
 townhall = TownHall()
-woods = Woods()
-wf = Waterfall()
+woods = Woods("open")
+wf = Waterfall("open")
+dam = Dam("open")
+aquarium = Aquarium("open")
+square = Square()
+birdhouse = BirdHouse("open")
+notes = Notes()
+villain1 = Villain(101, 10, "villain1", 8, 7, 6, 5, 4, 11)
+villain2 = Villain(100, 20, "villain2", 20, 7, 6, 5, 4, 11)
 
-#townhall.start()
-wf.explore()
-#woods.explore(me)
-#while me.lives > 0:
-#    print ("Was mächtest du machen?")
-#    doing = input(">")
-#    if doing == "umschauen":
-#        fight = random.randint(1,2)
-#        if fight == 1:
-#            villager.fight(me)
-#        else:
-#            if me.positionNow == 42:
-#                townhall.explore()
-#   
-#        print(me.positionNow)
-#    elif doing == "laufen":
-#        me.move()
-#    else:
-#        print("ungültige eingabe")
+villains = [villain1, villain2]
+
+def checkposition(position):
+    if position == 11:
+        pass #woods
+    elif position == 12:
+        pass # woods
+    elif position == 13:
+        pass # woods
+    elif position == 22:
+        pass # woods
+    elif position == 23:
+        dam.quest = dam.explore(wf.quest, aquarium.quest, me, notes)
+    elif position == 30:
+        birdhouse.quest = birdhouse.explore(woods.quest, notes)
+    elif position == 31:
+        aquarium.quest = aquarium.explore(dam.quest, birdhouse.quest, me, notes)
+    elif position == 32:
+        pass # Dorfplatz
+    elif position == 33:
+        wf.quest = wf.explore(dam.quest, notes)
+    elif position == 42:
+        townhall.explore()
+    else:
+        print("You're out of map lul")
+
+# quest can be: open; active; done; 
+
+me.fight(villain1)
+#notes.countdown()
+while me.lives == "a":
+    print("Was möchtest du machen?")
+    doing = input(">")
+    if doing == "umschauen":
+        fight = bool(random.getrandbits(1))
+        print(fight)
+        if fight: #TODO: lives get negative
+            villain = random.choice(villains)
+            me.fight(villain)
+        else:       
+            checkposition(me.positionNow)
+    elif doing == "laufen":
+        me.move(wf.quest)
+    elif doing == "ende":
+        break
+    else:
+        print("ungültige eingabe")
+print("GAME OVER!")
