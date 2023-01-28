@@ -132,10 +132,12 @@ class Player(Person):
             print("Du wirst angegriffen")
             if specialAttack:
                 print("Deine Angriffsattacke hat den gegner wohl wütend gemacht, er greift stärker an :0")
-                print("Deine Leben davor: " + str(self.lives))
                 self.lives -= villain.strength * defencepoints + 20
                 print("Deine Leben danach: " + str(self.lives))
             else:
-                print("Deine Leben davor: " + str(self.lives))
                 self.lives -= villain.strength * defencepoints
                 print("Deine Leben danach: " + str(self.lives))
+            if self.lives <= 0:
+                print("Du bist rip")
+            elif villain.lives <= 0:
+                print("Der Gegener ist rip")
