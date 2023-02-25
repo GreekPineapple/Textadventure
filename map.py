@@ -43,7 +43,7 @@ def printMap(cols, rows):
             col = 0
         row+=1
 
-# printMap(4, 4)
+printMap(4, 4)
 
 class Square:
     def explore(self):
@@ -51,7 +51,7 @@ class Square:
 
 class TownHall:
     def start(self):
-        intro = open('introduction.txt', 'r')
+        intro = open('notes.txt', 'r')
         print(intro.read())
         
     def explore(self):

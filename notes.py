@@ -2,20 +2,20 @@ import time
 class Notes:
      
     def read(self):
-        note = open('introduction.txt', 'r')
+        note = open('notes.txt', 'r')
         print(note.read())
         note.close()
     
     def write(self, text):
-        note = open('introduction.txt', 'a')
+        note = open('notes.txt', 'a')
         note.write("\n" + text)
         note.close()
 
     def delete(self, text):
-        with open('introduction.txt', 'r') as fr:
+        with open('notes.txt', 'r') as fr:
             lines = fr.readlines()
 
-            with open('introduction.txt', 'w') as fw:
+            with open('notes.txt', 'w') as fw:
                 for line in lines:
                     if line.strip('\n') != text:
                         fw.write(line)
