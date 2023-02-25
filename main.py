@@ -25,7 +25,6 @@ def checkposition(position):
         pass # woods
     elif position == 22:
         woods.quest = woods.explore(birdhouse.quest, notes)
-        print("woods.wuest nach explore: " + woods.quest)
     elif position == 23:
         dam.quest = dam.explore(wf.quest, aquarium.quest, me, notes)
     elif position == 30:
