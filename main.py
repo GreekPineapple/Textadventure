@@ -42,14 +42,12 @@ def checkposition(position):
 
 # quest can be: open; active; done; 
 
-#me.fight(villain1)
-#notes.countdown()
+notes.read()
 while me.lives > 0:
     print("Was möchtest du machen?")
     doing = input(">")
     if doing == "umschauen":
         fight = bool(random.getrandbits(1))
-        print(fight)
         if fight:
             villain = random.choice(villains)
             me.fight(villain)
@@ -57,6 +55,8 @@ while me.lives > 0:
             checkposition(me.positionNow)
     elif doing == "laufen":
         me.move(wf.quest)
+    elif doing == "help":
+        notes.read()
     elif doing == "ende":
         break
     else:

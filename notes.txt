@@ -2,3 +2,7 @@ Befehle: Du kannst "laufen" um dich zu bewegen, und dich dann auf jedem Feld "um
 Wenn du kein bock mehr hast, tippe "ende" ein, um das Spiel zu beenden.
 Groß und Kleinschreibung ist egal, aber baue keine unnötigen Abstände mit ein, das könnte noch zu ungültigen Eingaben führen.
 Am Anfang wird einmal die Karte ausgegeben. Du startest beim Rathaus.
+Schreibe "help" um dir nochmal die Befehle, aber auch deine offenen Quests ausgeben zu lassen
+Viel Spaß :D
+
+ - Sieh dich im Norden um
