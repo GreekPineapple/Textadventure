@@ -24,11 +24,12 @@ def checkposition(position):
     elif position == 13:
         pass # woods
     elif position == 22:
-        pass # woods
+        woods.quest = woods.explore(birdhouse.quest, notes)
+        print("woods.wuest nach explore: " + woods.quest)
     elif position == 23:
         dam.quest = dam.explore(wf.quest, aquarium.quest, me, notes)
     elif position == 30:
-        birdhouse.quest = birdhouse.explore(woods.quest, notes)
+        birdhouse.quest = birdhouse.explore(aquarium.quest, woods.quest, notes)
     elif position == 31:
         aquarium.quest = aquarium.explore(dam.quest, birdhouse.quest, me, notes)
     elif position == 32:
@@ -42,15 +43,15 @@ def checkposition(position):
 
 # quest can be: open; active; done; 
 
-me.fight(villain1)
+#me.fight(villain1)
 #notes.countdown()
-while me.lives == "a":
+while me.lives > 0:
     print("Was möchtest du machen?")
     doing = input(">")
     if doing == "umschauen":
         fight = bool(random.getrandbits(1))
         print(fight)
-        if fight: #TODO: lives get negative
+        if fight:
             villain = random.choice(villains)
             me.fight(villain)
         else:       

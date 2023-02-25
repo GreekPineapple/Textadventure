@@ -85,6 +85,7 @@ class Waterfall:
                 print("Schon im Norden umgeschauet?")
         elif self.quest == "done":
             print("Diese Quest wurde schon beendet! ;)")
+        return self.quest
         
        
 
@@ -175,9 +176,20 @@ class BirdHouse:
     def __init__(self, quest):
         self.quest = quest 
         
-    def explore(self, birdquest, note):
+    def explore(self, aqquest, birdquest, note):
         if self.quest == "open":
-
+            if aqquest == "active":
+                print("Leider ist mir unser schönster Vogel abgehauen, aber mein kollege und ich suchen grade zusammen nach ihm") 
+                print("Kannst du uns vielleicht dabei helfen?")
+                answer = input(">")
+                if answer == "yes": 
+                    print("Mega, danke! Vermutlich wird er sich irgendwo im Wald aufhalten, aber sicher bin ich mir da nicht..")
+                    self.quest = "active"
+            else:
+                print("Hier Vogelhaus")
+        elif self.quest == "done":
+            print("Wilkommmen bei der Vogelzucht")
+        elif self.quest == "active":
             if birdquest == "done":
                 print("Wilkommmen bei der Vogelzucht")
                 print("wie ich sehe hast du meinen Vogel gefunden?")
@@ -189,13 +201,7 @@ class BirdHouse:
                     note.delete(' - Bringe den Vogel in das Vogelzucht haus')
                     note.write(' - Gehe zum Aquarium shop und hohle dir ein Aquarium')
             else:
-                print("Leider ist mir unser schönster Vogel abgehauen, aber mein kollege und ich suchen grade zusammen nach ihm") 
-                print("Kannst du uns vielleicht dabei helfen?")
-                answer = input(">")
-                if answer == "yes": 
-                    print("Mega, danke! Vermutlich wird er sich irgendwo im Wald aufhalten, aber sicher bin ich mir da nicht..")
-        elif self.quest == "done":
-            print("Wilkommmen bei der Vogelzucht")
+                print("finde den vogel")
         return self.quest
 
 class Woods:
@@ -203,9 +209,9 @@ class Woods:
     def __init__(self, quest):
         self.quest = quest 
         
-    def explore(self, aqquest, note):
+    def explore(self, birdquest, note):
         if self.quest == "open":
-            if aqquest == "active":
+            if birdquest == "active":
                 print("Das hier muss der Vogel sein der weggeflogen ist... \nAber wie fang ich ihn am besten?")
                 print("A: Vogelgeräusche imitieren \nB: Warten bis der Vogel weiter runter fliegt und ihn dann fangen \n C: Auf den Baum klettern und ihn fangen")
                 option = input(">")
@@ -213,11 +219,12 @@ class Woods:
                     print("Der Vogel denkt du bist ein Angreifer, du stirbst...")
                 elif option.lower() == "b":
                     print("Glükwunssch du hast in gefangen")
-                    self.quest == "done"
+                    self.quest = "done"
                     note.delete(' - Suche den Vogel und bringe ihn in das Vogelzucht haus')
                     note.write(' - Bringe den Vogel in das Vogelzucht haus')
                 elif option.lower() == "c":
                     print("Du bist vom Baum gefallen und gestorben, lol")
+        return self.quest
 class SouthWoods:
     def explore(self):
         pass
