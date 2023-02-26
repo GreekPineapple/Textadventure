@@ -5,4 +5,4 @@ Am Anfang wird einmal die Karte ausgegeben. Du startest beim Rathaus.
 Schreibe "help" um dir nochmal die Befehle, aber auch deine offenen Quests ausgeben zu lassen
 Viel Spaß :D
 
- - Sieh dich im Norden um
+Deine Aufgaben:

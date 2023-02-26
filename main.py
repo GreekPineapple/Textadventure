@@ -47,7 +47,7 @@ while me.lives > 0:
     print("Was möchtest du machen?")
     doing = input(">")
     if doing == "umschauen":
-        fight = bool(random.getrandbits(1))
+        fight = False # bool(random.getrandbits(1))
         if fight:
             villain = random.choice(villains)
             me.fight(villain)
