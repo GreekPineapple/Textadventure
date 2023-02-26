@@ -33,10 +33,10 @@ class Player(Person):
 
     def move(self, wfquest): #laufen möglich, geheimwege fehlen noch
         a = [[10, 11, 12, 13], [20, 21, 22, 23], [30, 31, 32, 33], [40, 41, 42, 43]]
-        for i in range(len(a)):
-            for j in range(len(a[i])):
-                print(a[i][j], end=" ")
-            print()
+        # for i in range(len(a)):
+        #     for j in range(len(a[i])):
+        #         print(a[i][j], end=" ")
+        #     print()
         position = self.positionNow
         
         print("In welche Richtung möchtest du gehen? (N/O/S/W)")
