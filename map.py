@@ -47,11 +47,11 @@ printMap(4, 4)
 
 class Square:
     def explore(self):
-        pass
+        print("Hier passiert noch nichts...")
 
 class TownHall:
     def explore(self):
-        pass
+        print("Hier passiert noch nichts...")
 
 class Waterfall:
     def __init__(self, quest):
@@ -227,12 +227,12 @@ class Woods:
         return self.quest
 class SouthWoods:
     def explore(self):
-        pass
+        print("Hier passiert noch nichts...")
 
 class WestWoods:
     def explore(self):
-        pass
+        print("Hier passiert noch nichts...")
 
 class EastWoods:
     def explore(self):
-        pass
+        print("Hier passiert noch nichts...")
