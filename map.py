@@ -131,7 +131,7 @@ class Aquarium:
                 print("Was kann ich für dich tun?")
                 option = input(">")
                 if "aquarium" in option.lower():
-                    print("Ah, du interessierst dich für unsere Aquarien?")
+                    print("Ah, du interessierst dich für unsere Aquarien? (yes/no)")
                     option = input(">")
                     if option.lower() == "ja" or "j" or "yes" or "y":
                         print("Ich kann dir ein Angebot machen: Mein Kollege von der Vogelzucht hat einen ausreiser...")
@@ -150,7 +150,7 @@ class Aquarium:
                 print("Hier ist ein Aquarium shop. Er scheint aber geschlossen zu sein...")
         elif self.quest == "active":
             if birdquest == "done":
-                print("Hast du den Vogel gefunden und zurück gebracht?")
+                print("Hast du den Vogel gefunden und zurück gebracht? (yes/no)")
                 option = input(">")
                 if option.lower() == "yes":
                     print("Super, vielen Dank! Hier bekommst du ein Aquarium")
@@ -175,7 +175,7 @@ class BirdHouse:
         if self.quest == "open":
             if aqquest == "active":
                 print("Leider ist mir unser schönster Vogel abgehauen, aber mein kollege und ich suchen grade zusammen nach ihm") 
-                print("Kannst du uns vielleicht dabei helfen?")
+                print("Kannst du uns vielleicht dabei helfen? (yes/no)")
                 answer = input(">")
                 if answer == "yes": 
                     print("Mega, danke! Vermutlich wird er sich irgendwo im Wald aufhalten, aber sicher bin ich mir da nicht..")
@@ -188,7 +188,7 @@ class BirdHouse:
         elif self.quest == "active":
             if birdquest == "done":
                 print("Wilkommmen bei der Vogelzucht")
-                print("wie ich sehe hast du meinen Vogel gefunden?")
+                print("wie ich sehe hast du meinen Vogel gefunden? (yes)")
                 answer = input(">")
                 if answer == "yes":
                     print("Super, vielen Dank!")
