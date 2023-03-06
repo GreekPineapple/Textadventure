@@ -128,10 +128,10 @@ class Aquarium:
         if self.quest == "open": 
             if damquest == "active":
                 print("Wilkommmen bei Aquilinas Aquarium Laden! *(kurz: AAL)*")
-                print("Was kann ich für Sie tun?")
+                print("Was kann ich für dich tun?")
                 option = input(">")
                 if "aquarium" in option.lower():
-                    print("Ah, Sie interessieren sich für unsere Aquarien?")
+                    print("Ah, du interessierst dich für unsere Aquarien?")
                     option = input(">")
                     if option.lower() == "ja" or "j" or "yes" or "y":
                         print("Ich kann dir ein Angebot machen: Mein Kollege von der Vogelzucht hat einen ausreiser...")
@@ -162,7 +162,7 @@ class Aquarium:
                 print("Finde den Vogel und bringe ihn zum Vogelhaus, um dir später hier ein Aquarium abzuholen!")
         elif self.quest == "done":
             print("Wilkommmen bei Aquilinas Aquarium Laden! *(kurz: AAL)*")
-            print("Was kann ich für Sie tun?")
+            print("Was kann ich für dich tun?")
             
         return self.quest
 
