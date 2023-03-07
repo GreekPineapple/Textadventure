@@ -17,26 +17,32 @@ villain2 = Villain(100, 20, "villain2", 20, 7, 6, 5, 4, 11)
 
 villains = [villain1, villain2]
 
-def checkposition(position):
+def checkposition(position): #TODO mach match-case draus
     if position == 11:
-        pass #woods
+        print("--Wald--")
     elif position == 12:
-        pass # woods
+        print("--Wald--")
     elif position == 13:
-        pass # woods
+        print("--Wald--")
     elif position == 22:
+        print("--Wald--")
         woods.quest = woods.explore(birdhouse.quest, notes)
     elif position == 23:
+        print("--Staudamm--")
         dam.quest = dam.explore(wf.quest, aquarium.quest, me, notes)
     elif position == 30:
+        print("--Vogelhaus--")
         birdhouse.quest = birdhouse.explore(aquarium.quest, woods.quest, notes)
     elif position == 31:
+        print("--Aquarium--")
         aquarium.quest = aquarium.explore(dam.quest, birdhouse.quest, me, notes)
     elif position == 32:
-        pass # Dorfplatz
+        print("--Dorfplatz--")
     elif position == 33:
+        print("--Wasserfall--")
         wf.quest = wf.explore(dam.quest, notes)
     elif position == 42:
+        print("--Rathaus--")
         townhall.explore()
     else:
         print("You're out of map lul")
