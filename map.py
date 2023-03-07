@@ -1,49 +1,52 @@
-def addFieldName(numb):
-    match numb:
-        case 1 | 5 | 6 | 13 | 14 | 16:
-            numb = "          "
-        case 2 | 3 | 4 | 7:
-            numb = "   Wald   "
-        case 8:
-            numb = " Staudamm "
-        case 9:
-            numb = "Vogelhaus "
-        case 10:
-            numb = " Aquarium "
-        case 11:
-            numb = "Dorfplatz "
-        case 12:
-            numb = "Wasserfall"
-        case 15:
-            numb = " Rathaus  "
-        case _:
-            numb = "    " + str(numb) + "    "
-    return numb
+class Map:
+    def __init__(self, rows, columns):
+        self.rows = rows
+        self.cols = columns
+        
+    def addFieldName(self, numb):
+        match numb:
+            case 1 | 5 | 6 | 13 | 14 | 16:
+                numb = "          "
+            case 2 | 3 | 4 | 7:
+                numb = "   Wald   "
+            case 8:
+                numb = " Staudamm "
+            case 9:
+                numb = "Vogelhaus "
+            case 10:
+                numb = " Aquarium "
+            case 11:
+                numb = "Dorfplatz "
+            case 12:
+                numb = "Wasserfall"
+            case 15:
+                numb = " Rathaus  "
+            case _:
+                numb = "    " + str(numb) + "    "
+        return numb
 
-def printMap(cols, rows):
-    row = col = numb = 0
-    topString = "____________"
-    sideString = "|          |"
-    sideStringNum = "" #later implemented
-    bottomString = "|__________|"
-    card = [[topString],[sideString],[sideStringNum],[bottomString]]
-  
-    while row < rows:
-        for i in range(len(card)):
-            while col < cols:
-                if i == 2: #string with num
-                    int(numb)
-                    numb+=1
-                    strnumb = str(numb)
-                    strnumb = addFieldName(numb)
-                    card[2][0] = "|" + str(strnumb) + "|"
-                print(card[i][0], end=" ")
-                col += 1
-            print()
-            col = 0
-        row+=1
-
-printMap(4, 4)
+    def printMap(self):
+        row = col = numb = 0
+        topString = "____________"
+        sideString = "|          |"
+        sideStringNum = "" #later implemented
+        bottomString = "|__________|"
+        card = [[topString],[sideString],[sideStringNum],[bottomString]]
+    
+        while row < self.rows:
+            for i in range(len(card)):
+                while col < self.cols:
+                    if i == 2: #string with num
+                        int(numb)
+                        numb+=1
+                        strnumb = str(numb)
+                        strnumb = self.addFieldName(numb)
+                        card[2][0] = "|" + str(strnumb) + "|"
+                    print(card[i][0], end=" ")
+                    col += 1
+                print()
+                col = 0
+            row+=1
 
 class Square:
     def explore(self):

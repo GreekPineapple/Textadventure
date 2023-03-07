@@ -2,6 +2,7 @@ import random, time
 from person import Player, Villain
 from map import *
 from notes import *
+map = Map(4,4)
 me = Player(200, 10, "myself", ["eins", "zwei"], 42) #Start: Townhall
 townhall = TownHall()
 woods = Woods("open")
@@ -41,8 +42,9 @@ def checkposition(position):
         print("You're out of map lul")
 
 # quest can be: open; active; done; 
-
+map.printMap()
 notes.read()
+
 while me.lives > 0:
     print("Was möchtest du machen?")
     doing = input(">")
@@ -57,6 +59,8 @@ while me.lives > 0:
         me.move(wf.quest)
     elif doing == "help":
         notes.read()
+    elif doing == "map":
+        map.printMap()
     elif doing == "ende":
         break
     else:
