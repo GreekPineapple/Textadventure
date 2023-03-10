@@ -99,7 +99,7 @@ class Player(Person):
             item = input(">")
         print("Dein Inventar für den Kampf: " + str(tempinventory)) #TODO Defence begrenzen! Sonst macht Gegner irgendwann keinen schaden mehr
       
-        while self.lives > 0 and villain.lives > 0:
+        while self.lives > 0 or villain.lives > 0:
             print(self.lives > 0)
             print(villain.lives > 0)
             use = input("Wie möchtest du angreifen?")
