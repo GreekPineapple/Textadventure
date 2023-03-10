@@ -10,12 +10,12 @@ class Person:
         print("Name: " + str(self.name) )
 
 class Villain (Person):
-    def __init__(self, lives, strength, name, red, yellow, blue, purple, orange, defence):
+    def __init__(self, lives, strength, name, red, yellow, blue, purple, kick, defence):
         self.red = red
         self.yellow = yellow
         self.blue = blue
         self.purple = purple
-        self.orange = orange
+        self.kick = kick
         self.defence = defence
         super().__init__(lives, strength, name)
 
@@ -83,11 +83,11 @@ class Player(Person):
     def fight(self, villain): 
         specialAttack = False
         #first: shopping!
-        tempinventory = []
+        tempinventory = ["kick"]
         defencepoints = 1
-        shop = {"red": 5, "yellow": 4, "blue": 3, "purple": 2, "orange": 1, "defence": 10} #key -> item, value -> price
-        print("Du wirst angegriffen :( Kaufe deine Ausrüstung im Shop:")
-        print("Roter Angriff (-5 Leben)  Gelber Angriff (-4 Leben)  Blauer Angriff (-3 Leben)  Lila Angriff (-2 Leben)  Orangener Angriff (-1 Leben)  Verbesserte Verteidigung (-10 Leben)")
+        shop = {"red": 5, "yellow": 4, "blue": 3, "purple": 2, "defence": 10} #key -> item, value -> price
+        print('Du wirst angegriffen :( Kaufe deine Ausrüstung im Shop (beende deinen Einkauf mit "ende"):')
+        print("Roter Angriff (-5 Leben)  Gelber Angriff (-4 Leben)  Blauer Angriff (-3 Leben)  Lila Angriff (-2 Leben)  Verbesserte Verteidigung (-10 Leben)")
         item = input(">")
         while item != "ende":
             if item in shop:
@@ -118,9 +118,8 @@ class Player(Person):
             elif use == "purple" and use in tempinventory:
                 villain.lives -= villain.purple
                 tempinventory.remove("purple")
-            elif use == "orange" and use in tempinventory:
-                villain.lives -= villain.orange
-                tempinventory.remove("orange")
+            elif use == "kick": #always possible
+                villain.lives -= villain.kick
             elif use == "defence" and use in tempinventory:
                 defencepoints -= 0.1
                 tempinventory.remove("defence")
