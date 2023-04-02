@@ -81,7 +81,6 @@ class Player(Person):
         self.positionNow = position
 
     def fight(self, villain): 
-        specialAttack = False
         redcount = yellowcount = 0
         #first: shopping!
         inventory = ["kick"]
@@ -112,7 +111,6 @@ class Player(Person):
                 print("ungültig")
                 bonus = input("2. Angriff: ")
             round = [use, bonus]
-            specialAttack = False
             #attack:
             if "red" in round:
                 if redcount > 3:
@@ -163,11 +161,7 @@ class Player(Person):
             if redcount > 3 or yellowcount > 3:
                 print("\nDu hast jetzt zu oft den selben angriff genutzt. Der Gegner lernt daraus und ist jetzt immun...\n")
             print("Du wirst angegriffen")
-            if specialAttack:
-                print("Deine Angriffsattacke hat den gegner wohl wütend gemacht, er greift stärker an :0")
-                self.lives -= villain.strength * defencepoints + 20
-            else:
-                self.lives -= villain.strength * defencepoints
+            self.lives -= villain.strength * defencepoints
             print("Deine Leben danach: " + str(self.lives))
             if self.lives <= 0:
                 print("Du bist rip")
