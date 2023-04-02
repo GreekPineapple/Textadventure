@@ -136,7 +136,7 @@ class Aquarium:
                 if "aquarium" in option.lower():
                     print("Ah, du interessierst dich für unsere Aquarien? (yes/no)")
                     option = input(">")
-                    if option.lower() == "ja" or "j" or "yes" or "y":
+                    if option.lower() == "ja" or option.lower() == "j" or option.lower() == "yes" or option.lower() == "y":
                         print("Ich kann dir ein Angebot machen: Mein Kollege von der Vogelzucht hat einen ausreiser...")
                         print("Er hat mich gebeten ihn bei der Suche zu helfen, doch ich habe einfach keine zeit. Wenn du den Vogel zurück in die Vogelzucht bringst, bekommst du ein Aquaium umsonst. Frage dort nach, wo du suchen musst.")
                         print("Hilfst du mir? (yes / no)")
