@@ -154,12 +154,11 @@ class Player(Person):
             if "defence" in round:
                 defencepoints -= 0.1
                 inventory.remove("defence")
-            else: #TODO Switch case und das hier als else (case _), sonst wird das immer aufgerufen wenn defence nicht in round ist
-                print(use + " ist nicht in deinem Inventar, bitte wähle eine andere option aus! (Nicht beachten, wird noch gefixed)")
             print("Dein Inventar: " + str(inventory))
             print("Gegner Leben nach dem Angriff: " + str(villain.lives))
             if redcount > 3 or yellowcount > 3:
                 print("\nDu hast jetzt zu oft den selben angriff genutzt. Der Gegner lernt daraus und ist jetzt immun...\n")
+                
             print("Du wirst angegriffen")
             self.lives -= villain.strength * defencepoints
             print("Deine Leben danach: " + str(self.lives))
