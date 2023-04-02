@@ -82,8 +82,9 @@ class Player(Person):
 
     def fight(self, villain): 
         specialAttack = False
+        redcount = 0
         #first: shopping!
-        tempinventory = ["kick"]
+        inventory = ["kick"]
         defencepoints = 1
         shop = {"red": 5, "yellow": 4, "blue": 3, "purple": 2, "defence": 10} #key -> item, value -> price
         print('Du wirst angegriffen :( Kaufe deine Ausrüstung im Shop (beende deinen Einkauf mit "ende"):')
@@ -92,49 +93,76 @@ class Player(Person):
         while item != "ende":
             if item in shop:
                 self.lives -= shop[item]
-                tempinventory.append(item)
+                inventory.append(item)
                 print("Du hast noch: " + str(self.lives) + " leben")
             else:
                 print("Diesen Artikel haben wir nicht im Angebot")
             item = input(">")
-        print("Dein Inventar für den Kampf: " + str(tempinventory)) #TODO Defence begrenzen! Sonst macht Gegner irgendwann keinen schaden mehr
+        print("Dein Inventar für den Kampf: " + str(inventory)) #TODO Defence begrenzen! Sonst macht Gegner irgendwann keinen schaden mehr
       
         while self.lives > 0 or villain.lives > 0:
-            print(self.lives > 0)
-            print(villain.lives > 0)
-            use = input("Wie möchtest du angreifen?")
+            print('Wie möchtest du angreifen? Du kannst 2 Angriffe auswählen um Kombo boni zu erhlaten, musst aber nicht. (Tippe "none" wenn du nur einen Angriff machen willst)')
+            #choose 1 or 2 attacks:
+            use = input("1. Angriff: ")
+            while use not in inventory:
+                print("ungültig")
+                use = input("1. Angriff: ")
+            bonus = input("2. Angriff: ")
+            while bonus != "none" and bonus not in inventory:
+                print("ungültig")
+                bonus = input("2. Angriff: ")
+            round = [use, bonus]
             specialAttack = False
-            if use == "red" and use in tempinventory:
+            #attack:
+            if "red" in round:
+                print("red wurde benutzt")
+                inventory.remove("red")
+                if bonus == "red":
+                    print("Red wurde nochmal benutzt")
+                    inventory.remove("red")
+                    villain.lives -= villain.red + 10
+                    print("red: " + str(villain.red))
+                redcount+=1
                 villain.lives -= villain.red
-                tempinventory.remove("red")
-                if villain.name == "villain1":
-                    specialAttack = True
-            elif use == "yellow" and use in tempinventory:
+                # if villain.name == "villain1":
+                #     specialAttack = True
+            if "yellow" in round:
+                print("yellow wurde benutzt")
+                if bonus == "yellow":
+                    print("Gelb wurde nochmal benutzt")
+                    villain.lives -= villain.yellow + 10
                 villain.lives -= villain.yellow
-                tempinventory.remove("yellow")
-            elif use == "blue" and use in tempinventory:
+                inventory.remove("yellow")
+            if "blue" in round:
+                print("blau wurde benutzt")
+                if bonus == "blue":
+                    print("blau wurde nochmal benutzt")
+                    villain.lives -= villain.blue + 10
                 villain.lives -= villain.blue
-                tempinventory.remove("blue")
-            elif use == "purple" and use in tempinventory:
+                inventory.remove("blue")
+            if "purple" in round:
+                print("lila wurde benutzt")
+                if bonus == "purple":
+                    print("lila wurde nochmal benutzt")
+                    villain.lives -= villain.purple + 10
                 villain.lives -= villain.purple
-                tempinventory.remove("purple")
-            elif use == "kick": #always possible
+                inventory.remove("purple")
+            if "kick" in round: #always possible
                 villain.lives -= villain.kick
-            elif use == "defence" and use in tempinventory:
+            if "defence" in round:
                 defencepoints -= 0.1
-                tempinventory.remove("defence")
-            else:
-                print(use + " ist nicht in deinem Inventar, bitte wähle eine andere option aus!")
-            print("Dein Inventar: " + str(tempinventory))
+                inventory.remove("defence")
+            else: #TODO Switch case und das hier als else (case _), sonst wird das immer aufgerufen wenn defence nicht in round ist
+                print(use + " ist nicht in deinem Inventar, bitte wähle eine andere option aus! (Nicht beachten, wird noch gefixed)")
+            print("Dein Inventar: " + str(inventory))
             print("Gegner Leben nach dem Angriff: " + str(villain.lives))
             print("Du wirst angegriffen")
             if specialAttack:
                 print("Deine Angriffsattacke hat den gegner wohl wütend gemacht, er greift stärker an :0")
                 self.lives -= villain.strength * defencepoints + 20
-                print("Deine Leben danach: " + str(self.lives))
             else:
                 self.lives -= villain.strength * defencepoints
-                print("Deine Leben danach: " + str(self.lives))
+            print("Deine Leben danach: " + str(self.lives))
             if self.lives <= 0:
                 print("Du bist rip")
             elif villain.lives <= 0:
