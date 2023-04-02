@@ -82,7 +82,7 @@ class Player(Person):
 
     def fight(self, villain): 
         specialAttack = False
-        redcount = 0
+        redcount = yellowcount = 0
         #first: shopping!
         inventory = ["kick"]
         defencepoints = 1
@@ -115,34 +115,38 @@ class Player(Person):
             specialAttack = False
             #attack:
             if "red" in round:
-                print("red wurde benutzt")
-                inventory.remove("red")
-                if bonus == "red":
-                    print("Red wurde nochmal benutzt")
+                if redcount > 3:
+                    print("Rot macht keinen Schaden mehr")
+                else:
+                    print("red wurde benutzt")
                     inventory.remove("red")
-                    villain.lives -= villain.red + 10
-                    print("red: " + str(villain.red))
-                redcount+=1
-                villain.lives -= villain.red
-                # if villain.name == "villain1":
-                #     specialAttack = True
+                    if bonus == "red" and  use == "red":
+                        print("Red wurde nochmal benutzt")
+                        inventory.remove("red")
+                        villain.lives -= villain.red + 10
+                    redcount+=1
+                    villain.lives -= villain.red
             if "yellow" in round:
-                print("yellow wurde benutzt")
-                if bonus == "yellow":
-                    print("Gelb wurde nochmal benutzt")
-                    villain.lives -= villain.yellow + 10
-                villain.lives -= villain.yellow
-                inventory.remove("yellow")
+                if yellowcount > 3:
+                    print("Yellow macht keinen Schaden mehr")
+                else:
+                    print("yellow wurde benutzt")
+                    if bonus == "yellow" and use == "yellow":
+                        print("Gelb wurde nochmal benutzt")
+                        villain.lives -= villain.yellow + 10
+                    villain.lives -= villain.yellow
+                    inventory.remove("yellow")
+                    yellowcount += 1
             if "blue" in round:
                 print("blau wurde benutzt")
-                if bonus == "blue":
+                if bonus == "blue" and use == "blue":
                     print("blau wurde nochmal benutzt")
                     villain.lives -= villain.blue + 10
                 villain.lives -= villain.blue
                 inventory.remove("blue")
             if "purple" in round:
                 print("lila wurde benutzt")
-                if bonus == "purple":
+                if bonus == "purple" and use == "purple":
                     print("lila wurde nochmal benutzt")
                     villain.lives -= villain.purple + 10
                 villain.lives -= villain.purple
@@ -156,6 +160,8 @@ class Player(Person):
                 print(use + " ist nicht in deinem Inventar, bitte wähle eine andere option aus! (Nicht beachten, wird noch gefixed)")
             print("Dein Inventar: " + str(inventory))
             print("Gegner Leben nach dem Angriff: " + str(villain.lives))
+            if redcount > 3 or yellowcount > 3:
+                print("\nDu hast jetzt zu oft den selben angriff genutzt. Der Gegner lernt daraus und ist jetzt immun...\n")
             print("Du wirst angegriffen")
             if specialAttack:
                 print("Deine Angriffsattacke hat den gegner wohl wütend gemacht, er greift stärker an :0")
