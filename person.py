@@ -1,3 +1,4 @@
+import random
 class Person:
     def __init__(self, lives, strength, name):
         self.lives = lives
@@ -85,9 +86,9 @@ class Player(Person):
         #first: shopping!
         inventory = ["kick"]
         defencepoints = 1
-        shop = {"red": 5, "yellow": 4, "blue": 3, "purple": 2, "defence": 10} #key -> item, value -> price
+        shop = {"red": 5, "yellow": 4, "blue": 3, "purple": 2, "defence": 10, "healing": 7} #key -> item, value -> price
         print('Du wirst angegriffen :( Kaufe deine Ausrüstung im Shop (beende deinen Einkauf mit "ende"):')
-        print("Roter Angriff (-5 Leben)  Gelber Angriff (-4 Leben)  Blauer Angriff (-3 Leben)  Lila Angriff (-2 Leben)  Verbesserte Verteidigung (-10 Leben)")
+        print("Roter Angriff (-5 Leben)  Gelber Angriff (-4 Leben)  Blauer Angriff (-3 Leben)  Lila Angriff (-2 Leben)  Verbesserte Verteidigung (-10 Leben), Heilung (-7 Leben)")
         item = input(">")
         while item != "ende":
             if item in shop:
@@ -103,11 +104,11 @@ class Player(Person):
             print('Wie möchtest du angreifen? Du kannst 2 Angriffe auswählen um Kombo boni zu erhlaten, musst aber nicht. (Tippe "none" wenn du nur einen Angriff machen willst)')
             #choose 1 or 2 attacks:
             use = input("1. Angriff: ")
-            while use not in inventory:
+            while use not in inventory or use == "healing":
                 print("ungültig")
                 use = input("1. Angriff: ")
             bonus = input("2. Angriff: ")
-            while bonus != "none" and bonus not in inventory:
+            while bonus != "none" and bonus not in inventory or bonus == "healing":
                 print("ungültig")
                 bonus = input("2. Angriff: ")
             round = [use, bonus]
@@ -158,10 +159,25 @@ class Player(Person):
             print("Gegner Leben nach dem Angriff: " + str(villain.lives))
             if redcount > 3 or yellowcount > 3:
                 print("\nDu hast jetzt zu oft den selben angriff genutzt. Der Gegner lernt daraus und ist jetzt immun...\n")
-                
+
             print("Du wirst angegriffen")
-            self.lives -= villain.strength * defencepoints
-            print("Deine Leben danach: " + str(self.lives))
+            special_attack = random.random()
+            if special_attack < 0.25: #probabilty of 25% that enemy makes a special attack
+                print("Der gegner hat dich eingefroren, so kannst du nicht kämpfen.")
+                if "healing" in inventory:
+                    print("Möchtest du deinen Heiltrank nutzen? (y/n)")
+                    healing = input(">")
+                    if healing == "ja" or healing == "j" or healing == "yes" or healing == "y":
+                        inventory.remove("healing")
+                    else:
+                        print("Du wirst angegriffen")
+                        self.lives -= villain.strength * defencepoints
+                else:
+                    print("Du wirst angegriffen")
+                    self.lives -= villain.strength * defencepoints
+            else:
+                self.lives -= villain.strength * defencepoints
+                print("Deine Leben danach: " + str(self.lives))
             if self.lives <= 0:
                 print("Du bist rip")
             elif villain.lives <= 0:
