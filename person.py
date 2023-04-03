@@ -82,7 +82,7 @@ class Player(Person):
         self.positionNow = position
 
     def fight(self, villain): 
-        redcount = yellowcount = 0
+        redcount = yellowcount = bluecount = purplecount = 0
         #first: shopping!
         inventory = ["kick"]
         defencepoints = 1
@@ -137,19 +137,27 @@ class Player(Person):
                     inventory.remove("yellow")
                     yellowcount += 1
             if "blue" in round:
-                print("blau wurde benutzt")
-                if bonus == "blue" and use == "blue":
-                    print("blau wurde nochmal benutzt")
-                    villain.lives -= villain.blue + 10
-                villain.lives -= villain.blue
-                inventory.remove("blue")
+                if bluecount > 3:
+                    print("Blue macht keinen Schaden mehr")
+                else:
+                    print("blau wurde benutzt")
+                    if bonus == "blue" and use == "blue":
+                        print("blau wurde nochmal benutzt")
+                        villain.lives -= villain.blue + 10
+                    villain.lives -= villain.blue
+                    inventory.remove("blue")
+                    bluecount += 1
             if "purple" in round:
-                print("lila wurde benutzt")
-                if bonus == "purple" and use == "purple":
-                    print("lila wurde nochmal benutzt")
-                    villain.lives -= villain.purple + 10
-                villain.lives -= villain.purple
-                inventory.remove("purple")
+                if purplecount > 3:
+                    print("Purple macht keinen Schaden mehr")
+                else:
+                    print("lila wurde benutzt")
+                    if bonus == "purple" and use == "purple":
+                        print("lila wurde nochmal benutzt")
+                        villain.lives -= villain.purple + 10
+                    villain.lives -= villain.purple
+                    inventory.remove("purple")
+                    purplecount += 1
             if "kick" in round: #always possible
                 villain.lives -= villain.kick
             if "defence" in round:
