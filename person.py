@@ -42,7 +42,7 @@ class Player(Person):
         
         print("In welche Richtung möchtest du gehen? (N/O/S/W)")
         direction = input(">")
-        if direction.lower() == "n":
+        if direction.lower().strip() == "n":
             if position == 30:
                 print("Hier ist ein geheimweg, den du noch nicht freigeschalten hast!")
             elif position == 33 and wfquest == "done":
@@ -53,14 +53,14 @@ class Player(Person):
                 print("Du gehst nach Norden")
                 position -= 10
 
-        elif direction.lower() == "o":
+        elif direction.lower().strip() == "o":
             if position == 13 or position == 23 or position == 33 or position == 42:
                 print("Hier gibt es keinen weg nach Osten")
             else:
                 print("Du gehst nach Osten")
                 position += 1
         
-        elif direction.lower() == "s":
+        elif direction.lower().strip() == "s":
             if position == 23 and wfquest == "done" :
                 print("Diesen Weg gibt es leider nichtmehr. Hier fließt jetzt Wasser!")               
             elif position == 11 or position == 13 or position == 30 or position == 31 or position == 33 or position == 42:
@@ -69,7 +69,7 @@ class Player(Person):
                 print("Du gehst nach Sueden")
                 position += 10
         
-        elif direction.lower() == "w":
+        elif direction.lower().strip() == "w":
             if position == 22:
                 print("Hier ist ein geheimweg, den du noch nicht freigeschalten hast!")
             elif position == 11 or position == 30 or position == 42:
@@ -90,10 +90,10 @@ class Player(Person):
         print('Du wirst angegriffen :( Kaufe deine Ausrüstung im Shop (beende deinen Einkauf mit "ende"):')
         print("Roter Angriff (-5 Leben)  Gelber Angriff (-4 Leben)  Blauer Angriff (-3 Leben)  Lila Angriff (-2 Leben)  Verbesserte Verteidigung (-10 Leben), Heilung (-7 Leben)")
         item = input(">")
-        while item != "ende":
-            if item in shop:
+        while item != "ende": #TODO Do while schleife?
+            if item.lower().strip() in shop:
                 self.lives -= shop[item]
-                inventory.append(item)
+                inventory.append(item.strip())
                 print("Du hast noch: " + str(self.lives) + " leben")
             else:
                 print("Diesen Artikel haben wir nicht im Angebot")
