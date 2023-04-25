@@ -90,10 +90,10 @@ class Player(Person):
         print('Du wirst angegriffen :( Kaufe deine Ausrüstung im Shop (beende deinen Einkauf mit "ende"):')
         print("Roter Angriff (-5 Leben)  Gelber Angriff (-4 Leben)  Blauer Angriff (-3 Leben)  Lila Angriff (-2 Leben)  Verbesserte Verteidigung (-10 Leben), Heilung (-7 Leben)")
         item = input(">")
-        while item != "ende": #TODO Do while schleife?
+        while item.lower().strip() != "ende": #TODO Do while schleife?
             if item.lower().strip() in shop:
-                self.lives -= shop[item]
-                inventory.append(item.strip())
+                self.lives -= shop[item.lower().strip()]
+                inventory.append(item.lower().strip())
                 print("Du hast noch: " + str(self.lives) + " leben")
             else:
                 print("Diesen Artikel haben wir nicht im Angebot")
@@ -104,13 +104,15 @@ class Player(Person):
             print('Wie möchtest du angreifen? Du kannst 2 Angriffe auswählen um Kombo boni zu erhlaten, musst aber nicht. (Tippe "none" wenn du nur einen Angriff machen willst)')
             #choose 1 or 2 attacks:
             use = input("1. Angriff: ")
-            while use not in inventory or use == "healing":
+            while use.lower().strip() not in inventory or use.lower().strip() == "healing":
                 print("ungültig")
                 use = input("1. Angriff: ")
             bonus = input("2. Angriff: ")
-            while bonus != "none" and bonus not in inventory or bonus == "healing":
+            while bonus.lower().strip() != "none" and bonus.lower().strip() not in inventory or bonus.lower().strip() == "healing":
                 print("ungültig")
                 bonus = input("2. Angriff: ")
+            use = use.lower().strip()
+            bonus = bonus.lower().strip()
             round = [use, bonus]
             #attack:
             if "red" in round:
@@ -165,7 +167,7 @@ class Player(Person):
                 inventory.remove("defence")
             print("Dein Inventar: " + str(inventory))
             print("Gegner Leben nach dem Angriff: " + str(villain.lives))
-            if redcount > 3 or yellowcount > 3:
+            if redcount > 3 or yellowcount > 3 or bluecount > 3 or purplecount > 3:
                 print("\nDu hast jetzt zu oft den selben angriff genutzt. Der Gegner lernt daraus und ist jetzt immun...\n")
 
             print("Du wirst angegriffen")
@@ -188,5 +190,7 @@ class Player(Person):
                 print("Deine Leben danach: " + str(self.lives))
             if self.lives <= 0:
                 print("Du bist rip")
+                break
             elif villain.lives <= 0:
                 print("Der Gegener ist rip")
+                break
