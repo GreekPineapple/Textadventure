@@ -12,8 +12,8 @@ aquarium = Aquarium("open")
 square = Square()
 birdhouse = BirdHouse("open")
 notes = Notes()
-villain1 = Villain(101, 10, "villain1", 8, 7, 6, 5, 4, 11)
-villain2 = Villain(100, 20, "villain2", 20, 7, 6, 5, 4, 11)
+villain1 = Villain(80, 10, "villain1", 8, 7, 6, 5, 4, 11)
+villain2 = Villain(100, 20, "villain2", 18, 17, 16, 15, 4, 11)
 
 villains = [villain1, villain2]
 
@@ -47,20 +47,24 @@ def checkposition(position): #TODO mach match-case draus
     else:
         print("You're out of map lul")
 
+#me.fight(villain1)
 # quest can be: open; active; done; 
 map.printMap()
 notes.read()
 
+#TODO Stelle sicher, dass es verschiedene Arten von Angriffen gibt, die der Spieler verwenden kann, z.B. physische -, oder magische Angriffe
+# oder Statusveränderungen. Jeder Angriffstyp sollte seine eigenen Vor- und Nachteile haben, so dass der Spieler strategisch vorgehen muss.
+#TODO ein array mit antwortmöglichkeiten [yes, y, ja, j, jop, jap, jep] und bei jeder frage nur ein if antwort in array
+
 while me.lives > 0:
+    checkposition(me.positionNow)
     print("Was möchtest du machen?")
     doing = input(">")
     if doing == "umschauen":
-        fight = False # bool(random.getrandbits(1))
+        fight = bool(random.getrandbits(1))
         if fight:
             villain = random.choice(villains)
             me.fight(villain)
-        else:       
-            checkposition(me.positionNow)
     elif doing == "laufen":
         me.move(wf.quest)
     elif doing == "help":
