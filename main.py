@@ -55,9 +55,9 @@ notes.read()
 #TODO Stelle sicher, dass es verschiedene Arten von Angriffen gibt, die der Spieler verwenden kann, z.B. physische -, oder magische Angriffe
 # oder Statusveränderungen. Jeder Angriffstyp sollte seine eigenen Vor- und Nachteile haben, so dass der Spieler strategisch vorgehen muss.
 #TODO ein array mit antwortmöglichkeiten [yes, y, ja, j, jop, jap, jep] und bei jeder frage nur ein if antwort in array
+#TODO nach dem laufen anzeigen wo man steht
 
 while me.lives > 0:
-    checkposition(me.positionNow)
     print("Was möchtest du machen?")
     doing = input(">")
     if doing == "umschauen":
@@ -65,6 +65,8 @@ while me.lives > 0:
         if fight:
             villain = random.choice(villains)
             me.fight(villain)
+        else:       
+            checkposition(me.positionNow)
     elif doing == "laufen":
         me.move(wf.quest)
     elif doing == "help":
