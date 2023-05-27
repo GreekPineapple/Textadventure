@@ -1,3 +1,5 @@
+positiveAnswers = ["yes", "y", "ja", "j", "yep", "jop"]
+negativeAnswers = ["no", "n", "nein", "ne", "nop", "nope", "nee"]
 class Map:
     def __init__(self, rows, columns):
         self.rows = rows
@@ -63,13 +65,13 @@ class Waterfall:
     def explore(self, damquest, note):
         if self.quest == "open":
             print('Rainer: "Oh man, hier war mal ein schöner Wasserfall, aber irgenjemand musste ja unbedingt ein Staudamm in Richtung Norden bauen...')
-            print('Kannst du der Sache auf den Grund gehen?" (yes / no)')
+            print('Kannst du der Sache auf den Grund gehen?"')
             option = input(">")
-            if option.lower().strip() == "yes":
+            if option.lower().strip() in positiveAnswers:
                 print("Gehe nach Norden und schau dich da mal um.")
                 self.quest = "active"
                 note.write(" - Sieh dich im Norden um")
-            elif option.lower().strip() == "no":
+            elif option.lower().strip() in negativeAnswers:
                 print('Rainer: "Okay schade, vielleicht ja später!"')
             else:
                 print("ungültige eingabe")
@@ -134,14 +136,14 @@ class Aquarium:
                 print("Was kann ich für dich tun?")
                 option = input(">")
                 if "aquarium" in option.lower().strip():
-                    print("Ah, du interessierst dich für unsere Aquarien? (yes/no)")
+                    print("Ah, du interessierst dich für unsere Aquarien?")
                     option = input(">")
-                    if option.lower().strip() == "ja" or option.lower().strip() == "j" or option.lower().strip() == "yes" or option.lower().strip() == "y":
+                    if option.lower().strip() in positiveAnswers:
                         print("Ich kann dir ein Angebot machen: Mein Kollege von der Vogelzucht hat einen ausreiser...")
                         print("Er hat mich gebeten ihn bei der Suche zu helfen, doch ich habe einfach keine zeit. Wenn du den Vogel zurück in die Vogelzucht bringst, bekommst du ein Aquaium umsonst. Frage dort nach, wo du suchen musst.")
-                        print("Hilfst du mir? (yes / no)")
+                        print("Hilfst du mir?")
                         option = input(">")
-                        if option.lower().strip() == "yes":
+                        if option.lower().strip() in positiveAnswers:
                             self.quest = "active"
                             note.delete(" - Besorge ein Aquarium")
                             note.write(" - Gehe zum Vogelhaus um rauszufinden wo sich der Vogel versteckt")
@@ -153,9 +155,9 @@ class Aquarium:
                 print("Hier ist ein Aquarium shop. Er scheint aber geschlossen zu sein...")
         elif self.quest == "active":
             if birdquest == "done":
-                print("Hast du den Vogel gefunden und zurück gebracht? (yes/no)")
+                print("Hast du den Vogel gefunden und zurück gebracht?")
                 option = input(">")
-                if option.lower().strip() == "yes":
+                if option.lower().strip() in positiveAnswers:
                     print("Super, vielen Dank! Hier bekommst du ein Aquarium")
                     player.inventory.append("Aquarium")
                     self.quest = "done"
@@ -178,9 +180,9 @@ class BirdHouse:
         if self.quest == "open":
             if aqquest == "active":
                 print("Leider ist mir unser schönster Vogel abgehauen, aber mein kollege und ich suchen grade zusammen nach ihm") 
-                print("Kannst du uns vielleicht dabei helfen? (yes/no)")
+                print("Kannst du uns vielleicht dabei helfen?")
                 answer = input(">")
-                if answer.lower().strip() == "yes": 
+                if answer.lower().strip() in positiveAnswers: 
                     print("Mega, danke! Vermutlich wird er sich irgendwo im Wald aufhalten, aber sicher bin ich mir da nicht..")
                     self.quest = "active"
                     note.delete(" - Gehe zum Vogelhaus um rauszufinden wo sich der Vogel versteckt")
@@ -191,9 +193,9 @@ class BirdHouse:
         elif self.quest == "active":
             if birdquest == "done":
                 print("Wilkommmen bei der Vogelzucht")
-                print("wie ich sehe hast du meinen Vogel gefunden? (yes)")
+                print("wie ich sehe hast du meinen Vogel gefunden?")
                 answer = input(">")
-                if answer.lower().strip() == "yes":
+                if answer.lower().strip() in positiveAnswers:
                     print("Super, vielen Dank!")
                     print("Kannst du noch bei mienem Kollegen im Aquarium shop vorbei schauen und sagen, der Vogel ist wieder da? Danke!")
                     self.quest = "done"

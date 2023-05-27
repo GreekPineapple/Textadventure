@@ -1,3 +1,4 @@
+positiveAnswers = ["yes", "y", "ja", "j", "yep", "jop"]
 import random
 class Person:
     def __init__(self, lives, strength, name):
@@ -162,9 +163,9 @@ class Player(Person):
             if special_attack < 0.25: #probabilty of 25% that enemy makes a special attack
                 print("Der gegner hat dich eingefroren, so kannst du nicht kämpfen.")
                 if "healing" in inventory:
-                    print("Möchtest du deinen Heiltrank nutzen? (y/n)")
+                    print("Möchtest du deinen Heiltrank nutzen?")
                     healing = input(">")
-                    if healing == "ja" or healing == "j" or healing == "yes" or healing == "y":
+                    if healing in positiveAnswers:
                         inventory.remove("healing")
                     else:
                         print("Du wirst angegriffen")
