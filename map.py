@@ -62,7 +62,7 @@ class Waterfall:
     def __init__(self, quest):
         self.quest = quest
     
-    def explore(self, damquest, note):
+    def explore(self, damquest, note, player):
         if self.quest == "open":
             print('Rainer: "Oh man, hier war mal ein schöner Wasserfall, aber irgenjemand musste ja unbedingt ein Staudamm in Richtung Norden bauen...')
             print('Kannst du der Sache auf den Grund gehen?"')
@@ -80,6 +80,7 @@ class Waterfall:
                 print('Rainer: "Woow, der Wasserfall fließt wieder, jetzt kann ich ganz entspannt meine Mittagspause hier verbingen')
                 print('Du erhälst dafür eine kleine Belohnung von mir, hoffe du kannst damit was anfangen"')
                 # erste Trank zutat geben
+                player.inventory.append("Heiltrank1")
                 self.quest = "done"
                 note.delete(" - Rede mit Rainer am Wasserfall")
             else:
@@ -139,9 +140,9 @@ class Aquarium:
                     print("Ah, du interessierst dich für unsere Aquarien?")
                     option = input(">")
                     if option.lower().strip() in positiveAnswers:
-                        print("Ich kann dir ein Angebot machen: Mein Kollege von der Vogelzucht hat einen ausreiser...")
-                        print("Er hat mich gebeten ihn bei der Suche zu helfen, doch ich habe einfach keine zeit. Wenn du den Vogel zurück in die Vogelzucht bringst, bekommst du ein Aquaium umsonst. Frage dort nach, wo du suchen musst.")
-                        print("Hilfst du mir?")
+                        print("Ich kann dir ein Angebot machen: Mein Kollege von der Vogelzucht braucht hilfe mit einem seiner Vögel...")
+                        print("Er hat mich gebeten ihm zu helfen, doch ich habe einfach keine zeit. Wenn du ihm stattdessen hilfst, bekommst du ein Aquaium umsonst. Frage dort nach, was genau du tun kannst.")
+                        print("Würdest du mir diesen gefallen tun?")
                         option = input(">")
                         if option.lower().strip() in positiveAnswers:
                             self.quest = "active"
@@ -186,7 +187,7 @@ class BirdHouse:
                     print("Mega, danke! Vermutlich wird er sich irgendwo im Wald aufhalten, aber sicher bin ich mir da nicht..")
                     self.quest = "active"
                     note.delete(" - Gehe zum Vogelhaus um rauszufinden wo sich der Vogel versteckt")
-                    note.write(" - Bringe den Vogel in das Vogelzucht haus")
+                    note.write(" - Suche den Vogel und bringe ihn in das Vogelzucht haus")
             else:
                 print("Hier Vogelhaus")
 
