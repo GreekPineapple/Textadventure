@@ -184,20 +184,26 @@ class Player(Person):
                 break
     
     def shop_normal(self,inventory):
+        defenceCount = 0
         print("yupidupii shop :D")
         shop = {"red": 5, "yellow": 4, "blue": 3, "purple": 2, "defence": 10, "healing": 7} #key -> item, value -> price
         print('Du wirst angegriffen :( Kaufe deine Ausrüstung im Shop (beende deinen Einkauf mit "ende"):')
         print("Roter Angriff (-5 Leben)  Gelber Angriff (-4 Leben)  Blauer Angriff (-3 Leben)  Lila Angriff (-2 Leben)  Verbesserte Verteidigung (-10 Leben), Heilung (-7 Leben)")
         item = input(">")
         while item.lower().strip() != "ende": #TODO Do while schleife?
+            if item.lower().strip() == "defence":
+                defenceCount += 1
             if item.lower().strip() in shop:
-                self.lives -= shop[item.lower().strip()]
-                inventory.append(item.lower().strip())
-                print("Du hast noch: " + str(self.lives) + " leben")
+                if defenceCount <= 5:
+                    self.lives -= shop[item.lower().strip()]
+                    inventory.append(item.lower().strip())
+                    print("Du hast noch: " + str(self.lives) + " leben")
+                else:
+                    print("Du darfst nur 5 mal deine Verteidugng verbessern, wähle was anderes aus.")
             else:
                 print("Diesen Artikel haben wir nicht im Angebot")
             item = input(">")
-        print("Dein Inventar für den Kampf: " + str(inventory)) #TODO Defence begrenzen! Sonst macht Gegner irgendwann keinen schaden mehr
+        print("Dein Inventar für den Kampf: " + str(inventory))
     
     def shop_boss(self,inventory):
         pass
