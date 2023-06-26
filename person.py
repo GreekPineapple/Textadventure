@@ -1,5 +1,7 @@
 positiveAnswers = ["yes", "y", "ja", "j", "yep", "jop"]
 import random
+from collections import Counter
+
 class Person:
     def __init__(self, lives, strength, name):
         self.lives = lives
@@ -87,31 +89,36 @@ class Player(Person):
         inventory = ["kick"]
         defencepoints = 1
         self.shop_normal(inventory)
+        print(inventory)
+        vc = Counter(inventory)
+        value_counts_str = str(vc).replace("Counter", "Dein Inventar für den Kampf: ")
+        print(value_counts_str)
        
         while self.lives > 0 or villain.lives > 0:
+            print(+vc)
             print('Wie möchtest du angreifen? Du kannst 2 Angriffe auswählen um Kombo boni zu erhlaten, musst aber nicht. (Tippe "none" wenn du nur einen Angriff machen willst)')
             #choose 1 or 2 attacks:
             use = input("1. Angriff: ")
-            while use.lower().strip() not in inventory or use.lower().strip() == "healing":
+            while use.lower().strip() not in vc or use.lower().strip() == "healing":
                 print("ungültig")
                 use = input("1. Angriff: ")
             bonus = input("2. Angriff: ")
-            while bonus.lower().strip() != "none" and bonus.lower().strip() not in inventory or bonus.lower().strip() == "healing":
+            while bonus.lower().strip() != "none" and bonus.lower().strip() not in vc or bonus.lower().strip() == "healing":
                 print("ungültig")
                 bonus = input("2. Angriff: ")
             use = use.lower().strip()
             bonus = bonus.lower().strip()
             round = [use, bonus]
-            #attack:
+            #attack:        wenn man noch 1 red angriff hat, kann man trotzdem nen doppelten angriff machen
             if "red" in round:
                 if redcount > 3:
                     print("Rot macht keinen Schaden mehr")
                 else:
                     print("red wurde benutzt")
-                    inventory.remove("red")
+                    vc["red"] -= 1
                     if bonus == "red" and  use == "red":
                         print("Red wurde nochmal benutzt")
-                        inventory.remove("red")
+                        vc["red"] -= 1
                         villain.lives -= villain.red + 10
                     redcount+=1
                     villain.lives -= villain.red
@@ -120,40 +127,43 @@ class Player(Person):
                     print("Yellow macht keinen Schaden mehr")
                 else:
                     print("yellow wurde benutzt")
+                    vc["yellow"] -= 1
                     if bonus == "yellow" and use == "yellow":
                         print("Gelb wurde nochmal benutzt")
+                        vc["yellow"] -= 1
                         villain.lives -= villain.yellow + 10
                     villain.lives -= villain.yellow
-                    inventory.remove("yellow")
                     yellowcount += 1
             if "blue" in round:
                 if bluecount > 3:
                     print("Blue macht keinen Schaden mehr")
                 else:
                     print("blau wurde benutzt")
+                    vc["blue"] -= 1
                     if bonus == "blue" and use == "blue":
                         print("blau wurde nochmal benutzt")
+                        vc["blue"] -= 1
                         villain.lives -= villain.blue + 10
                     villain.lives -= villain.blue
-                    inventory.remove("blue")
                     bluecount += 1
             if "purple" in round:
                 if purplecount > 3:
                     print("Purple macht keinen Schaden mehr")
                 else:
                     print("lila wurde benutzt")
+                    vc["purple"] -= 1
                     if bonus == "purple" and use == "purple":
                         print("lila wurde nochmal benutzt")
+                        vc["purple"] -= 1
                         villain.lives -= villain.purple + 10
                     villain.lives -= villain.purple
-                    inventory.remove("purple")
                     purplecount += 1
             if "kick" in round: #always possible
                 villain.lives -= villain.kick
             if "defence" in round:
                 defencepoints -= 0.1
-                inventory.remove("defence")
-            print("Dein Inventar: " + str(inventory))
+                vc["defence"] -= 1
+            print(str(vc).replace("Counter", "Dein Inventar: "))
             print("Gegner Leben nach dem Angriff: " + str(villain.lives))
             if redcount > 3 or yellowcount > 3 or bluecount > 3 or purplecount > 3:
                 print("\nDu hast jetzt zu oft den selben angriff genutzt. Der Gegner lernt daraus und ist jetzt immun...\n")
@@ -162,11 +172,11 @@ class Player(Person):
             special_attack = random.random()
             if special_attack < 0.25: #probabilty of 25% that enemy makes a special attack
                 print("Der gegner hat dich eingefroren, so kannst du nicht kämpfen.")
-                if "healing" in inventory:
+                if "healing" in vc:
                     print("Möchtest du deinen Heiltrank nutzen?")
                     healing = input(">")
                     if healing in positiveAnswers:
-                        inventory.remove("healing")
+                        vc["healing"] -= 1
                     else:
                         print("Du wirst angegriffen")
                         self.lives -= villain.strength * defencepoints
@@ -203,7 +213,7 @@ class Player(Person):
             else:
                 print("Diesen Artikel haben wir nicht im Angebot")
             item = input(">")
-        print("Dein Inventar für den Kampf: " + str(inventory))
+
     
     def shop_boss(self,inventory):
         pass
