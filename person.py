@@ -129,8 +129,9 @@ class Player(Person):
                     if bonus == "red" and  use == "red":
                         print("Red wurde nochmal benutzt")
                         villain.lives -= villain.red + 10
-                    redcount+=1
+                        redcount+=1
                     villain.lives -= villain.red
+                    redcount+=1
             if "yellow" in round:
                 if yellowcount > 3:
                     print("Yellow macht keinen Schaden mehr")
@@ -139,6 +140,7 @@ class Player(Person):
                     if bonus == "yellow" and use == "yellow":
                         print("Gelb wurde nochmal benutzt")
                         villain.lives -= villain.yellow + 10
+                        yellowcount += 1
                     villain.lives -= villain.yellow
                     yellowcount += 1
             if "blue" in round:
@@ -148,6 +150,7 @@ class Player(Person):
                     print("blau wurde benutzt")
                     if bonus == "blue" and use == "blue":
                         print("blau wurde nochmal benutzt")
+                        bluecount += 1
                         villain.lives -= villain.blue + 10
                     villain.lives -= villain.blue
                     bluecount += 1
@@ -159,13 +162,13 @@ class Player(Person):
                     if bonus == "purple" and use == "purple":
                         print("lila wurde nochmal benutzt")
                         villain.lives -= villain.purple + 10
+                        purplecount += 1
                     villain.lives -= villain.purple
                     purplecount += 1
             if "kick" in round: #always possible
                 villain.lives -= villain.kick
             if "defence" in round:
                 defencepoints -= 0.1
-                vc["defence"] -= 1
             print(str(vc).replace("Counter", "Dein Inventar: "))
             print("Gegner Leben nach dem Angriff: " + str(villain.lives))
             if redcount > 3 or yellowcount > 3 or bluecount > 3 or purplecount > 3:
