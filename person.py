@@ -104,7 +104,8 @@ class Player(Person):
                 print("ungültig")
                 use = input("1. Angriff: ")
             use = use.lower().strip()
-            vc[use] -= 1
+            if not use == "kick":
+                vc[use] -= 1
             vcs = str(vc).replace("Counter", "after one eingabe: ")
             print(vcs)
             vc = +vc
@@ -114,10 +115,11 @@ class Player(Person):
                 print("ungültig")
                 bonus = input("2. Angriff: ")
             bonus = bonus.lower().strip()
-            vc[bonus] -= 1
+            if not bonus == "kick":
+                vc[bonus] -= 1
             vcs2 = str(vc).replace("Counter", "after two eingabe: ")
             print(vcs2)
-            
+
             round = [use, bonus]
             if "red" in round:
                 if redcount > 3:
