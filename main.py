@@ -48,7 +48,7 @@ def checkposition(position): #TODO mach match-case draus
     else:
         print("You're out of map lul")
 
-#me.fight(villain1)
+me.fight(villain1)
 # quest can be: open; active; done; 
 map.printMap()
 notes.read()
@@ -64,6 +64,7 @@ while me.lives > 0:
         fight = bool(random.getrandbits(1))
         if fight:
            villain = random.choice(villains)
+           villain.printInfo()
            me.fight(villain)
         else:       
             checkposition(me.positionNow)

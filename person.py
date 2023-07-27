@@ -9,9 +9,9 @@ class Person:
         self.name = name
         
     def printInfo (self):
+        print("Name: " + str(self.name) )
         print("Leben: " + str(self.lives) )
         print("Stärke: " + str(self.strength) )
-        print("Name: " + str(self.name) )
 
 class Villain (Person):
     def __init__(self, lives, strength, name, red, yellow, blue, purple, kick, defence):
@@ -24,7 +24,8 @@ class Villain (Person):
         super().__init__(lives, strength, name)
 
     def printInfo(self):
-        return super().printInfo()
+        super().printInfo()
+        print("Eigenschaften: " + str(self.strength) )
 
 class Player(Person):
     def __init__(self, lives, strength, name, inventory, positionNow):
@@ -169,7 +170,6 @@ class Player(Person):
                 villain.lives -= villain.kick
             if "defence" in round:
                 defencepoints -= 0.1
-            print(str(vc).replace("Counter", "Dein Inventar: "))
             print("Gegner Leben nach dem Angriff: " + str(villain.lives))
             if redcount > 3 or yellowcount > 3 or bluecount > 3 or purplecount > 3:
                 print("\nDu hast jetzt zu oft den selben angriff genutzt. Der Gegner lernt daraus und ist jetzt immun...\n")
