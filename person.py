@@ -14,12 +14,20 @@ class Person:
         print("Stärke: " + str(self.strength) )
 
 class Villain (Person):
-    def __init__(self, lives, strength, name, red, yellow, blue, purple, kick, defence):
-        self.red = red
-        self.yellow = yellow
-        self.blue = blue
-        self.purple = purple
-        self.kick = kick
+    def __init__(self, lives, strength, name, defence):
+        self.water = lives / 100 * 5
+        self.arrow = lives / 100 * 15
+        self.sword = lives / 100 * 10
+        if name == "Goblin":
+            self.arrow = lives / 100 * 0 #goblin is too fast
+        elif name == "Erdgolem":
+            self.water = lives / 100 * 20
+        elif name == "Luftgegner":
+            self.sword = lives / 100 * 0 #logisch i guess
+            self.water = lives / 100 * 0
+            self.arrow = lives / 100 * 25 #because its the only option
+
+        self.kick = lives / 100 * 4
         self.defence = defence
         super().__init__(lives, strength, name)
 
@@ -86,7 +94,7 @@ class Player(Person):
         self.positionNow = position
 
     def fight(self, villain): 
-        redcount = yellowcount = bluecount = purplecount = 0
+        watercount = arrowcount = swordcount = 0
         inventory = ["kick"]
         defencepoints = 1
         self.shop_normal(inventory)
@@ -122,56 +130,45 @@ class Player(Person):
             print(vcs2)
 
             round = [use, bonus]
-            if "red" in round:
-                if redcount > 3:
-                    print("Rot macht keinen Schaden mehr")
+            if "water" in round:
+                if watercount > 3:
+                    print("water macht keinen Schaden mehr")
                 else:
-                    print("red wurde benutzt")
-                    if bonus == "red" and  use == "red":
-                        print("Red wurde nochmal benutzt")
-                        villain.lives -= villain.red + 10
-                        redcount+=1
-                    villain.lives -= villain.red
-                    redcount+=1
-            if "yellow" in round:
-                if yellowcount > 3:
-                    print("Yellow macht keinen Schaden mehr")
+                    print("water wurde benutzt")
+                    if bonus == "water" and  use == "water":
+                        print("water wurde nochmal benutzt")
+                        villain.lives -= villain.water * 1.5
+                        watercount+=1
+                    villain.lives -= villain.water
+                    watercount+=1
+            if "arrow" in round:
+                if arrowcount > 3:
+                    print("arrow macht keinen Schaden mehr")
                 else:
-                    print("yellow wurde benutzt")
-                    if bonus == "yellow" and use == "yellow":
+                    print("arrow wurde benutzt")
+                    if bonus == "arrow" and use == "arrow":
                         print("Gelb wurde nochmal benutzt")
-                        villain.lives -= villain.yellow + 10
-                        yellowcount += 1
-                    villain.lives -= villain.yellow
-                    yellowcount += 1
-            if "blue" in round:
-                if bluecount > 3:
-                    print("Blue macht keinen Schaden mehr")
-                else:
-                    print("blau wurde benutzt")
-                    if bonus == "blue" and use == "blue":
-                        print("blau wurde nochmal benutzt")
-                        bluecount += 1
-                        villain.lives -= villain.blue + 10
-                    villain.lives -= villain.blue
-                    bluecount += 1
-            if "purple" in round:
-                if purplecount > 3:
-                    print("Purple macht keinen Schaden mehr")
+                        villain.lives -= villain.arrow * 1.5
+                        arrowcount += 1
+                    villain.lives -= villain.arrow
+                    arrowcount += 1
+            if "sword" in round:
+                if swordcount > 3:
+                    print("sword macht keinen Schaden mehr")
                 else:
                     print("lila wurde benutzt")
-                    if bonus == "purple" and use == "purple":
+                    if bonus == "sword" and use == "sword":
                         print("lila wurde nochmal benutzt")
-                        villain.lives -= villain.purple + 10
-                        purplecount += 1
-                    villain.lives -= villain.purple
-                    purplecount += 1
+                        villain.lives -= villain.sword * 1.5
+                        swordcount += 1
+                    villain.lives -= villain.sword
+                    swordcount += 1
             if "kick" in round: #always possible
                 villain.lives -= villain.kick
             if "defence" in round:
                 defencepoints -= 0.1
             print("Gegner Leben nach dem Angriff: " + str(villain.lives))
-            if redcount > 3 or yellowcount > 3 or bluecount > 3 or purplecount > 3:
+            if watercount > 3 or arrowcount > 3 or swordcount > 3:
                 print("\nDu hast jetzt zu oft den selben angriff genutzt. Der Gegner lernt daraus und ist jetzt immun...\n")
 
             print("Du wirst angegriffen")
@@ -202,9 +199,12 @@ class Player(Person):
     def shop_normal(self,inventory):
         defenceCount = 0
         print("yupidupii shop :D")
-        shop = {"red": 5, "yellow": 4, "blue": 3, "purple": 2, "defence": 10, "healing": 7} #key -> item, value -> price
+
+        #TODO richtige faire werte (water nicht so teuer weil schlechter angriff)
+        
+        shop = {"water": 5, "arrow": 4, "sword": 2, "defence": 10, "healing": 7} #key -> item, value -> price
         print('Du wirst angegriffen :( Kaufe deine Ausrüstung im Shop (beende deinen Einkauf mit "ende"):')
-        print("Roter Angriff (-5 Leben)  Gelber Angriff (-4 Leben)  Blauer Angriff (-3 Leben)  Lila Angriff (-2 Leben)  Verbesserte Verteidigung (-10 Leben), Heilung (-7 Leben)")
+        print("Water Angriff (-5 Leben)  Arrow Angriff (-4 Leben)  Sword Angriff (-3 Leben)  Verbesserte Verteidigung (-10 Leben), Heilung (-7 Leben)")
         item = input(">")
         while item.lower().strip() != "ende": #TODO Do while schleife?
             if item.lower().strip() == "defence":

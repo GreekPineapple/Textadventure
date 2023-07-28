@@ -12,10 +12,13 @@ aquarium = Aquarium("open")
 square = Square()
 birdhouse = BirdHouse("open")
 notes = Notes()
-villain1 = Villain(80, 10, "villain1", 8, 7, 6, 5, 4, 11)
-villain2 = Villain(100, 20, "villain2", 18, 17, 16, 15, 4, 11)
 
-villains = [villain1, villain2]
+goblin = Villain(40, 100, "Goblin", 11)
+golem = Villain(100, 40, "Erdgolem", 11)
+wizard = Villain(80, 80, "Magier", 11)
+luft_gegner = Villain(60, 50, "Luftgegner", 11)
+
+villains = [goblin, golem, wizard, luft_gegner]
 
 def checkposition(position): #TODO mach match-case draus
     if position == 11:
@@ -48,7 +51,7 @@ def checkposition(position): #TODO mach match-case draus
     else:
         print("You're out of map lul")
 
-me.fight(villain1)
+me.fight(golem)
 # quest can be: open; active; done; 
 map.printMap()
 notes.read()
