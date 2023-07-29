@@ -96,10 +96,10 @@ class Player(Person):
         watercount = arrowcount = swordcount = 0
         inventory = ["kick"]
         defencepoints = 1
+        specialAttacks = ["jump", "heat"]
         self.shop_normal(inventory)
         vc = Counter(inventory)
         value_counts_str = str(vc).replace("Counter", "Dein Inventar für den Kampf: ")
-        print(value_counts_str)
        
         while self.lives > 0 or villain.lives > 0:
             vc = +vc #without 0's
@@ -108,7 +108,7 @@ class Player(Person):
             #choose 1 or 2 attacks:
 
             use = input("1. Angriff: ")
-            while use.lower().strip() not in vc or use.lower().strip() == "jump":
+            while use.lower().strip() not in vc or use.lower().strip() in specialAttacks:
                 print("ungültig")
                 use = input("1. Angriff: ")
             use = use.lower().strip()
@@ -119,7 +119,7 @@ class Player(Person):
             vc = +vc
 
             bonus = input("2. Angriff: ")
-            while bonus.lower().strip() != "none" and bonus.lower().strip() not in vc or bonus.lower().strip() == "jump":
+            while bonus.lower().strip() != "none" and bonus.lower().strip() not in vc or bonus.lower().strip() in specialAttacks:
                 print("ungültig")
                 bonus = input("2. Angriff: ")
             bonus = bonus.lower().strip()
@@ -177,6 +177,9 @@ class Player(Person):
                 if villain.name == "Erdgolem" and "jump" in vc:
                     print("du weichst dem spezialangruff des golems aus")
                     vc["jump"] -= 1
+                elif villain.name == "Magier" and "heat" in vc:
+                    print("der Magier hat dich eingefroren, aber du taust dich wieder auf")
+                    vc["heat"] -= 1
                 else:
                     print("Du wirst mit spezialattacke angegriffen")
                     self.lives -= villain.strength * 2 * defencepoints
@@ -195,10 +198,10 @@ class Player(Person):
 
         #TODO für den pfeil noch 1 Bogen kaufen?; details zu den angriffen anzeigen?
 
-        shop = {"water": 2, "arrow": 4, "sword": 3, "defence": 8, "jump": 10} #key -> item, value -> price
+        shop = {"water": 2, "arrow": 4, "sword": 3, "defence": 8, "jump": 10, "heat": 10} #key -> item, value -> price
         print('Du wirst angegriffen :( Kaufe deine Ausrüstung im Shop (beende deinen Einkauf mit "ende"):')
         print("\u001b[4mAngriffe:\u001b[0m \nWater (-2 Leben); Arrow (-4 Leben); Sword (-3 Leben)")
-        print("\u001b[4mAusweichmanöver:\u001b[0m \njump (-10 Leben)")
+        print("\u001b[4mAusweichmanöver:\u001b[0m \njump (-10 Leben); heat (-10 Leben)")
         print("\u001b[4mVerteidigungen:\u001b[0m \nEigene defence (-8 Leben)")
         item = input(">")
         while item.lower().strip() != "ende": #TODO Do while schleife?
