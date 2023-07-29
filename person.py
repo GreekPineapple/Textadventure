@@ -193,11 +193,13 @@ class Player(Person):
     def shop_normal(self,inventory):
         defenceCount = 0
 
-        #TODO für den pfeil noch 1 Bogen kaufen 
+        #TODO für den pfeil noch 1 Bogen kaufen?; details zu den angriffen anzeigen?
 
-        shop = {"water": 2, "arrow": 4, "sword": 3, "defence": 10, "jump": 7} #key -> item, value -> price
+        shop = {"water": 2, "arrow": 4, "sword": 3, "defence": 8, "jump": 10} #key -> item, value -> price
         print('Du wirst angegriffen :( Kaufe deine Ausrüstung im Shop (beende deinen Einkauf mit "ende"):')
-        print("Water Angriff (-2 Leben)  Arrow Angriff (-4 Leben)  Sword Angriff (-3 Leben)  Verbesserte Verteidigung (-10 Leben), Sprung verteidugng (-7 Leben)")
+        print("\u001b[4mAngriffe:\u001b[0m \nWater (-2 Leben); Arrow (-4 Leben); Sword (-3 Leben)")
+        print("\u001b[4mAusweichmanöver:\u001b[0m \njump (-10 Leben)")
+        print("\u001b[4mVerteidigungen:\u001b[0m \nEigene defence (-8 Leben)")
         item = input(">")
         while item.lower().strip() != "ende": #TODO Do while schleife?
             if item.lower().strip() == "defence":
