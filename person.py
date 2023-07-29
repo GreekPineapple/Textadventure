@@ -24,8 +24,7 @@ class Villain (Person):
             self.water = lives / 100 * 20
         elif name == "Luftgegner":
             self.sword = lives / 100 * 0 #logisch i guess
-            self.water = lives / 100 * 0
-            self.arrow = lives / 100 * 25 #because its the only option
+            self.arrow = lives / 100 * 20
 
         self.kick = lives / 100 * 4
         self.defence = defence
@@ -109,7 +108,7 @@ class Player(Person):
             #choose 1 or 2 attacks:
 
             use = input("1. Angriff: ")
-            while use.lower().strip() not in vc or use.lower().strip() == "healing":
+            while use.lower().strip() not in vc or use.lower().strip() == "jump":
                 print("ungültig")
                 use = input("1. Angriff: ")
             use = use.lower().strip()
@@ -120,7 +119,7 @@ class Player(Person):
             vc = +vc
 
             bonus = input("2. Angriff: ")
-            while bonus.lower().strip() != "none" and bonus.lower().strip() not in vc or bonus.lower().strip() == "healing":
+            while bonus.lower().strip() != "none" and bonus.lower().strip() not in vc or bonus.lower().strip() == "jump":
                 print("ungültig")
                 bonus = input("2. Angriff: ")
             bonus = bonus.lower().strip()
@@ -147,7 +146,7 @@ class Player(Person):
                 else:
                     print("arrow wurde benutzt")
                     if bonus == "arrow" and use == "arrow":
-                        print("Gelb wurde nochmal benutzt")
+                        print("arrow wurde nochmal benutzt")
                         villain.lives -= villain.arrow * 1.5
                         arrowcount += 1
                     villain.lives -= villain.arrow
@@ -156,9 +155,9 @@ class Player(Person):
                 if swordcount > 3:
                     print("sword macht keinen Schaden mehr")
                 else:
-                    print("lila wurde benutzt")
+                    print("sword wurde benutzt")
                     if bonus == "sword" and use == "sword":
-                        print("lila wurde nochmal benutzt")
+                        print("sword wurde nochmal benutzt")
                         villain.lives -= villain.sword * 1.5
                         swordcount += 1
                     villain.lives -= villain.sword
@@ -174,18 +173,13 @@ class Player(Person):
             print("Du wirst angegriffen")
             special_attack = random.random()
             if special_attack < 0.25: #probabilty of 25% that enemy makes a special attack
-                print("Der gegner hat dich eingefroren, so kannst du nicht kämpfen.")
-                if "healing" in vc:
-                    print("Möchtest du deinen Heiltrank nutzen?")
-                    healing = input(">")
-                    if healing in positiveAnswers:
-                        vc["healing"] -= 1
-                    else:
-                        print("Du wirst angegriffen")
-                        self.lives -= villain.strength * defencepoints
+                print("Der gegner macht einen spezialangriff")
+                if villain.name == "Erdgolem" and "jump" in vc:
+                    print("du weichst dem spezialangruff des golems aus")
+                    vc["jump"] -= 1
                 else:
-                    print("Du wirst angegriffen")
-                    self.lives -= villain.strength * defencepoints
+                    print("Du wirst mit spezialattacke angegriffen")
+                    self.lives -= villain.strength * 2 * defencepoints
             else:
                 self.lives -= villain.strength * defencepoints
                 print("Deine Leben danach: " + str(self.lives))
@@ -198,13 +192,12 @@ class Player(Person):
     
     def shop_normal(self,inventory):
         defenceCount = 0
-        print("yupidupii shop :D")
 
-        #TODO richtige faire werte (water nicht so teuer weil schlechter angriff)
-        
-        shop = {"water": 5, "arrow": 4, "sword": 2, "defence": 10, "healing": 7} #key -> item, value -> price
+        #TODO für den pfeil noch 1 Bogen kaufen 
+
+        shop = {"water": 2, "arrow": 4, "sword": 3, "defence": 10, "jump": 7} #key -> item, value -> price
         print('Du wirst angegriffen :( Kaufe deine Ausrüstung im Shop (beende deinen Einkauf mit "ende"):')
-        print("Water Angriff (-5 Leben)  Arrow Angriff (-4 Leben)  Sword Angriff (-3 Leben)  Verbesserte Verteidigung (-10 Leben), Heilung (-7 Leben)")
+        print("Water Angriff (-2 Leben)  Arrow Angriff (-4 Leben)  Sword Angriff (-3 Leben)  Verbesserte Verteidigung (-10 Leben), Sprung verteidugng (-7 Leben)")
         item = input(">")
         while item.lower().strip() != "ende": #TODO Do while schleife?
             if item.lower().strip() == "defence":
