@@ -1,4 +1,5 @@
 Befehle: Du kannst "laufen" um dich zu bewegen, und dich dann auf jedem Feld "umschauen".
+Wenn du dein Inventar einsehen möchtest, kanst du dies mit dem Befehl "inventar" tun.
 Mit dem Befehl "map", kannst du dir die Karte erneut anzeigen lassen.
 Wenn du kein bock mehr hast, tippe "ende" ein, um das Spiel zu beenden.
 Groß und Kleinschreibung ist egal, aber baue keine unnötigen Abstände mit ein, das könnte noch zu ungültigen Eingaben führen.

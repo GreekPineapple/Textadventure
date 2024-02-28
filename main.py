@@ -91,6 +91,8 @@ while me.lives > 0:
     elif doing == "laufen":
         me.move(wf.quest)
         printposition(me.positionNow)
+    elif doing == "inventar":
+        print(me.inventory)
     elif doing == "help":
         notes.read()
     elif doing == "map":
