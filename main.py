@@ -20,7 +20,31 @@ luft_gegner = Villain(60, 50, "Luftgegner", 11)
 
 villains = [goblin, golem, wizard, luft_gegner]
 
-def checkposition(position): #TODO mach match-case draus
+def checkaction(position): #TODO mach match-case draus
+    if position == 11: # Wald
+        pass
+    elif position == 12: # Wald
+       pass
+    elif position == 13: # Wald
+       pass
+    elif position == 22: # Wald
+        woods.quest = woods.explore(birdhouse.quest, notes)
+    elif position == 23: # Staudamm
+        dam.quest = dam.explore(wf.quest, aquarium.quest, me, notes)
+    elif position == 30: # Vogelhaus
+        birdhouse.quest = birdhouse.explore(aquarium.quest, woods.quest, notes)
+    elif position == 31: # Aquarium
+        aquarium.quest = aquarium.explore(dam.quest, birdhouse.quest, me, notes)
+    elif position == 32: # Dorfplatz
+        pass
+    elif position == 33: # Wasserfall
+        wf.quest = wf.explore(dam.quest, notes, me)
+    elif position == 42: # Rathaus
+        townhall.explore()
+    else:
+        print("You're out of map lul")
+
+def printposition(position): #TODO mach match-case draus
     if position == 11:
         print("--Wald--")
     elif position == 12:
@@ -29,29 +53,22 @@ def checkposition(position): #TODO mach match-case draus
         print("--Wald--")
     elif position == 22:
         print("--Wald--")
-        woods.quest = woods.explore(birdhouse.quest, notes)
     elif position == 23:
         print("--Staudamm--")
-        dam.quest = dam.explore(wf.quest, aquarium.quest, me, notes)
     elif position == 30:
         print("--Vogelhaus--")
-        birdhouse.quest = birdhouse.explore(aquarium.quest, woods.quest, notes)
     elif position == 31:
         print("--Aquarium--")
-        aquarium.quest = aquarium.explore(dam.quest, birdhouse.quest, me, notes)
     elif position == 32:
         print("--Dorfplatz--")
     elif position == 33:
         print("--Wasserfall--")
-        wf.quest = wf.explore(dam.quest, notes, me)
-        print(me.inventory)
     elif position == 42:
         print("--Rathaus--")
-        townhall.explore()
     else:
         print("You're out of map lul")
 
-me.fight(golem)
+#Fme.fight(golem)
 # quest can be: open; active; done; 
 map.printMap()
 notes.read()
@@ -70,9 +87,10 @@ while me.lives > 0:
            villain.printInfo()
            me.fight(villain)
         else:       
-            checkposition(me.positionNow)
+            checkaction(me.positionNow)
     elif doing == "laufen":
         me.move(wf.quest)
+        printposition(me.positionNow)
     elif doing == "help":
         notes.read()
     elif doing == "map":
