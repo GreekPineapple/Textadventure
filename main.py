@@ -76,18 +76,20 @@ notes.read()
 #TODO Stelle sicher, dass es verschiedene Arten von Angriffen gibt, die der Spieler verwenden kann, z.B. physische -, oder magische Angriffe
 # oder Statusveränderungen. Jeder Angriffstyp sollte seine eigenen Vor- und Nachteile haben, so dass der Spieler strategisch vorgehen muss.
 #TODO nach dem laufen anzeigen wo man steht
-
+block = False # avoids two fights after another
 while me.lives > 0:
     print("Was möchtest du machen?")
     doing = input(">")
     if doing == "umschauen":
         fight = random.choices((True, False), weights = [1, 3])
-        if fight[0]:
+        if fight[0] and not block:
            villain = random.choice(villains)
            villain.printInfo()
            me.fight(villain)
+           block = not block
         else:       
             checkaction(me.positionNow)
+            block = not block
     elif doing == "laufen":
         me.move(wf.quest)
         printposition(me.positionNow)
