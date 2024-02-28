@@ -81,8 +81,8 @@ while me.lives > 0:
     print("Was möchtest du machen?")
     doing = input(">")
     if doing == "umschauen":
-        fight = bool(random.getrandbits(1))
-        if fight:
+        fight = random.choices((True, False), weights = [1, 3])
+        if fight[0]:
            villain = random.choice(villains)
            villain.printInfo()
            me.fight(villain)
