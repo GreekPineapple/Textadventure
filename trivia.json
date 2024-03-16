@@ -1,0 +1,589 @@
+{
+    "response_code":0,
+    "results":[
+       {
+          "type":"multiple",
+          "difficulty":"hard",
+          "category":"Science &amp; Nature",
+          "question":"Which of the following is considered classical conditioning?",
+          "correct_answer":"Pavlov&#039;s dog experiments",
+          "incorrect_answers":[
+             "Skinner box experiment",
+             "Schr&ouml;dinger&#039;s cat experiment",
+             "Harlow&rsquo;s monkey experiments"
+          ]
+       },
+       {
+          "type":"boolean",
+          "difficulty":"medium",
+          "category":"Entertainment: Music",
+          "question":"Metallica collaborated with Rowan Atkinson&#039;s Mr Bean on a 1992 comic relief single.",
+          "correct_answer":"False",
+          "incorrect_answers":[
+             "True"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"hard",
+          "category":"Entertainment: Video Games",
+          "question":"In the Team Fortress 2 canon, what did Shakespearicles NOT invent?",
+          "correct_answer":"Stairs",
+          "incorrect_answers":[
+             "Two-Story Building",
+             "Rocket Launcher",
+             "Stage Play"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"hard",
+          "category":"General Knowledge",
+          "question":"What was the third country to have a McDonald&#039;s restaurant?",
+          "correct_answer":"Costa Rica",
+          "incorrect_answers":[
+             "Japan",
+             "France",
+             "Australia"
+          ]
+       },
+       {
+          "type":"boolean",
+          "difficulty":"hard",
+          "category":"General Knowledge",
+          "question":"This is the correct spelling of &quot;Supercalifragilisticexpialidocious&quot;.",
+          "correct_answer":"True",
+          "incorrect_answers":[
+             "False"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"medium",
+          "category":"Entertainment: Music",
+          "question":"Which French duo had UK hits in 1998 with the songs &#039;Sexy Boy&#039;, &#039;Kelly Watch The Stars&#039; &amp; &#039;All I Need&#039;?",
+          "correct_answer":"Air",
+          "incorrect_answers":[
+             "Fire",
+             "Earth",
+             "Water"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"medium",
+          "category":"Science &amp; Nature",
+          "question":"Which chemical element has the lowest boiling point?",
+          "correct_answer":"Helium",
+          "incorrect_answers":[
+             "Hydrogen",
+             "Neon",
+             "Nitrogen"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"medium",
+          "category":"Entertainment: Video Games",
+          "question":"Which of these operators from &quot;Tom Clancy&#039;s Rainbow Six Siege&quot; has the ability to damage reinforced walls?",
+          "correct_answer":"Jordan &quot;Thermite&quot; Trace",
+          "incorrect_answers":[
+             "Eliza &quot;Ash&quot; Cohen",
+             "Seamus &quot;Sledge&quot; Cowden",
+             "Dominic &quot;Bandit&quot; Brunsmeier"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"easy",
+          "category":"Science: Computers",
+          "question":"What does GHz stand for?",
+          "correct_answer":"Gigahertz",
+          "incorrect_answers":[
+             "Gigahotz",
+             "Gigahetz",
+             "Gigahatz"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"medium",
+          "category":"Sports",
+          "question":"Which Formula One driver was nicknamed &#039;The Professor&#039;?",
+          "correct_answer":"Alain Prost",
+          "incorrect_answers":[
+             "Ayrton Senna",
+             "Niki Lauda",
+             "Emerson Fittipaldi"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"easy",
+          "category":"Entertainment: Music",
+          "question":"&quot;Grande Valse&quot; is a phrase from the song &quot;Gran Vals&quot;. What is that song segment known as?",
+          "correct_answer":"Nokia Tune",
+          "incorrect_answers":[
+             "Hello Moto [Motorola Ringtone]",
+             "Droid Ringtone",
+             "Microsoft Ringtone"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"hard",
+          "category":"Entertainment: Video Games",
+          "question":"In &quot;The Witness&quot;, how many lasers must be activated to get into the mountain area?",
+          "correct_answer":"7",
+          "incorrect_answers":[
+             "8",
+             "5",
+             "12"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"medium",
+          "category":"Entertainment: Music",
+          "question":"Which alternative rock band released the critically-acclaimed album &quot;OK Computer&quot;?",
+          "correct_answer":"Radiohead",
+          "incorrect_answers":[
+             "R.E.M.",
+             "Nirvana",
+             "Coldplay"
+          ]
+       },
+       {
+          "type":"boolean",
+          "difficulty":"easy",
+          "category":"Geography",
+          "question":"St. Louis is the capital of the US State Missouri.",
+          "correct_answer":"False",
+          "incorrect_answers":[
+             "True"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"hard",
+          "category":"Science &amp; Nature",
+          "question":"Which moon is the only satellite in our solar system to possess a dense atmosphere?",
+          "correct_answer":"Titan",
+          "incorrect_answers":[
+             "Europa",
+             "Miranda",
+             "Callisto"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"medium",
+          "category":"Entertainment: Video Games",
+          "question":"Psych-Horror &quot;Eternal Darkness: Sanity&#039;s Requiem&quot;, developed by Silicon Knights in 2002, was published by who and on what platform?",
+          "correct_answer":"Nintendo&reg; Co. Ltd. | GameCube&trade;",
+          "incorrect_answers":[
+             "Sony&reg; Computer Entertainment&trade; Inc. | PlayStation&reg; 2",
+             "Microsoft&reg; Game Studios&trade; | XBox&trade;",
+             "Sega&reg; Enterprises Co. Ltd. | Dreamcast&trade;"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"easy",
+          "category":"General Knowledge",
+          "question":"Area 51 is located in which US state?",
+          "correct_answer":"Nevada",
+          "incorrect_answers":[
+             "Arizona",
+             "New Mexico",
+             "Utah"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"easy",
+          "category":"Entertainment: Video Games",
+          "question":"Which of these is NOT a player class in Team Fortress 2?",
+          "correct_answer":"Healer",
+          "incorrect_answers":[
+             "Demoman",
+             "Pyro",
+             "Spy"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"medium",
+          "category":"Science: Gadgets",
+          "question":"What is the most significant side venture the popular firearms company, Remington, has pursued?",
+          "correct_answer":"Typewriters",
+          "incorrect_answers":[
+             "Blenders",
+             "Ceiling Fans",
+             "Door Knobs"
+          ]
+       },
+       {
+          "type":"boolean",
+          "difficulty":"medium",
+          "category":"Entertainment: Video Games",
+          "question":"The ADAM collecters in the Bioshock series are known as Little Sisters.",
+          "correct_answer":"True",
+          "incorrect_answers":[
+             "False"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"hard",
+          "category":"Entertainment: Film",
+          "question":"In the 1964 film &quot;Zulu&quot;, what song does the British Army company sing before the final battle?",
+          "correct_answer":"Men of Harlech",
+          "incorrect_answers":[
+             "Scotland the Brave",
+             "Colonel Bogey March",
+             "The British Grenadiers"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"medium",
+          "category":"Science: Mathematics",
+          "question":"To the nearest whole number, how many radians are in a whole circle?",
+          "correct_answer":"6",
+          "incorrect_answers":[
+             "3",
+             "4",
+             "5"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"hard",
+          "category":"General Knowledge",
+          "question":"What type of dog is &#039;Handsome Dan&#039;, the mascot of Yale University?",
+          "correct_answer":"Bulldog",
+          "incorrect_answers":[
+             "Yorkshire Terrier",
+             "Boxer",
+             "Pug"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"medium",
+          "category":"Entertainment: Books",
+          "question":"In the year 1818, novelist Mary Shelly is credited with writing a fiction novel and creating this infamous character.",
+          "correct_answer":"Frankenstein&#039;s monster",
+          "incorrect_answers":[
+             "Dracula",
+             "The Thing",
+             "The Invisible Man"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"hard",
+          "category":"Entertainment: Video Games",
+          "question":"What device allows Tracer to manipulate her own time in the game &quot;Overwatch&quot;?",
+          "correct_answer":"Chronal Accelerator",
+          "incorrect_answers":[
+             "B.L.I.N.K",
+             "Spacial Displacement Manipulator",
+             "TMD (Time Manipulation Device)"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"hard",
+          "category":"Entertainment: Video Games",
+          "question":"What was the first &quot;Call Of Duty: Zombies&quot; map to be directed by Jason Blundell?",
+          "correct_answer":"Mob Of The Dead",
+          "incorrect_answers":[
+             "Buried",
+             "Origins",
+             "Moon"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"medium",
+          "category":"Politics",
+          "question":"Who was elected leader of the UK Labour Party in September 2015?",
+          "correct_answer":"Jeremy Corbyn",
+          "incorrect_answers":[
+             "Ed Miliband",
+             "David Cameron",
+             "Theresa May"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"easy",
+          "category":"Entertainment: Books",
+          "question":"In the novel 1984, written by George Orwell, what is the name of the totalitarian regime that controls Oceania?",
+          "correct_answer":"INGSOC",
+          "incorrect_answers":[
+             "Neo-Bolshevism",
+             "Obliteration of the Self",
+             "Earth Alliance"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"hard",
+          "category":"Entertainment: Film",
+          "question":"What three movies, in order from release date, make up the &quot;Dollars Trilogy&quot;?",
+          "correct_answer":"&quot;A Fistful of Dollars&quot;, &quot;For a Few Dollars More&quot;, &quot;The Good, the Bad, and the Ugly&quot;",
+          "incorrect_answers":[
+             "&quot;The Good, the Bad, and the Ugly&quot;, &quot;For A Few Dollars More&quot;, &quot;A Fistful of Dollars&quot;",
+             "&quot;For a Few Dollars More&quot;, &quot;The Good, the Bad, and the Ugly&quot;, &quot;A Fistful of Dollars&quot;",
+             "&quot;For a Few Dollars More&quot;, &quot;A Fistful of Dollars&quot;, &quot;The Good, the Bad, and the Ugly&quot;"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"easy",
+          "category":"Animals",
+          "question":"The Kākāpō is a large, flightless, nocturnal parrot native to which country?",
+          "correct_answer":"New Zealand",
+          "incorrect_answers":[
+             "South Africa",
+             "Australia",
+             "Madagascar"
+          ]
+       },
+       {
+          "type":"boolean",
+          "difficulty":"medium",
+          "category":"Entertainment: Music",
+          "question":"Soulja Boy&#039;s &#039;Crank That&#039; won a Grammy for Best Rap Song in 2007.",
+          "correct_answer":"False",
+          "incorrect_answers":[
+             "True"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"medium",
+          "category":"Entertainment: Video Games",
+          "question":"Which horror movie had a sequel in the form of a video game released in August 20, 2002?",
+          "correct_answer":"The Thing",
+          "incorrect_answers":[
+             "The Evil Dead",
+             "Saw",
+             "Alien"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"hard",
+          "category":"General Knowledge",
+          "question":"Which of these banks are NOT authorized to issue currency notes in Hong Kong?",
+          "correct_answer":"OCBC",
+          "incorrect_answers":[
+             "HSBC",
+             "Standard Chartered",
+             "Bank of China"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"medium",
+          "category":"Entertainment: Film",
+          "question":"Which animated film did Steven Lisberger direct in 1980 before going on to direct Tron?",
+          "correct_answer":"Animalympics",
+          "incorrect_answers":[
+             "The Fox and the Hound",
+             "The Black Cauldron",
+             "The Great Mouse Detecive"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"easy",
+          "category":"Vehicles",
+          "question":"What country was the Trabant 601 manufactured in?",
+          "correct_answer":"East Germany",
+          "incorrect_answers":[
+             "Soviet Union",
+             "Hungary",
+             "France"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"hard",
+          "category":"Geography",
+          "question":"Which of the following Inuit languages was the FIRST to use a unique writing system not based on the Latin alphabet?",
+          "correct_answer":"Inuktitut",
+          "incorrect_answers":[
+             "Inuinnaqtun",
+             "Greenlandic",
+             "Inupiat"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"easy",
+          "category":"Entertainment: Video Games",
+          "question":"League of Legends, DOTA 2, Smite and Heroes of the Storm are all part of which game genre?",
+          "correct_answer":"Multiplayer Online Battle Arena (MOBA)",
+          "incorrect_answers":[
+             "Real Time Strategy (RTS)",
+             "First Person Shooter (FPS)",
+             "Role Playing Game (RPG)"
+          ]
+       },
+       {
+          "type":"boolean",
+          "difficulty":"medium",
+          "category":"Animals",
+          "question":"You can tell the age of a ladybird by counting the spots on his back.",
+          "correct_answer":"False",
+          "incorrect_answers":[
+             "True"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"medium",
+          "category":"Entertainment: Video Games",
+          "question":"In Sid Meier&#039;s Civilization V, which World Wonder can only be built in cities on or next to a desert?",
+          "correct_answer":"Petra",
+          "incorrect_answers":[
+             "The Pyramids",
+             "Alhambra",
+             "Mausoleum of Maussollos"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"medium",
+          "category":"General Knowledge",
+          "question":"What does the &quot;G&quot; mean in &quot;G-Man&quot;?",
+          "correct_answer":"Government",
+          "incorrect_answers":[
+             "Going",
+             "Ghost",
+             "Geronimo"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"medium",
+          "category":"Vehicles",
+          "question":"Which of the following car models has been badge-engineered (rebadged) the most?",
+          "correct_answer":"Isuzu Trooper",
+          "incorrect_answers":[
+             "Holden Monaro",
+             "Suzuki Swift",
+             "Chevy Camaro"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"medium",
+          "category":"History",
+          "question":"When did the United States formally declare war on Japan, entering World War II?",
+          "correct_answer":"December 8, 1941",
+          "incorrect_answers":[
+             "June 6, 1944",
+             "June 22, 1941",
+             "September 1, 1939"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"medium",
+          "category":"Entertainment: Japanese Anime &amp; Manga",
+          "question":"In &quot;JoJo&#039;s Bizzare Adventure: Stardust Crusaders&quot;, what is the last name of the protagonist Jotaro?",
+          "correct_answer":"Kujo",
+          "incorrect_answers":[
+             "Cujoh",
+             "Joestar",
+             "Higashikata"
+          ]
+       },
+       {
+          "type":"boolean",
+          "difficulty":"medium",
+          "category":"Entertainment: Television",
+          "question":"An episode of &quot;The Simpsons&quot; is dedicated to Moe Szyslak&#039;s bar rag.",
+          "correct_answer":"True",
+          "incorrect_answers":[
+             "False"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"medium",
+          "category":"Geography",
+          "question":"What mountain range lines the border between Spain and France?",
+          "correct_answer":"Pyrenees",
+          "incorrect_answers":[
+             "Alps",
+             "Carpathians",
+             "Urals"
+          ]
+       },
+       {
+          "type":"boolean",
+          "difficulty":"hard",
+          "category":"History",
+          "question":"Joseph Stalin&#039;s real name was Ioseb Bessarionis dze Dzugashvili.",
+          "correct_answer":"True",
+          "incorrect_answers":[
+             "False"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"medium",
+          "category":"Geography",
+          "question":"What is the smallest country in South America by area?",
+          "correct_answer":"Suriname",
+          "incorrect_answers":[
+             "Brazil",
+             "Uruguay",
+             "Chile"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"easy",
+          "category":"Entertainment: Music",
+          "question":"Which one of these songs did the group &quot;Men At Work&quot; NOT make?",
+          "correct_answer":"Safety Dance",
+          "incorrect_answers":[
+             "Down Under",
+             "Who Can It Be Now?",
+             "It&#039;s a Mistake"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"medium",
+          "category":"Entertainment: Film",
+          "question":"In what year was the movie &quot;Police Academy&quot; released?",
+          "correct_answer":"1984",
+          "incorrect_answers":[
+             "1986",
+             "1985",
+             "1983"
+          ]
+       },
+       {
+          "type":"multiple",
+          "difficulty":"hard",
+          "category":"Entertainment: Japanese Anime &amp; Manga",
+          "question":"In &quot;One Piece&quot;, who confirms the existence of the legendary treasure, One Piece?",
+          "correct_answer":"Edward &quot;Whitebeard&quot; Newgate",
+          "incorrect_answers":[
+             "Former Marine Fleet Admiral Sengoku",
+             "Pirate King Gol D Roger",
+             "Silvers Rayleigh"
+          ]
+       }
+    ]
+ }

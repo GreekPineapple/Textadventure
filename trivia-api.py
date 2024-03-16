@@ -1,14 +1,12 @@
 import json
-import requests
 import random
 
-API_URL = "https://opentdb.com/api.php?amount=50"
+with open("trivia.json", "r") as f:
+    data = json.load(f)
 
-response = requests.get(API_URL)
-data = json.loads(response.text)
-questions = data["results"]
 points = 0
 
+questions = data["results"]
 for question in questions:
     print(question["question"])
     print("Options:")
