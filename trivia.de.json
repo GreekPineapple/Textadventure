@@ -1,0 +1,589 @@
+{
+    "response_code": 0,
+    "results": [
+      {
+        "type": "mehrere",
+        "difficulty": "hart",
+        "category": "Wissenschaft",
+        "question": "Welcher der folgenden Punkte gilt als klassische Konditionierung?",
+        "correct_answer": "Pawlows Hundeexperimente",
+        "incorrect_answers": [
+          "Skinner-Box-Experiment",
+          "Schrödingers Katzenexperiment",
+          "Harlows Affenexperimente"
+        ]
+      },
+      {
+        "type": "Boolescher Wert",
+        "difficulty": "Mittel",
+        "category": "Unterhaltung: Musik",
+        "question": "Metallica arbeitete 1992 mit Rowan Atkinsons Mr Bean an einer Comic-Relief-Single zusammen.",
+        "correct_answer": "Falsch",
+        "incorrect_answers": [
+          "Wahr"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "hart",
+        "category": "Unterhaltung: Videospiele",
+        "question": "Was hat Shakespeare im Kanon von Team Fortress 2 NICHT erfunden?",
+        "correct_answer": "Treppe",
+        "incorrect_answers": [
+          "Zweistöckiges Gebäude",
+          "Raketenwerfer",
+          "Bühnenspiel"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "hart",
+        "category": "Allgemeinwissen",
+        "question": "Welches war das dritte Land, das ein McDonald's-Restaurant hatte?",
+        "correct_answer": "Costa Rica",
+        "incorrect_answers": [
+          "Japan",
+          "Frankreich",
+          "Australien"
+        ]
+      },
+      {
+        "type": "Boolescher Wert",
+        "difficulty": "hart",
+        "category": "Allgemeinwissen",
+        "question": "Dies ist die korrekte Schreibweise von „Supercalifragilisticexpialidocious“.",
+        "correct_answer": "Wahr",
+        "incorrect_answers": [
+          "Falsch"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "Mittel",
+        "category": "Unterhaltung: Musik",
+        "question": "Welches französische Duo hatte 1998 mit den Songs „Sexy Boy“ und „Kelly Watch The Stars“ britische Hits?",
+        "correct_answer": "Luft",
+        "incorrect_answers": [
+          "Feuer",
+          "Erde",
+          "Wasser"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "Mittel",
+        "category": "Wissenschaft",
+        "question": "Welches chemische Element hat den niedrigsten Siedepunkt?",
+        "correct_answer": "Helium",
+        "incorrect_answers": [
+          "Wasserstoff",
+          "Neon",
+          "Stickstoff"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "Mittel",
+        "category": "Unterhaltung: Videospiele",
+        "question": "Welcher dieser Operatoren aus „Tom Clancy’s Rainbow Six Siege“ hat die Fähigkeit, verstärkte Wände zu beschädigen?",
+        "correct_answer": "Jordan „Thermite“-Spur",
+        "incorrect_answers": [
+          "Eliza 'Ash' Cohen",
+          "Seamus „Sledge“ Cowden",
+          "Dominic „Bandit“ Brunsmeier"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "einfach",
+        "category": "Wissenschaft: Computer",
+        "question": "Wofür steht GHz?",
+        "correct_answer": "Gigahertz",
+        "incorrect_answers": [
+          "Gigahotz",
+          "Gigahetz",
+          "Gigahatz"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "Mittel",
+        "category": "Sport",
+        "question": "Welcher Formel-1-Fahrer erhielt den Spitznamen „Der Professor“?",
+        "correct_answer": "Alain Prost",
+        "incorrect_answers": [
+          "Ayrton Senna",
+          "Niki Lauda",
+          "Emerson Fittipaldi"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "einfach",
+        "category": "Unterhaltung: Musik",
+        "question": "„Grande Valse“ ist eine Phrase aus dem Lied „Gran Vals“. ",
+        "correct_answer": "Nokia Tune",
+        "incorrect_answers": [
+          "Hallo Moto [Motorola-Klingelton]",
+          "Droiden-Klingelton",
+          "Microsoft-Klingelton"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "hart",
+        "category": "Unterhaltung: Videospiele",
+        "question": "Wie viele Laser müssen in „The Witness“ aktiviert werden, um in das Berggebiet zu gelangen?",
+        "correct_answer": "7",
+        "incorrect_answers": [
+          "8",
+          "5",
+          "12"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "Mittel",
+        "category": "Unterhaltung: Musik",
+        "question": "Welche Alternative-Rock-Band hat das von der Kritik gefeierte Album „OK Computer“ veröffentlicht?",
+        "correct_answer": "Radiohead",
+        "incorrect_answers": [
+          "R.E.M.",
+          "Nirwana",
+          "Coldplay"
+        ]
+      },
+      {
+        "type": "Boolescher Wert",
+        "difficulty": "einfach",
+        "category": "Erdkunde",
+        "question": "St. Louis ist die Hauptstadt des US-Bundesstaates Missouri.",
+        "correct_answer": "Falsch",
+        "incorrect_answers": [
+          "Wahr"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "hart",
+        "category": "Wissenschaft",
+        "question": "Welcher Mond besitzt als einziger Satellit unseres Sonnensystems eine dichte Atmosphäre?",
+        "correct_answer": "Titan",
+        "incorrect_answers": [
+          "Europa",
+          "Miranda",
+          "Callisto"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "Mittel",
+        "category": "Unterhaltung: Videospiele",
+        "question": "Der 2002 von Silicon Knights entwickelte Psych-Horror „Eternal Darkness: Sanity's Requiem“ wurde von wem und auf welcher Plattform veröffentlicht?",
+        "correct_answer": "Nintendo® Co. Ltd. | ",
+        "incorrect_answers": [
+          "Sony® Computer Entertainment™ Inc. | ",
+          "Microsoft® Game Studios™ | ",
+          "Sega® Enterprises Co. Ltd. | "
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "einfach",
+        "category": "Allgemeinwissen",
+        "question": "Area 51 liegt in welchem ​​US-Bundesstaat?",
+        "correct_answer": "Nevada",
+        "incorrect_answers": [
+          "Arizona",
+          "New-Mexiko",
+          "Utah"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "einfach",
+        "category": "Unterhaltung: Videospiele",
+        "question": "Welche davon ist KEINE Spielerklasse in Team Fortress 2?",
+        "correct_answer": "Heiler",
+        "incorrect_answers": [
+          "Demoman",
+          "Pyro",
+          "Spion"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "Mittel",
+        "category": "Wissenschaft: Gadgets",
+        "question": "Was ist das bedeutendste Nebenprojekt, das das beliebte Waffenunternehmen Remington unternommen hat?",
+        "correct_answer": "Schreibmaschinen",
+        "incorrect_answers": [
+          "Mixer",
+          "Deckenventilatoren",
+          "Türknöpfe"
+        ]
+      },
+      {
+        "type": "Boolescher Wert",
+        "difficulty": "Mittel",
+        "category": "Unterhaltung: Videospiele",
+        "question": "Die ADAM-Sammler der Bioshock-Reihe sind als Little Sisters bekannt.",
+        "correct_answer": "Wahr",
+        "incorrect_answers": [
+          "Falsch"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "hart",
+        "category": "Unterhaltung: Film",
+        "question": "Welches Lied singt die britische Armeekompanie im Film „Zulu“ von 1964 vor der letzten Schlacht?",
+        "correct_answer": "Männer von Harlech",
+        "incorrect_answers": [
+          "Schottland der Tapfere",
+          "Oberst Bogey March",
+          "Die britischen Grenadiere"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "Mittel",
+        "category": "Wissenschaft: Mathematik",
+        "question": "Wie viele Bogenmaße hat ein ganzer Kreis, gerundet auf die nächste ganze Zahl?",
+        "correct_answer": "6",
+        "incorrect_answers": [
+          "3",
+          "4",
+          "5"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "hart",
+        "category": "Allgemeinwissen",
+        "question": "Was für ein Hund ist „Handsome Dan“, das Maskottchen der Yale University?",
+        "correct_answer": "Bulldogge",
+        "incorrect_answers": [
+          "Yorkshire-Terrier",
+          "Boxer",
+          "Mops"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "Mittel",
+        "category": "Unterhaltung: Bücher",
+        "question": "Im Jahr 1818 wird der Schriftstellerin Mary Shelly zugeschrieben, dass sie einen Roman geschrieben und diese berüchtigte Figur geschaffen hat.",
+        "correct_answer": "Frankensteins Monster",
+        "incorrect_answers": [
+          "Dracula",
+          "Die Sache",
+          "Der unsichtbare Mann"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "hart",
+        "category": "Unterhaltung: Videospiele",
+        "question": "Mit welchem ​​Gerät kann Tracer ihre eigene Zeit im Spiel „Overwatch“ manipulieren?",
+        "correct_answer": "Chronischer Beschleuniger",
+        "incorrect_answers": [
+          "BLINKEN",
+          "Manipulator für räumliche Verschiebung",
+          "TMD (Zeitmanipulationsgerät)"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "hart",
+        "category": "Unterhaltung: Videospiele",
+        "question": "Was war die erste „Call Of Duty: Zombies“-Karte, bei der Jason Blundell Regie führte?",
+        "correct_answer": "Mob der Toten",
+        "incorrect_answers": [
+          "Begraben",
+          "Ursprünge",
+          "Mond"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "Mittel",
+        "category": "Politik",
+        "question": "Wer wurde im September 2015 zum Vorsitzenden der britischen Labour Party gewählt?",
+        "correct_answer": "Jeremy Corbyn",
+        "incorrect_answers": [
+          "Ed Miliband",
+          "David Cameron",
+          "Theresa May"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "einfach",
+        "category": "Unterhaltung: Bücher",
+        "question": "Wie heißt im Roman 1984 von George Orwell das totalitäre Regime, das Ozeanien kontrolliert?",
+        "correct_answer": "INGSOC",
+        "incorrect_answers": [
+          "Neobolschewismus",
+          "Auslöschung des Selbst",
+          "Erdallianz"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "hart",
+        "category": "Unterhaltung: Film",
+        "question": "Aus welchen drei Filmen besteht die „Dollars-Trilogie“ in der Reihenfolge ihres Veröffentlichungsdatums?",
+        "correct_answer": "„Eine Handvoll Dollar“, „Für ein paar Dollar mehr“, „Das Gute, das Schlechte und das Hässliche“",
+        "incorrect_answers": [
+          "„Das Gute, das Schlechte und das Hässliche“, „Für ein paar Dollar mehr“, „Eine Handvoll Dollar“",
+          "„Für ein paar Dollar mehr“, „Das Gute, das Schlechte und das Hässliche“, „Eine Handvoll Dollar“",
+          "„Für ein paar Dollar mehr“, „Eine Handvoll Dollar“, „Das Gute, das Schlechte und das Hässliche“"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "einfach",
+        "category": "Tiere",
+        "question": "Der Kākāpō ist ein großer, flugunfähiger, nachtaktiver Papagei, der in welchem ​​Land heimisch ist?",
+        "correct_answer": "Neuseeland",
+        "incorrect_answers": [
+          "Südafrika",
+          "Australien",
+          "Madagaskar"
+        ]
+      },
+      {
+        "type": "Boolescher Wert",
+        "difficulty": "Mittel",
+        "category": "Unterhaltung: Musik",
+        "question": "„Crank That“ von Soulja Boy gewann 2007 einen Grammy als bester Rap-Song.",
+        "correct_answer": "Falsch",
+        "incorrect_answers": [
+          "Wahr"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "Mittel",
+        "category": "Unterhaltung: Videospiele",
+        "question": "Welcher Horrorfilm hatte am 20. August 2002 eine Fortsetzung in Form eines Videospiels?",
+        "correct_answer": "Die Sache",
+        "incorrect_answers": [
+          "Der böse Tod",
+          "Gesehen",
+          "Außerirdischer"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "hart",
+        "category": "Allgemeinwissen",
+        "question": "Welche dieser Banken sind NICHT berechtigt, in Hongkong Banknoten auszugeben?",
+        "correct_answer": "OCBC",
+        "incorrect_answers": [
+          "HSBC",
+          "Standard Chartered",
+          "Bank von China"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "Mittel",
+        "category": "Unterhaltung: Film",
+        "question": "Bei welchem ​​Animationsfilm führte Steven Lisberger 1980 Regie, bevor er Tron inszenierte?",
+        "correct_answer": "Tierympics",
+        "incorrect_answers": [
+          "Der Fuchs und der Hund",
+          "Der schwarze Kessel",
+          "Der große Mäusedetektiv"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "einfach",
+        "category": "Fahrzeuge",
+        "question": "In welchem ​​Land wurde der Trabant 601 hergestellt?",
+        "correct_answer": "Ost-Deutschland",
+        "incorrect_answers": [
+          "die Sowjetunion",
+          "Ungarn",
+          "Frankreich"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "hart",
+        "category": "Erdkunde",
+        "question": "Welche der folgenden Inuit-Sprachen verwendete als ERSTE ein einzigartiges Schriftsystem, das nicht auf dem lateinischen Alphabet basierte?",
+        "correct_answer": "Inuktitut",
+        "incorrect_answers": [
+          "Inuinnaqtun",
+          "Grönländisch",
+          "Inupiat"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "einfach",
+        "category": "Unterhaltung: Videospiele",
+        "question": "League of Legends, DOTA 2, Smite und Heroes of the Storm gehören alle zu welchem ​​Spielgenre?",
+        "correct_answer": "Mehrspieler-Online-Kampfarena (MOBA)",
+        "incorrect_answers": [
+          "Echtzeitstrategie (RTS)",
+          "Ego-Shooter (FPS)",
+          "Rollenspiel (RPG)"
+        ]
+      },
+      {
+        "type": "Boolescher Wert",
+        "difficulty": "Mittel",
+        "category": "Tiere",
+        "question": "Das Alter eines Marienkäfers lässt sich anhand der Flecken auf seinem Rücken erkennen.",
+        "correct_answer": "Falsch",
+        "incorrect_answers": [
+          "Wahr"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "Mittel",
+        "category": "Unterhaltung: Videospiele",
+        "question": "Welches Weltwunder kann in Sid Meier's Civilization V nur in Städten auf oder neben einer Wüste gebaut werden?",
+        "correct_answer": "Petra",
+        "incorrect_answers": [
+          "Die Pyramiden",
+          "Alhambra",
+          "Mausoleum von Maussollos"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "Mittel",
+        "category": "Allgemeinwissen",
+        "question": "Was bedeutet das „G“ in „G-Man“?",
+        "correct_answer": "Regierung",
+        "incorrect_answers": [
+          "Gehen",
+          "Geist",
+          "Geronimo"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "Mittel",
+        "category": "Fahrzeuge",
+        "question": "Welches der folgenden Automodelle wurde am häufigsten mit einem Badge versehen (rebadged)?",
+        "correct_answer": "Isuzu Trooper",
+        "incorrect_answers": [
+          "Holden Monaro",
+          "Suzuki Swift",
+          "Chevy Camaro"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "Mittel",
+        "category": "Geschichte",
+        "question": "Wann erklärten die Vereinigten Staaten Japan offiziell den Krieg und traten in den Zweiten Weltkrieg ein?",
+        "correct_answer": "8. Dezember 1941",
+        "incorrect_answers": [
+          "6. Juni 1944",
+          "22. Juni 1941",
+          "1. September 1939"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "Mittel",
+        "category": "Unterhaltung: Japanischer Anime",
+        "question": "Wie lautet der Nachname des Protagonisten Jotaro in „JoJo's Bizzare Adventure: Stardust Crusaders“?",
+        "correct_answer": "Kujo",
+        "incorrect_answers": [
+          "Cujoh",
+          "Joestar",
+          "Higashikata"
+        ]
+      },
+      {
+        "type": "Boolescher Wert",
+        "difficulty": "Mittel",
+        "category": "Unterhaltung: Fernsehen",
+        "question": "Eine Episode von „Die Simpsons“ ist Moe Szyslaks Barlappen gewidmet.",
+        "correct_answer": "Wahr",
+        "incorrect_answers": [
+          "Falsch"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "Mittel",
+        "category": "Erdkunde",
+        "question": "Welche Bergkette säumt die Grenze zwischen Spanien und Frankreich?",
+        "correct_answer": "Pyrenäen",
+        "incorrect_answers": [
+          "Alpen",
+          "Karpaten",
+          "Ural"
+        ]
+      },
+      {
+        "type": "Boolescher Wert",
+        "difficulty": "hart",
+        "category": "Geschichte",
+        "question": "Josef Stalins richtiger Name war Ioseb Bessarionis dze Dzugashvili.",
+        "correct_answer": "Wahr",
+        "incorrect_answers": [
+          "Falsch"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "Mittel",
+        "category": "Erdkunde",
+        "question": "Was ist flächenmäßig das kleinste Land Südamerikas?",
+        "correct_answer": "Surinam",
+        "incorrect_answers": [
+          "Brasilien",
+          "Uruguay",
+          "Chile"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "einfach",
+        "category": "Unterhaltung: Musik",
+        "question": "Welchen dieser Songs hat die Gruppe „Men At Work“ NICHT gemacht?",
+        "correct_answer": "Sicherheitstanz",
+        "incorrect_answers": [
+          "Unter",
+          "Wer kann es jetzt sein?",
+          "Es ist ein Fehler"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "Mittel",
+        "category": "Unterhaltung: Film",
+        "question": "In welchem ​​Jahr wurde der Film „Police Academy“ veröffentlicht?",
+        "correct_answer": "1984",
+        "incorrect_answers": [
+          "1986",
+          "1985",
+          "1983"
+        ]
+      },
+      {
+        "type": "mehrere",
+        "difficulty": "hart",
+        "category": "Unterhaltung: Japanischer Anime",
+        "question": "Wer bestätigt in „One Piece“ die Existenz des legendären Schatzes One Piece?",
+        "correct_answer": "Edward „Whitebeard“ Newgate",
+        "incorrect_answers": [
+          "Ehemaliger Marineflottenadmiral Sengoku",
+          "Piratenkönig Gol D Roger",
+          "Silvers Rayleigh"
+        ]
+      }
+    ]
+  }

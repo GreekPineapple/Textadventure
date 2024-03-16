@@ -1,7 +1,7 @@
 import json
 import random
 
-with open("trivia.json", "r") as f:
+with open("trivia.de.json", "r") as f:
     data = json.load(f)
 
 points = 0
@@ -21,12 +21,12 @@ for question in questions:
     for i in range(len(answers)):
         print(f"{i+1}. {answers[i]}")
 
-    userInput = input("What's the correct answer? (Numbers only) \n>")
+    userInput = input("Welche Antwort ist richtig? (Nur Zahlen erlaubt) \n>")
 
     if (int(userInput) == answers.index(question['correct_answer'])+1):
         print("yaaay")
         points += 1
     else:
-        print("schade")
+        print("Die richtige Antwort wäre: " + question['correct_answer'])
 
-    print(f"You got {points} out of {len(questions)} questions correct.")
+    print(f"Du hast {points} von {len(questions)} möglichen Fragen richtig!\n")
