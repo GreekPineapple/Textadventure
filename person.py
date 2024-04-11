@@ -1,6 +1,7 @@
 positiveAnswers = ["yes", "y", "ja", "j", "yep", "jop"]
-import random
+import random, threading, countdown
 from collections import Counter
+from trivia import *
 
 class Person:
     def __init__(self, lives, strength, name):
@@ -35,6 +36,9 @@ class Villain (Person):
         print("Eigenschaften: " + str(self.strength) )
 
 class Player(Person):
+    
+    secretPath = False
+    
     def __init__(self, lives, strength, name, inventory, positionNow):
         self.inventory = inventory
         self.positionNow = positionNow
@@ -55,7 +59,21 @@ class Player(Person):
         direction = input(">")
         if direction.lower().strip() == "n":
             if position == 30:
-                print("Hier ist ein geheimweg, den du noch nicht freigeschalten hast!")
+                if not Player.secretPath:
+                    print("Hier ist ein geheimweg, den du noch nicht freigeschalten hast!")
+                    answer = input("Möchtest du jetzt dein Wiseen unter beweis Stellen? (ja/nein)")
+                    if answer == "ja":
+                        quizFinished = threading.Event()
+                        countdownThread = threading.Thread(target=countdown.countdown, args=(20, quizFinished))
+                        countdownThread.start()
+                        Trivia.quiz(quizFinished)
+                        countdownThread.join()
+
+                        position = 22
+                        Player.secretPath = True
+                else:
+                    print("Du gehst den Geheimweg")
+                    position = 22
             elif position == 33 and wfquest == "done":
                 print("Diesen Weg gibt es leider nichtmehr. Hier fließt jetzt Wasser!")                               
             elif position == 11 or position == 12 or position == 13 or position == 23 or position == 31:
@@ -82,7 +100,21 @@ class Player(Person):
         
         elif direction.lower().strip() == "w":
             if position == 22:
-                print("Hier ist ein geheimweg, den du noch nicht freigeschalten hast!")
+                if not Player.secretPath:
+                    print("Hier ist ein geheimweg, den du noch nicht freigeschalten hast!")
+                    answer = input("Möchtest du jetzt dein Wiseen unter beweis Stellen? (ja/nein)")
+                    if answer == "ja":
+                        quizFinished = threading.Event()
+                        countdownThread = threading.Thread(target=countdown.countdown, args=(20, quizFinished))
+                        countdownThread.start()
+                        Trivia.quiz(quizFinished)
+                        countdownThread.join()
+
+                        position = 30
+                        Player.secretPath = True
+                else:
+                    print("Du gehst den Geheimweg")
+                    position = 30
             elif position == 11 or position == 30 or position == 42:
                 print("Hier gibt es keinen weg nach Westen")
             else:
