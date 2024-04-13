@@ -1,7 +1,10 @@
-import json, random
+import json, random, time, threading
+from rich import print as rprint
+from rich.progress import track
 
 class Trivia:
-    def quiz(quizFinished):
+  
+    def quiz():#quizFinished):
 
         with open("trivia.de.json", "r") as f:
             data = json.load(f)
@@ -9,33 +12,45 @@ class Trivia:
         points = 0
 
         questions = data["results"]
+
         for question in questions:
-            if quizFinished.is_set():
-                break
-            print(question["question"])
-            print("Options:")
+            # if quizFinished.is_set():
+            #     break
+            rprint(question["question"])
+            rprint("Options:")
             answers = []
 
             for i in range(len(question["incorrect_answers"])):
                 answers.append(question["incorrect_answers"][i])
 
-            random.randint(0,len(question["incorrect_answers"]))
-            answers.insert(random.randint(0, len(question["incorrect_answers"])), question['correct_answer'])
+            random_index = random.randint(0,len(question["incorrect_answers"]))
+            answers.insert(random_index, question['correct_answer'])
 
             for i in range(len(answers)):
-                print(f"{i+1}. {answers[i]}")
+                rprint(f"{i+1}. {answers[i]}")
 
             userInput = input("Welche Antwort ist richtig? (Nur Zahlen erlaubt) \n>")
 
             try:
                 int(userInput)
             except:
-                print("Antwort '" + userInput + "' nicht gefunden")
+                rprint("Antwort '" + userInput + "' nicht gefunden")
             else:
                 if (int(userInput) == answers.index(question['correct_answer'])+1):
-                    print("yaaay")
+                    rprint("yaaay")
                     points += 1
                 else:
-                    print("Die richtige Antwort wäre: " + question['correct_answer'])
+                    rprint("Die richtige Antwort wäre: " + question['correct_answer'])
 
-            print(f"Du hast {points} von {len(questions)} möglichen Fragen richtig!\n")
+            rprint(f"Du hast {points} von {len(questions)} möglichen Fragen richtig!\n")
+
+    def quizTimer():#quizFinished):
+        for i in track(range(20)):
+            time.sleep(1)
+       # quizFinished.set()
+
+    quizFinished = threading.Event()
+    countdownThread = threading.Thread(target=quizTimer)#, args=(quizFinished))
+    countdownThread.start()
+    quiz()#quizFinished)
+    countdownThread.join()

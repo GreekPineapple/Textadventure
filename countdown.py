@@ -1,6 +1,6 @@
 import time
 
-def countdown(t, quizFinished):
+def countdown(t):
     t = t*1000
     while t:
         sec, milisec = divmod(t, 1000)
@@ -10,4 +10,3 @@ def countdown(t, quizFinished):
         time.sleep(0.01)
         t -= 10
     print("Zeit ist abgelaufen!") 
-    quizFinished.set()
