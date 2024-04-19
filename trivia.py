@@ -43,8 +43,10 @@ class Trivia:
 
             rprint(f"Du hast {points} von {len(questions)} möglichen Fragen richtig!\n")
 
+        return points
+
     def timer(quizFinished):
-        for i in range(30, 0, -1):
+        for i in range(60, 0, -1):
             if i % 5 == 0:
                 rprint(f"\n[bright_magenta]Verbleibende Zeit: {i} Sekunden[/bright_magenta]")
             time.sleep(1)
@@ -55,5 +57,7 @@ class Trivia:
         quizFinished = threading.Event()
         countdownThread = threading.Thread(target=self.timer, args=(quizFinished,))
         countdownThread.start()
-        self.quiz(quizFinished)
+        points = self.quiz(quizFinished)
         countdownThread.join()
+        if points >= 10:
+            return True

@@ -63,9 +63,12 @@ class Player(Person):
                     print("Hier ist ein geheimweg, den du noch nicht freigeschalten hast!")
                     answer = input("Möchtest du jetzt dein Wiseen unter beweis Stellen? (ja/nein)")
                     if answer == "ja":
-                        Trivia.main(Trivia)
-                        position = 22
-                        Player.secretPath = True
+                        if Trivia.main(Trivia):
+                            print("Glückwunsch, du hast den Geheimweg freigeschalten :)")
+                            position = 22
+                            Player.secretPath = True
+                        else:
+                            print("Leider hast du den Test nicht bestanden :(")
                 else:
                     print("Du gehst den Geheimweg")
                     position = 22
@@ -99,9 +102,12 @@ class Player(Person):
                     print("Hier ist ein geheimweg, den du noch nicht freigeschalten hast!")
                     answer = input("Möchtest du jetzt dein Wiseen unter beweis Stellen? (ja/nein)")
                     if answer == "ja":
-                        Trivia.main(Trivia)
-                        position = 30
-                        Player.secretPath = True
+                        if Trivia.main(Trivia):
+                            print("Glückwunsch, du hast den Geheimweg freigeschalten :)")
+                            position = 30
+                            Player.secretPath = True
+                        else:
+                            print("Leider hast du den Test nicht bestanden :(")
                 else:
                     print("Du gehst den Geheimweg")
                     position = 30
