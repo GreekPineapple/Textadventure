@@ -12,11 +12,10 @@ class Trivia:
 
         questions = data["results"]
 
-        for question in questions:
+        for question in sorted(questions,key=lambda _: random.random()):
             if quizFinished.is_set():
                 break
             print(question["question"])
-            print("Options:")
             answers = []
 
             for i in range(len(question["incorrect_answers"])):
@@ -36,17 +35,17 @@ class Trivia:
                 rprint(f"[red]Antwort '{userInput}' nicht gefunden[/red]")
             else:
                 if (int(userInput) == answers.index(question['correct_answer'])+1):
-                    rprint("[green]richtiig[/green]")
+                    rprint(f"[green]{userInput} ist richtig[/green]")
                     points += 1
                 else:
-                    rprint(f"[red] {userInput} ist falsch.[/red] Die richtige Antwort wäre: " + question['correct_answer'])
+                    rprint(f"[red]{userInput} ist falsch.[/red] Die richtige Antwort wäre: " + question['correct_answer'])
 
             rprint(f"Du hast {points} von {len(questions)} möglichen Fragen richtig!\n")
 
         return points
 
     def timer(quizFinished):
-        for i in range(60, 0, -1):
+        for i in range(100, 0, -1):
             if i % 5 == 0:
                 rprint(f"\n[bright_magenta]Verbleibende Zeit: {i} Sekunden[/bright_magenta]")
             time.sleep(1)
