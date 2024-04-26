@@ -52,11 +52,26 @@ class Trivia:
         rprint("[red]Die zeit ist abgelaufen, mache deine letzte Eingabe...[/red]")
         quizFinished.set()
 
-    def main(self):
+    def main(self, player):
         quizFinished = threading.Event()
         countdownThread = threading.Thread(target=self.timer, args=(quizFinished,))
         countdownThread.start()
         points = self.quiz(quizFinished)
         countdownThread.join()
         if points >= 10:
+            print("Glückwunsch, du hast den Geheimweg freigeschalten :)")
+            time.sleep(2)
+            print(" .", end="\r")
+            time.sleep(1)
+            print(" ..", end="\r")
+            time.sleep(1)
+            print(" ...")
+            time.sleep(2)
+            print("Auf dem Weg findest du eine Kiste deren Inhalt du mitnimmst..")
+            time.sleep(1)
+            # weitere Trank zutat geben
+            player.inventory.append("Heiltrank2")
+            player.secretPath = True
             return True
+        else:
+            print("Leider hast du den Test nicht bestanden :(")

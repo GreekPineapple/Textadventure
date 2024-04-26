@@ -59,16 +59,12 @@ class Player(Person):
         direction = input(">")
         if direction.lower().strip() == "n":
             if position == 30:
-                if not Player.secretPath:
+                if not self.secretPath:
                     print("Hier ist ein geheimweg, den du noch nicht freigeschalten hast!")
-                    answer = input("Möchtest du jetzt dein Wiseen unter beweis Stellen? (ja/nein)")
+                    answer = input("Möchtest du jetzt dein Wissen unter Beweis stellen? (ja/nein)")
                     if answer == "ja":
-                        if Trivia.main(Trivia):
-                            print("Glückwunsch, du hast den Geheimweg freigeschalten :)")
+                        if Trivia.main(Trivia, self):
                             position = 22
-                            Player.secretPath = True
-                        else:
-                            print("Leider hast du den Test nicht bestanden :(")
                 else:
                     print("Du gehst den Geheimweg")
                     position = 22
@@ -98,16 +94,12 @@ class Player(Person):
         
         elif direction.lower().strip() == "w":
             if position == 22:
-                if not Player.secretPath:
+                if not self.secretPath:
                     print("Hier ist ein geheimweg, den du noch nicht freigeschalten hast!")
-                    answer = input("Möchtest du jetzt dein Wiseen unter beweis Stellen? (ja/nein)")
+                    answer = input("Möchtest du jetzt dein Wissen unter Beweis stellen? (ja/nein)")
                     if answer == "ja":
-                        if Trivia.main(Trivia):
-                            print("Glückwunsch, du hast den Geheimweg freigeschalten :)")
+                        if Trivia.main(Trivia, self):
                             position = 30
-                            Player.secretPath = True
-                        else:
-                            print("Leider hast du den Test nicht bestanden :(")
                 else:
                     print("Du gehst den Geheimweg")
                     position = 30
