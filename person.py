@@ -15,20 +15,23 @@ class Person:
         print("Stärke: " + str(self.strength) )
 
 class Villain (Person):
-    def __init__(self, lives, strength, name, defence):
-        self.water = lives / 100 * 5
-        self.arrow = lives / 100 * 15
-        self.sword = lives / 100 * 10
-        if name == "Goblin":
-            self.arrow = lives / 100 * 0 #goblin is too fast
-        elif name == "Erdgolem":
-            self.water = lives / 100 * 20
-        elif name == "Luftgegner":
-            self.sword = lives / 100 * 0 #logisch i guess
-            self.arrow = lives / 100 * 20
+    def __init__(self, name, lives, strength, protection, resistance, drop):
+        self.waterProof = resistance[0]
+        self.arrowProof = resistance[1]
+        self.swordProof = resistance[2]
+       # self.water = lives / 100 * 5
+        # self.arrow = lives / 100 * 15
+        # self.sword = lives / 100 * 10
+        # if name == "Goblin":
+        #     self.arrow = lives / 100 * 0 #goblin is too fast
+        # elif name == "Erdgolem":
+        #     self.water = lives / 100 * 20
+        # elif name == "Luftgegner":
+        #     self.sword = lives / 100 * 0 #logisch i guess
+        #     self.arrow = lives / 100 * 20
 
-        self.kick = lives / 100 * 4
-        self.defence = defence
+        self.drop = drop
+        self.protection = protection
         super().__init__(lives, strength, name)
 
     def printInfo(self):
@@ -40,14 +43,14 @@ class Player(Person):
     secretPath = False
     
     def __init__(self, lives, strength, name, inventory, positionNow):
-        self.inventory = inventory
+        self.inventory = Counter(inventory)
         self.positionNow = positionNow
         super().__init__(lives, strength, name)
 
     def printInfo(self):
         return super().printInfo()
 
-    def move(self, wfquest): #laufen möglich, geheimwege fehlen noch
+    def move(self, wfquest):
         a = [[10, 11, 12, 13], [20, 21, 22, 23], [30, 31, 32, 33], [40, 41, 42, 43]]
         # for i in range(len(a)):
         #     for j in range(len(a[i])):
@@ -114,16 +117,19 @@ class Player(Person):
 
     def fight(self, villain): 
         watercount = arrowcount = swordcount = 0
-        inventory = ["kick"]
+        fightInventory = ["kick"]
         defencepoints = 1
         specialAttacks = ["jump", "heat"]
-        self.shop_normal(inventory)
-        vc = Counter(inventory)
-        value_counts_str = str(vc).replace("Counter", "Dein Inventar für den Kampf: ")
+        if "Boss" in villain.name:
+            self.shop_boss(fightInventory)
+        else:
+            self.shop_normal(fightInventory)
+        vc = Counter(fightInventory)
        
         while self.lives > 0 or villain.lives > 0:
             vc = +vc #without 0's
-            print(vc)
+            value_counts_str = str(vc).replace("Counter", "Dein Inventar für den Kampf: ")
+            print(value_counts_str)
             print('Wie möchtest du angreifen? Du kannst 2 Angriffe auswählen um Kombo boni zu erhlaten, musst aber nicht. (Tippe "none" wenn du nur einen Angriff machen willst)')
             #choose 1 or 2 attacks:
 
@@ -156,9 +162,9 @@ class Player(Person):
                     print("water wurde benutzt")
                     if bonus == "water" and  use == "water":
                         print("water wurde nochmal benutzt")
-                        villain.lives -= villain.water * 1.5
+                        villain.lives -= villain.waterProof * 1.5
                         watercount+=1
-                    villain.lives -= villain.water
+                    villain.lives -= villain.waterProof
                     watercount+=1
             if "arrow" in round:
                 if arrowcount > 3:
@@ -167,9 +173,9 @@ class Player(Person):
                     print("arrow wurde benutzt")
                     if bonus == "arrow" and use == "arrow":
                         print("arrow wurde nochmal benutzt")
-                        villain.lives -= villain.arrow * 1.5
+                        villain.lives -= villain.arrowProof * 1.5
                         arrowcount += 1
-                    villain.lives -= villain.arrow
+                    villain.lives -= villain.arrowProof
                     arrowcount += 1
             if "sword" in round:
                 if swordcount > 3:
@@ -178,12 +184,12 @@ class Player(Person):
                     print("sword wurde benutzt")
                     if bonus == "sword" and use == "sword":
                         print("sword wurde nochmal benutzt")
-                        villain.lives -= villain.sword * 1.5
+                        villain.lives -= villain.swordProof * 1.5
                         swordcount += 1
-                    villain.lives -= villain.sword
+                    villain.lives -= villain.swordProof
                     swordcount += 1
             if "kick" in round: #always possible
-                villain.lives -= villain.kick
+                villain.lives += villain.protection - self.strenght
             if "defence" in round:
                 defencepoints -= 0.1
             print("Gegner Leben nach dem Angriff: " + str(villain.lives))
@@ -210,10 +216,12 @@ class Player(Person):
                 print("Du bist rip")
                 break
             elif villain.lives <= 0:
-                print("Der Gegener ist rip")
+                drop = "Gutschein" if random.random() < 0.15 else villain.drop
+                print("Der Gegener ist rip und droppt dir " + drop)
+                self.inventory[drop] += 1
                 break
     
-    def shop_normal(self,inventory):
+    def shop_normal(self, fightInventory):
         defenceCount = 0
 
         #TODO für den pfeil noch 1 Bogen kaufen?; details zu den angriffen anzeigen?
@@ -230,14 +238,10 @@ class Player(Person):
             if item.lower().strip() in shop:
                 if defenceCount <= 5:
                     self.lives -= shop[item.lower().strip()]
-                    inventory.append(item.lower().strip())
+                    fightInventory.append(item.lower().strip())
                     print("Du hast noch: " + str(self.lives) + " leben")
                 else:
                     print("Du darfst nur 5 mal deine Verteidugng verbessern, wähle was anderes aus.")
             else:
                 print("Diesen Artikel haben wir nicht im Angebot")
             item = input(">")
-
-    
-    def shop_boss(self,inventory):
-        pass

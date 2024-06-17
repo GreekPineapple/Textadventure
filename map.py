@@ -1,3 +1,4 @@
+from collections import Counter
 positiveAnswers = ["yes", "y", "ja", "j", "yep", "jop"]
 negativeAnswers = ["no", "n", "nein", "ne", "nop", "nope", "nee"]
 class Map:
@@ -55,8 +56,25 @@ class Square:
         print("Hier passiert noch nichts...")
 
 class TownHall:
-    def explore(self):
-        print("Hier passiert noch nichts...")
+    def explore(self, player):
+        #TODO Noch nicht fertig!
+        print("Hier kannst du Gutscheine in Ausrüstung tauschen (Tippe 'ende' wenn du fertig bist) \nWir haben im Angebot:")
+        print("\u001b[4mAngriffe(je -2 Gutscheine):\u001b[0m \nSchussattacke; Sebelattacke; \nBombe (-3 Gutscheine)")
+        print("\u001b[4mTränke(je -4 Gutscheine):\u001b[0m \nHeiltrank; Laehmungstrank")
+        shop = {"schussattacke": 2, "sebelattacke": 2, "bombe": 3, "heiltrank": 4, "laehmungstrank": 4}
+        item = input(">")
+        while item.lower().strip() != "ende": #TODO Do while schleife?
+            if item.lower().strip() in shop and (player.inventory["Gutschein"] - shop[item]) >= 0:
+                player.inventory["Gutschein"] -= shop[item]
+                player.inventory[item] += 1
+                print(player.inventory)
+            else:
+                if item.lower().strip() in shop:
+                    print("Scheint als hättest du nicht genug Gutscheine")
+                else:
+                    print("Diesen Artikel haben wir nicht im Angebot")
+            print("Du hast noch " + str(player.inventory["Gutschein"]) + " Gutscheine zur verfügung")
+            item = input(">")
 
 class Waterfall:
     def __init__(self, quest):
@@ -80,7 +98,7 @@ class Waterfall:
                 print('Rainer: "Woow, der Wasserfall fließt wieder, jetzt kann ich ganz entspannt meine Mittagspause hier verbingen')
                 print('Du erhälst dafür eine kleine Belohnung von mir, hoffe du kannst damit was anfangen"')
                 # erste Trank zutat geben
-                player.inventory.append("Heiltrank1")
+                player.inventory["Heiltrank1"] += 1
                 self.quest = "done"
                 note.delete(" - Rede mit Rainer am Wasserfall")
             else:
@@ -114,7 +132,7 @@ class Dam:
             if aqquest == "done":
                 print("Super, jetzt kann ich die fische bei mir zuhause versorgen")
                 self.quest = "done"
-                player.inventory.remove("Aquarium")
+                player.inventory["Aquarium"] -= 1
                 note.delete(" - Gehe zu der Frau am Staudamm und übergib ihr das Aquarium für ihre Fische")
                 note.write(" - Rede mit Rainer am Wasserfall")
             else:
@@ -160,7 +178,7 @@ class Aquarium:
                 option = input(">")
                 if option.lower().strip() in positiveAnswers:
                     print("Super, vielen Dank! Hier bekommst du ein Aquarium")
-                    player.inventory.append("Aquarium")
+                    player.inventory["Aquarium"] += 1
                     self.quest = "done"
                     note.delete(" - Gehe zum Aquarium shop und hohle dir ein Aquarium")
                     note.write(" - Gehe zu der Frau am Staudamm und übergib ihr das Aquarium für ihre Fische")
