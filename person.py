@@ -116,6 +116,7 @@ class Player(Person):
         self.positionNow = position
 
     def fight(self, villain): 
+        tempLives = self.lives
         watercount = arrowcount = swordcount = 0
         fightInventory = ["kick"]
         defencepoints = 1
@@ -189,7 +190,7 @@ class Player(Person):
                     villain.lives -= villain.swordProof
                     swordcount += 1
             if "kick" in round: #always possible
-                villain.lives += villain.protection - self.strenght
+                villain.lives += villain.protection - self.strength
             if "defence" in round:
                 defencepoints -= 0.1
             print("Gegner Leben nach dem Angriff: " + str(villain.lives))
@@ -214,11 +215,13 @@ class Player(Person):
                 print("Deine Leben danach: " + str(self.lives))
             if self.lives <= 0:
                 print("Du bist rip")
+                self.lives = tempLives - 1
                 break
             elif villain.lives <= 0:
                 drop = "Gutschein" if random.random() < 0.15 else villain.drop
                 print("Der Gegener ist rip und droppt dir " + drop)
                 self.inventory[drop] += 1
+                self.lives = tempLives
                 break
     
     def shop_normal(self, fightInventory):
