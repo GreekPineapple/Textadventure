@@ -3,7 +3,7 @@ from person import Player, Villain
 from map import *
 from notes import *
 map = Map(4,4)
-me = Player(200, 10, "myself", ["eins", "zwei", "eins", "Gutschein", "Gutschein"], 42) #Start: Townhall
+me = Player(200, 100, "myself", ["eins", "Heiltrank", "eins", "Gutschein", "goblindrop", "goblindrop"], 42) #Start: Townhall
 townhall = TownHall()
 woods = Woods("open")
 wf = Waterfall("open")
@@ -13,6 +13,7 @@ square = Square()
 birdhouse = BirdHouse("open")
 notes = Notes()
 
+#the smaller the resistance, the smaller the damage (Muss vielleicht *-1 machen, damit sprachlich sinn ergibt xD)
 goblin = Villain("Goblin", 40, 100, 1, [5, 0, 10], "goblindrop")
 golem = Villain("Erdgolem", 100, 40, 4, [20, 15, 10], "golemdrop")
 wizard = Villain("Magier", 80, 80, 6, [5, 10, 15], "wizarddrop")
@@ -40,7 +41,7 @@ def checkaction(position): #TODO mach match-case draus
     elif position == 33: # Wasserfall
         wf.quest = wf.explore(dam.quest, notes, me)
     elif position == 42: # Rathaus
-        townhall.explore()
+        townhall.explore(me)
     else:
         print("You're out of map lul")
 
@@ -68,11 +69,12 @@ def printposition(position): #TODO mach match-case draus
     else:
         print("You're out of map lul")
 
-townhall.explore(me)
-me.fight(golem)
+#townhall.explore(me)
+me.boss(villains)
+#me.fight(golem)
 # quest can be: open; active; done; 
-map.printMap()
-notes.read()
+#map.printMap()
+#notes.read()
 
 #TODO Stelle sicher, dass es verschiedene Arten von Angriffen gibt, die der Spieler verwenden kann, z.B. physische -, oder magische Angriffe
 # oder Statusveränderungen. Jeder Angriffstyp sollte seine eigenen Vor- und Nachteile haben, so dass der Spieler strategisch vorgehen muss.
@@ -81,7 +83,7 @@ notes.read()
 #TODO Shop mit json machen
 
 # Für den Bosskampf gibt es keinen shop, man verwendet dinge die von einem normalen gegner gedroppt werden, nachdem man diesen besiegt. Man braucht aber spezial angriffe von jedem gegner dens gibt um den boss zu besiegen
-# Wenn man einen kampf mit dem normalen gegner verliert, verliert man auch ein leben. mit diesen leben geht man dann in den bosskampf. (außer man hat heilung)
+# Wenn man einen kampf mit dem normalen gegner verliert, verliert man auch ein leben. mit diesen leben (schon implementiert) geht man dann in den bosskampf. (außer man hat heilung)
 
 # Gegner droppen gutscheine oder spezial angriffe, also z.b. magier droppt mageier angruff, goblin droppt goblin angriff
 # gutscheine um ausrüstung und heilung zu kaufen

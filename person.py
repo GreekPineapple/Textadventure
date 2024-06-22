@@ -121,10 +121,8 @@ class Player(Person):
         fightInventory = ["kick"]
         defencepoints = 1
         specialAttacks = ["jump", "heat"]
-        if "Boss" in villain.name:
-            self.shop_boss(fightInventory)
-        else:
-            self.shop_normal(fightInventory)
+   
+        self.shop(fightInventory)
         vc = Counter(fightInventory)
        
         while self.lives > 0 or villain.lives > 0:
@@ -218,13 +216,13 @@ class Player(Person):
                 self.lives = tempLives - 1
                 break
             elif villain.lives <= 0:
-                drop = "Gutschein" if random.random() < 0.15 else villain.drop
+                drop = "Gutschein" if random.random() < 0.20 else villain.drop
                 print("Der Gegener ist rip und droppt dir " + drop)
                 self.inventory[drop] += 1
                 self.lives = tempLives
                 break
     
-    def shop_normal(self, fightInventory):
+    def shop(self, fightInventory):
         defenceCount = 0
 
         #TODO für den pfeil noch 1 Bogen kaufen?; details zu den angriffen anzeigen?
@@ -248,3 +246,13 @@ class Player(Person):
             else:
                 print("Diesen Artikel haben wir nicht im Angebot")
             item = input(">")
+
+    def boss(self, villains):
+        print("Für den Bosskampf nutzt du die Angriffe aus deinem Inventar und deine tatsächlichen Leben")
+        possibleItems = ["schussattacke", "sebelattacke", "bombe", "heiltrank", "laehmungstrank"] # auch dynamisch mit json machen
+        for villain in villains:
+            possibleItems.append(villain.drop)
+        # for item in possibleItems:
+        #     print(item)
+        
+        print(str(Counter({key: self.inventory[key] for key in possibleItems})).replace("Counter", "Dein Inventar für den KAMPF: "))
