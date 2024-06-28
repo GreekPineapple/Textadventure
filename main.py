@@ -3,7 +3,7 @@ from person import Player, Villain
 from map import *
 from notes import *
 map = Map(4,4)
-me = Player(200, 100, "myself", ["eins", "Heiltrank", "eins", "Gutschein", "goblindrop", "goblindrop"], 42) #Start: Townhall
+me = Player(200, 10, "myself", ["eins", "golem überreste", "Heiltrank", "vogel überreste", "bombe", "Gutschein", "goblin überreste", "goblin überreste", "bombe", "wizard überreste"], 42) #Start: Townhall
 townhall = TownHall()
 woods = Woods("open")
 wf = Waterfall("open")
@@ -14,10 +14,10 @@ birdhouse = BirdHouse("open")
 notes = Notes()
 
 #the smaller the resistance, the smaller the damage (Muss vielleicht *-1 machen, damit sprachlich sinn ergibt xD)
-goblin = Villain("Goblin", 40, 100, 1, [5, 0, 10], "goblindrop")
-golem = Villain("Erdgolem", 100, 40, 4, [20, 15, 10], "golemdrop")
-wizard = Villain("Magier", 80, 80, 6, [5, 10, 15], "wizarddrop")
-luftGegner = Villain("Luftgegner", 60, 50, 2, [5, 20, 0], "vogeldrop")
+goblin = Villain("Goblin", 40, 100, 1, [5, 0, 10], "goblin überreste")
+golem = Villain("Erdgolem", 100, 40, 4, [20, 15, 10], "golem überreste")
+wizard = Villain("Magier", 80, 80, 6, [5, 10, 15], "wizard überreste")
+luftGegner = Villain("Luftgegner", 60, 50, 2, [5, 20, 0], "vogel überreste")
 
 villains = [goblin, golem, wizard, luftGegner]
 
@@ -85,7 +85,7 @@ me.boss(villains)
 # Für den Bosskampf gibt es keinen shop, man verwendet dinge die von einem normalen gegner gedroppt werden, nachdem man diesen besiegt. Man braucht aber spezial angriffe von jedem gegner dens gibt um den boss zu besiegen
 # Wenn man einen kampf mit dem normalen gegner verliert, verliert man auch ein leben. mit diesen leben (schon implementiert) geht man dann in den bosskampf. (außer man hat heilung)
 
-# Gegner droppen gutscheine oder spezial angriffe, also z.b. magier droppt mageier angruff, goblin droppt goblin angriff
+# Gegner droppen gutscheine oder deren üverreste also z.b. magier droppt mageier überreste, goblin droppt goblin überreste
 # gutscheine um ausrüstung und heilung zu kaufen
 
 block = False # avoids two fights after another

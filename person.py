@@ -1,5 +1,5 @@
 positiveAnswers = ["yes", "y", "ja", "j", "yep", "jop"]
-import random, threading, countdown
+import random, json
 from collections import Counter
 from trivia import *
 
@@ -248,11 +248,64 @@ class Player(Person):
             item = input(">")
 
     def boss(self, villains):
+        leben = 200
+        remainingLayers = len(villains)
         print("Für den Bosskampf nutzt du die Angriffe aus deinem Inventar und deine tatsächlichen Leben")
-        possibleItems = ["schussattacke", "sebelattacke", "bombe", "heiltrank", "laehmungstrank"] # auch dynamisch mit json machen
+
+        possibleItems = []
+        with open("shop.json", "r") as f:
+            data = json.load(f)
+            for villain in data["res"]:
+                for item in villain["items"]:
+                    possibleItems.append(item["name"])
+
+        protectiveLayer = []
         for villain in villains:
-            possibleItems.append(villain.drop)
-        # for item in possibleItems:
-        #     print(item)
-        
-        print(str(Counter({key: self.inventory[key] for key in possibleItems})).replace("Counter", "Dein Inventar für den KAMPF: "))
+            protectiveLayer.append(villain.drop)
+
+        combinedList = set(possibleItems) | set(protectiveLayer)
+        inventory = +Counter({key: self.inventory[key] for key in combinedList})
+        print(str(inventory).replace("Counter", "Dein Inventar für den KAMPF: "))
+
+        while remainingLayers > 0:
+            print(f"Der Gegner hat ein Schutzschild um sich herum, welches nur mit den überresten der besiegten gener zerstört werden kann. Insgesammt gibt es noch {remainingLayers} Schutzschichten. Du kannst nicht zwei schichten mit den gleichen überresten zerstören, und immer nur eine schicht gleichzeitig pro angriff zerstören.\n")
+            
+            print('\nWie möchtest du angreifen? Du kannst 2 Angriffe auswählen um Kombo boni zu erhlaten, musst aber nicht. (Tippe "none" wenn du nur einen Angriff machen willst)')
+            first = input("1. Angriff: ")
+            while first.lower().strip() not in inventory:
+                print("ungültig")
+                first = input("1. Angriff: ")
+            first = first.lower().strip()
+            if not first == "kick":
+                inventory[first] -= 1
+            print(str(inventory).replace("Counter", "Dein Inventar nach einer Eingabe: "))
+            inventory = +inventory
+
+            bonus = input("2. Angriff: ")
+            while bonus.lower().strip() != "none" and bonus.lower().strip() not in inventory:
+                print("ungültig")
+                bonus = input("2. Angriff: ")
+            bonus = bonus.lower().strip()
+            if not bonus == "kick":
+                inventory[bonus] -= 1
+            print(str(inventory).replace("Counter", "Dein Inventar nach zwei Eingaben: "))
+
+            round = [first, bonus]
+
+            if first in protectiveLayer and bonus in protectiveLayer and first != bonus:
+                print("die überreste vermischen sich und wirken nicht gegen das schutzschild, hättest du mal zugehört ")
+
+            elif not first in protectiveLayer and not bonus in protectiveLayer:
+                print("Der Gegner hat eine schutzschicht")
+            
+            elif any(element in round for element in protectiveLayer) or first == bonus:
+                if bonus != "none" and first != bonus:
+                    print("Deine normale attacke ist leider nutzlos")
+                remainingLayers -=1
+                protectiveLayer[:] = [element for element in protectiveLayer if element not in round]
+
+                print(f"\nSuper, du hast eine schicht entfernt, es fehlen noch {protectiveLayer}")
+         
+            print(remainingLayers)
+            
+        print("Du hast die schutzschicht des gegners gebrochen, jetzt kannst du angreifen")

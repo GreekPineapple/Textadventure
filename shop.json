@@ -1,0 +1,38 @@
+{
+  "res": [
+    {
+      "villain": "boss",
+      "items": [
+        {
+          "name": "schussattacke",
+          "price": 2,
+          "damage": 10
+        },
+        {
+          "name": "sebelattacke",
+          "price": 2,
+          "damage": 10
+        },
+        {
+          "name": "bombe",
+          "price": 3,
+          "damage": 15
+        },
+        {
+          "name": "heiltrank",
+          "price": 4
+        },
+        {
+          "name": "laehmungstrank",
+          "price": 4
+        }
+      ]
+    },
+    {
+      "villain": "not so boss",
+      "items": [
+
+      ]
+    }
+  ]
+}
