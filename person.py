@@ -129,31 +129,10 @@ class Player(Person):
             vc = +vc #without 0's
             value_counts_str = str(vc).replace("Counter", "Dein Inventar für den Kampf: ")
             print(value_counts_str)
-            print('Wie möchtest du angreifen? Du kannst 2 Angriffe auswählen um Kombo boni zu erhlaten, musst aber nicht. (Tippe "none" wenn du nur einen Angriff machen willst)')
-            #choose 1 or 2 attacks:
+            round = self.choose(vc, specialAttacks)
+            use = round[0]
+            bonus = round[1]
 
-            use = input("1. Angriff: ")
-            while use.lower().strip() not in vc or use.lower().strip() in specialAttacks:
-                print("ungültig")
-                use = input("1. Angriff: ")
-            use = use.lower().strip()
-            if not use == "kick":
-                vc[use] -= 1
-            vcs = str(vc).replace("Counter", "after one eingabe: ")
-            print(vcs)
-            vc = +vc
-
-            bonus = input("2. Angriff: ")
-            while bonus.lower().strip() != "none" and bonus.lower().strip() not in vc or bonus.lower().strip() in specialAttacks:
-                print("ungültig")
-                bonus = input("2. Angriff: ")
-            bonus = bonus.lower().strip()
-            if not bonus == "kick":
-                vc[bonus] -= 1
-            vcs2 = str(vc).replace("Counter", "after two eingabe: ")
-            print(vcs2)
-
-            round = [use, bonus]
             if "water" in round:
                 if watercount > 3:
                     print("water macht keinen Schaden mehr")
@@ -270,27 +249,9 @@ class Player(Person):
         while remainingLayers > 0:
             print(f"Der Gegner hat ein Schutzschild um sich herum, welches nur mit den überresten der besiegten gener zerstört werden kann. Insgesammt gibt es noch {remainingLayers} Schutzschichten. Du kannst nicht zwei schichten mit den gleichen überresten zerstören, und immer nur eine schicht gleichzeitig pro angriff zerstören.\n")
             
-            print('\nWie möchtest du angreifen? Du kannst 2 Angriffe auswählen um Kombo boni zu erhlaten, musst aber nicht. (Tippe "none" wenn du nur einen Angriff machen willst)')
-            first = input("1. Angriff: ")
-            while first.lower().strip() not in inventory:
-                print("ungültig")
-                first = input("1. Angriff: ")
-            first = first.lower().strip()
-            if not first == "kick":
-                inventory[first] -= 1
-            print(str(inventory).replace("Counter", "Dein Inventar nach einer Eingabe: "))
-            inventory = +inventory
-
-            bonus = input("2. Angriff: ")
-            while bonus.lower().strip() != "none" and bonus.lower().strip() not in inventory:
-                print("ungültig")
-                bonus = input("2. Angriff: ")
-            bonus = bonus.lower().strip()
-            if not bonus == "kick":
-                inventory[bonus] -= 1
-            print(str(inventory).replace("Counter", "Dein Inventar nach zwei Eingaben: "))
-
-            round = [first, bonus]
+            round = self.choose(inventory, [""])
+            first = round[0]
+            bonus = round[1]
 
             if first in protectiveLayer and bonus in protectiveLayer and first != bonus:
                 print("die überreste vermischen sich und wirken nicht gegen das schutzschild, hättest du mal zugehört ")
@@ -309,3 +270,28 @@ class Player(Person):
             print(remainingLayers)
             
         print("Du hast die schutzschicht des gegners gebrochen, jetzt kannst du angreifen")
+
+    def choose(self, inventory, specialAttacks):
+        print('Wie möchtest du angreifen? Du kannst 2 Angriffe auswählen um Kombo boni zu erhlaten, musst aber nicht. (Tippe "none" wenn du nur einen Angriff machen willst)')
+        first = input("1. Angriff: ")
+        while first.lower().strip() not in inventory or first.lower().strip() in specialAttacks:
+            print("ungültig")
+            first = input("1. Angriff: ")
+        first = first.lower().strip()
+        if not first == "kick":
+            inventory[first] -= 1
+        print(str(inventory).replace("Counter", "Dein Inventar nach einer Eingabe: "))
+        inventory = +inventory
+
+        bonus = input("2. Angriff: ")
+        while bonus.lower().strip() != "none" and bonus.lower().strip() not in inventory or bonus.lower().strip() in specialAttacks:
+            print("ungültig")
+            bonus = input("2. Angriff: ")
+        bonus = bonus.lower().strip()
+        if not bonus == "kick":
+            inventory[bonus] -= 1
+        print(str(inventory).replace("Counter", "Dein Inventar nach zwei Eingaben: "))
+
+        round = [first, bonus]
+
+        return round
