@@ -20,11 +20,13 @@
         },
         {
           "name": "heiltrank",
-          "price": 4
+          "price": 4,
+          "damage": 0
         },
         {
           "name": "laehmungstrank",
-          "price": 4
+          "price": 4,
+          "damage": 0
         }
       ]
     },

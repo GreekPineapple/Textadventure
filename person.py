@@ -226,8 +226,7 @@ class Player(Person):
                 print("Diesen Artikel haben wir nicht im Angebot")
             item = input(">")
 
-    def boss(self, villains):
-        leben = 200
+    def boss(self, villains, boss):
         remainingLayers = len(villains)
         print("Für den Bosskampf nutzt du die Angriffe aus deinem Inventar und deine tatsächlichen Leben")
 
@@ -270,6 +269,19 @@ class Player(Person):
             print(remainingLayers)
             
         print("Du hast die schutzschicht des gegners gebrochen, jetzt kannst du angreifen")
+
+        while self.lives > 0 or boss.lives > 0:
+            round = self.choose(inventory, [""])
+            first = round[0]
+            bonus = round[1]
+            for villain in data["res"]:
+                for item in villain["items"]:
+                    if item["name"] in round:
+                        if item["name"] == "heiltrank":
+                            self.lives = 200
+                        if item["name"] == "laehmungstrank":
+                            pass
+                        boss.lives -= item["damage"]
 
     def choose(self, inventory, specialAttacks):
         print('Wie möchtest du angreifen? Du kannst 2 Angriffe auswählen um Kombo boni zu erhlaten, musst aber nicht. (Tippe "none" wenn du nur einen Angriff machen willst)')
