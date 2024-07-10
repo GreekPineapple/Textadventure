@@ -283,6 +283,25 @@ class Player(Person):
                             pass
                         boss.lives -= item["damage"]
 
+            if boss.lives >= 0:
+                print("Glückwunsch, Gegner ist tot")
+                break
+            
+            print("Du wirst angegriffen")
+            specialAttack = random.random()
+            if specialAttack < 0.30: #probabilty of 30% that enemy makes a special attack
+                print("Der gegner nutzt die Energie der Toten Gegner um einen Spezial angruff zu machen. Wehre ihn entweder mit den passenden Überresten ab, oder nutze den Lehmungstrank in der nächsten Runde.")
+                print("Hast du nichts von beiden, bekommst du doppelten Schaden.")
+                round = self.choose(inventory, [""])
+                if any(element in round for element in protectiveLayer) or "laehmungstrank" in round:
+                    print("yaay Du whrst den schaden ab")
+                else:
+                    print("Der Gegner trifft dch mit doppeltem schaden :((")
+                    self.lives -= boss.strength * 2
+            else:
+                self.lives -= boss.strength
+                print("Deine Leben: ", self.lives)
+
     def choose(self, inventory, specialAttacks):
         print('Wie möchtest du angreifen? Du kannst 2 Angriffe auswählen um Kombo boni zu erhlaten, musst aber nicht. (Tippe "none" wenn du nur einen Angriff machen willst)')
         first = input("1. Angriff: ")
