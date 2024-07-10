@@ -63,7 +63,7 @@ class TownHall:
         print("\u001b[4mTränke(je -4 Gutscheine):\u001b[0m \nHeiltrank; Laehmungstrank")
         shop = {"schussattacke": 2, "sebelattacke": 2, "bombe": 3, "heiltrank": 4, "laehmungstrank": 4}
         item = input(">")
-        while item.lower().strip() != "ende": #TODO Do while schleife?
+        while item.lower().strip() != "ende":
             if item.lower().strip() in shop and (player.inventory["Gutschein"] - shop[item]) >= 0:
                 player.inventory["Gutschein"] -= shop[item]
                 player.inventory[item] += 1
