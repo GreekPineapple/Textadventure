@@ -144,9 +144,10 @@ class Player(Person):
                                     print(item["name"] + " wurde doppelt benutzt")
                                     damage = getattr(villain, f"{item["name"]}Proof") * 1.5
                                 else:
-                                    print(item["name"] + " wurde hier benutzt")
+                                    print(item["name"] + " wurde benutzt")
                                     damage = getattr(villain, f"{item["name"]}Proof")
-                                print("Damage: ", damage)
+
+                                villain.lives -= damage
                                 attacks[item["name"]] += 1
                                 if attacks[item["name"]] > 3:
                                     print("\nDu hast jetzt zu oft den selben angriff genutzt. Der Gegner lernt daraus und ist jetzt immun...\n")
