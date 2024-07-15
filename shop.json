@@ -40,33 +40,33 @@
       "items": [
         {
           "name": "water",
-          "price": 2,
-          "type": "Angriff"
+          "price": 4,
+          "type": "Angriff",
+          "info": "Vorteil: Greift mehrere Gegner gleichzeitig an \nNachteil: Meist nicht so stark"
         },        
         {
           "name": "sword",
-          "price": 3,
-          "type": "Angriff"
+          "price": 4,
+          "type": "Angriff",
+          "info": "Vorteil: Der darauffolgende Angriff ist um 5 Pubkte stärker \nNachteil: Unwirksam bei Gegnern die fliegen"
         },
         {
           "name": "arrow",
           "price": 4,
-          "type": "Angriff"
+          "type": "Angriff",
+          "info": "Vorteil: Der stärkste Angriff \nNachteil: Trefferwahrscheinlichkeit nur bei 90%"
         },        
         {
           "name": "defence",
           "price": 8,
-          "type": "Verteidigung"
+          "type": "Verteidigung",
+          "info": "Der gegner macht weniger schaden wenn er idch angreift. Bis zu 5x kannst du dich ausrüßten"
         },
         {
-          "name": "jump",
+          "name": "ausweichmanöver",
           "price": 10,
-          "type": "Ausweichmanöver"
-        },        
-        {
-          "name": "heat",
-          "price": 10,
-          "type": "Ausweichmanöver"
+          "type": "Ausweichmanöver",
+          "info": "Schütze dich vor den Spezialattacken der Gegner"
         }
       ]
     }

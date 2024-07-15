@@ -3,7 +3,7 @@ from person import Player, Villain
 from map import *
 from notes import *
 map = Map(4,4)
-me = Player(200, 40, "myself", [], 42) #Start: Townhall
+me = Player(200, 10, "myself", [], 42) #Start: Townhall
 townhall = TownHall()
 woods = Woods("open")
 wf = Waterfall("open")
@@ -13,13 +13,12 @@ square = Square()
 birdhouse = BirdHouse("open")
 notes = Notes()
 
-#the smaller the resistance, the smaller the damage (Muss vielleicht *-1 machen, damit sprachlich sinn ergibt xD)
-goblin = Villain("Goblin", 100, 50, 1, [5, 0, 10], "goblin überreste")
-golem = Villain("Erdgolem", 150, 20, 4, [20, 15, 10], "golem überreste")
-wizard = Villain("Magier", 120, 40, 6, [5, 10, 15], "wizard überreste")
-luftGegner = Villain("Luftgegner", 110, 25, 2, [5, 20, 0], "vogel überreste")
+goblin = Villain("Goblin", 90, 35, [10, 20, 15], "goblin überreste")
+golem = Villain("Erdgolem", 140, 50, [20, 20, 10], "golem überreste")
+wizard = Villain("Magier", 135, 40,[10, 20, 10], "wizard überreste")
+luftGegner = Villain("Luftgegner", 110, 30,[5, 20, 0], "vogel überreste")
 
-boss = Villain("Boss", 150, 150, 15, ["a","b","c"], "special glitzer boss attacke")
+boss = Villain("Boss", 150, 150, ["a","b","c"], "special glitzer boss attacke")
 
 villains = [goblin, golem, wizard, luftGegner]
 
@@ -70,7 +69,6 @@ def printposition(position): #TODO mach match-case draus
         print("--Rathaus--")
     else:
         print("You're out of map lul")
-
 
 # quest can be: open; active; done; 
 map.printMap()
