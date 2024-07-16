@@ -9,9 +9,9 @@ class Person:
         self.name = name
         
     def printInfo (self):
-        print("Name: " + str(self.name) )
-        print("Leben: " + str(self.lives) )
-        print("Stärke: " + str(self.strength) )
+        print(f"\nDu wirst vom {self.name} angegriffen")
+        print(f"Leben: {self.lives}")
+        print(f"Stärke: {self.strength}\n" )
 
 class Villain (Person):
     def __init__(self, name, lives, strength, dpw, drop): #Damage Per Weapon (dpw)
@@ -23,10 +23,6 @@ class Villain (Person):
 
     def printInfo(self):
         super().printInfo()
-        print("Eigenschaften: " )
-        print("  Waterproof: " + str(self.waterProof) )
-        print("  Arrowproof: " + str(self.arrowProof) )
-        print("  Swordproof: " + str(self.swordProof) )
 
 class Player(Person):
     
@@ -131,9 +127,11 @@ class Player(Person):
 
             # --- Player attack --- #
             vc = +vc
-            value_counts_str = str(vc).replace("Counter", "Dein Inventar für den Kampf: ")
-            print(value_counts_str)
-            round = self.choose(vc, specialAttacks)
+            vcStr = str(vc).replace("Counter", "Dein Inventar für den Kampf: ")
+            print(vcStr)
+            choose = self.choose(vc, specialAttacks)
+            round = choose[0]
+            vc = choose[1]
             damage = 0
 
             for res in data["res"]:
@@ -154,13 +152,10 @@ class Player(Person):
                                         print("Leider hast du daneben geschossen")
                                     else:
                                         if round[0] == round[1]:
-                                            print(item["name"] + " wurde doppelt benutzt")
                                             print("Solch einen speziellen Angriff zu machen, raubt dir deine Kraft, du verlierts 10 Leben")
                                             damage = (getattr(villain, f"{item["name"]}Proof") + self.strength) * 2.5
-                                            print("damage", damage)
                                             self.lives -= 10
                                         elif not swordBonus:
-                                            print(item["name"] + " wurde benutzt")
                                             damage = getattr(villain, f"{item["name"]}Proof") + self.strength
                                         elif swordBonus:
                                             print("Durch den Angriff des Schwerts in der letzten Runde, macht dein Angriff mehr schaden")
@@ -171,41 +166,37 @@ class Player(Person):
                                             swordBonus = True
                                             print("Die Wunde des Gegners heilt sehr langsam, du wirst im Nächsten zug mehr schaden anrichten, wenn du die Wunde triffst.")
 
-                            print("Before: ", villain.lives)
                             villain.lives -= damage
-                            print("After: ", villain.lives)
-
                             attacks[item["name"]] += 1
                             if attacks[item["name"]] > 3:
                                 print("\nDu hast jetzt zu oft den selben angriff genutzt. Der Gegner lernt daraus und ist jetzt immun...\n")
 
             if "kick" in round:
                 villain.lives -= self.strength
-            print("Gegner Leben nach dem Angriff: " + str(villain.lives))
+            print(f"Der Gegner hat noch {villain.lives} Leben übrig\n")
             
             # --- Villain attack --- #
-            print("Du wirst angegriffen")
+            print("Der Gegner greift dich an")
             special_attack = random.random()
-            print("Special:",special_attack )
-            if special_attack < 0.20: #probabilty of 25% that enemy makes a special attack
-                print("Der gegner macht einen spezialangriff")
+            if special_attack < 0.20:
+                print("Der gegner macht einen Spezialangriff,")
                 if "ausweichmanöver" in vc:
-                    print("du weichst dem spezialangriff aus")
+                    print("aber du weichst dem Spezialangriff aus")
                     vc["ausweichmanöver"] -= 1
                 else:
-                    print("Du wirst mit spezialattacke angegriffen")
+                    print("und du wirst getroffen")
                     self.lives -= villain.strength * 2 * defencepoints
-                print("Deine Leben danach: " + str(self.lives))
+                print(f"Deine verbleibenden Leben: {self.lives}\n")
             else:
                 self.lives -= villain.strength * defencepoints
-                print("Deine Leben danach: " + str(self.lives))
+                print(f"Deine verbleibenden Leben: {self.lives}\n")
             if self.lives <= 0:
-                print("Du bist rip")
-                self.lives = tempLives - 1
+                print("Du wurdest besiegt und verlierst 10 Leben")
+                self.lives = tempLives - 10
                 break
             elif villain.lives <= 0:
                 drop = "Gutschein" if random.random() < 0.20 else villain.drop
-                print("Der Gegener ist rip und droppt dir " + drop)
+                print(f"Glückwunsch, du hast den Gegner besiegt, zur belohnung bekommst du: {drop}")
                 self.inventory[drop] += 1
                 self.lives = tempLives
                 break
@@ -213,16 +204,16 @@ class Player(Person):
     def shop(self, fightInventory):
         defenceCount = 0
         shop = {}
-        #TODO für den pfeil noch 1 Bogen kaufen?; details zu den angriffen anzeigen?
-        print('Du wirst angegriffen :( Kaufe deine Ausrüstung im Shop (beende deinen Einkauf mit "ende"):')
-        
+        print("Willkommen in der Kampfarena. Hier kaufst du Ausrüstung für den Kampf. Die Aurüstung bleibt in der Arena, d.h. was übrig bleibt, landet nicht in deinem Inventar.")
+        print("Gewinst du den Kampf, werden deine Leben wieder zurückgesetzt, und du bekommst eine Belohnung. Verlierst du den kampf allerdings, verlierst du 10 Leben außerhalb der Arena.")
+        print("Tippe einfach den namen ein, und beende deinen Eimkauf mit 'ende'\n")
         # --- Print items--- #
         with open("shop.json", "r") as f:
             data = json.load(f)
             for res in data["res"]:
                 if res["villain"] == "nightServants":
                     for item in res["items"]:
-                        print(f"{item["type"]}: {item["name"]} (-{item["price"]} Leben)")
+                        print(f"{item["type"]}: {item["name"]} (-{item["price"]} Leben) \n{item["info"]}\n")
                         shop[item["name"]] = item["price"]
 
         item = input(">")
@@ -325,7 +316,8 @@ class Player(Person):
                 print("Deine Leben: ", self.lives)
 
     def choose(self, inventory, specialAttacks):
-        print('Wie möchtest du angreifen? Du kannst 2 Angriffe auswählen um Kombo boni zu erhlaten, musst aber nicht. (Tippe "none" wenn du nur einen Angriff machen willst)')
+        print("Wähle 1-2 Items aus deinem Inventar aus, die du nutzen möchtest. Wenn du 2 gleiche Angriffe auswählst, machst du automatisch einen Sepzialangriff. Dieser macht zwar mehr schaden, raubt dir allerdings 10 Leben.")
+        print("Wenn du nur 1 Item verwenden willst, tippe beim 2. angriff 'none' ein.")
         first = input("1. Angriff: ")
         while first.lower().strip() not in inventory or first.lower().strip() in specialAttacks:
             print("ungültig")
@@ -343,8 +335,9 @@ class Player(Person):
         bonus = bonus.lower().strip()
         if not bonus == "kick":
             inventory[bonus] -= 1
+        inventory = +inventory
         print(str(inventory).replace("Counter", "Dein Inventar nach zwei Eingaben: "))
 
         round = [first, bonus]
 
-        return round
+        return round, inventory
