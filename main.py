@@ -3,7 +3,7 @@ from person import Player, Villain
 from map import *
 from notes import *
 map = Map(4,4)
-me = Player(200, 10, "myself", [], 42) #Start: Townhall
+me = Player(200, 10, "myself", ["Bauteil1", "Bauteil2"], 42) #Start: Townhall
 townhall = TownHall()
 woods = Woods("open")
 wf = Waterfall("open")
@@ -11,6 +11,7 @@ dam = Dam("open")
 aquarium = Aquarium("open")
 square = Square()
 birdhouse = BirdHouse("open")
+ww = WestWoods()
 notes = Notes()
 
 goblin = Villain("Goblin", 90, 35, [10, 20, 15], "goblin überreste")
@@ -24,7 +25,7 @@ villains = [goblin, golem, wizard, luftGegner]
 
 def checkaction(position): #TODO mach match-case draus
     if position == 11: # Wald
-        pass
+        ww.explore(me, villains, boss)
     elif position == 12: # Wald
        pass
     elif position == 13: # Wald

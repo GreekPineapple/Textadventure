@@ -53,7 +53,10 @@ class Map:
 
 class Square:
     def explore(self):
-        print("Hier passiert noch nichts...")
+        print("Hier kannst du deine Bauteile zusammenbauen, speichern (wird später implementiert hihi) und dir einen überblick über das spiel geben.")
+        print("Was möchtest du machen? (Bauteile/Speichern/überblick)")
+        action = input(">")
+
 
 class TownHall:
     def explore(self, player):
@@ -97,8 +100,8 @@ class Waterfall:
             if damquest == "done":
                 print('Rainer: "Woow, der Wasserfall fließt wieder, jetzt kann ich ganz entspannt meine Mittagspause hier verbingen')
                 print('Du erhälst dafür eine kleine Belohnung von mir, hoffe du kannst damit was anfangen"')
-                # erste Trank zutat geben
-                player.inventory["Heiltrank1"] += 1
+                # erstes Bauteil geben
+                player.inventory["Bauteil1"] += 1
                 self.quest = "done"
                 note.delete(" - Rede mit Rainer am Wasserfall")
             else:
@@ -254,7 +257,9 @@ class SouthWoods:
         print("Hier passiert noch nichts...")
 
 class WestWoods:
-    def explore(self):
+    def explore(self, player, villains, boss):
+        if "Bauteil1" in player.inventory and "Bauteil2" in player.inventory:
+            player.boss(villains,boss)
         print("Hier passiert noch nichts...")
 
 class EastWoods:
