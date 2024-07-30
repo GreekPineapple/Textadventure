@@ -52,10 +52,17 @@ class Map:
             row+=1
 
 class Square:
-    def explore(self):
-        print("Hier kannst du deine Bauteile zusammenbauen, speichern (wird später implementiert hihi) und dir einen überblick über das spiel geben.")
-        print("Was möchtest du machen? (Bauteile/Speichern/überblick)")
+    def explore(self, player):
+        print("Hier kannst du deine Bauteile zusammenbauen und speichern (wird später implementiert hihi)")
+        print("Was möchtest du machen? (Bauteile/Speichern)")
         action = input(">")
+        if action.lower().strip() == "bauteile":
+            if {"Bauteil1", "Bauteil2", "Bauteil3"}.issubset(player.inventory):
+                print("Super, du hast alle 3 bauteile gefunden. Als du diese zusammenbaust, merkst du dass es ein schlüssel für die schatzkammer ist, in der du ewigen reichtum findest!")
+                print("Herzlichen Glückwunsch du hast das Spiel gewonne :D")
+                #hier noch ne globale variable einfügen
+            else:
+                print("Sorry, dir fehlen wohl teile, gehe auf die Suche um insgesammt 3 Bauteile zu finden")
 
 
 class TownHall:
