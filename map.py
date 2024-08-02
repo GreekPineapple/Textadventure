@@ -1,4 +1,4 @@
-from collections import Counter
+import globals
 positiveAnswers = ["yes", "y", "ja", "j", "yep", "jop"]
 negativeAnswers = ["no", "n", "nein", "ne", "nop", "nope", "nee"]
 class Map:
@@ -60,7 +60,7 @@ class Square:
             if {"Bauteil1", "Bauteil2", "Bauteil3"}.issubset(player.inventory):
                 print("Super, du hast alle 3 bauteile gefunden. Als du diese zusammenbaust, merkst du dass es ein schlüssel für die schatzkammer ist, in der du ewigen reichtum findest!")
                 print("Herzlichen Glückwunsch du hast das Spiel gewonne :D")
-                #hier noch ne globale variable einfügen
+                globals.winning = True
             else:
                 print("Sorry, dir fehlen wohl teile, gehe auf die Suche um insgesammt 3 Bauteile zu finden")
 
