@@ -1,9 +1,9 @@
-import random
+import random, globals
 from person import Player, Villain
 from map import *
 from notes import *
 map = Map(4,4)
-me = Player(200, 10, "myself", ["Bauteil1", "Bauteil2"], 42) #Start: Townhall
+me = Player(200, 10, "myself", ["Bauteil1","lol", "bombe", "bombe", "Bauteil2", "Bauteil3"], 42) #Start: Townhall
 townhall = TownHall()
 woods = Woods("open")
 wf = Waterfall("open")
@@ -39,7 +39,7 @@ def checkaction(position): #TODO mach match-case draus
     elif position == 31: # Aquarium
         aquarium.quest = aquarium.explore(dam.quest, birdhouse.quest, me, notes)
     elif position == 32: # Dorfplatz
-        pass
+        square.explore(me)
     elif position == 33: # Wasserfall
         wf.quest = wf.explore(dam.quest, notes, me)
     elif position == 42: # Rathaus
@@ -81,7 +81,11 @@ notes.read()
 #TODO maybe bei nicht bestandenem quiz, hinweis in die notes schreiben?
 
 block = False # avoids two fights after another
+
 while me.lives > 0:
+    if globals.winning:
+        print("Yaay du hast gewonnen")
+        break
     print("Was möchtest du machen?")
     doing = input(">")
     if doing == "umschauen":

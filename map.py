@@ -266,7 +266,7 @@ class SouthWoods:
 class WestWoods:
     def explore(self, player, villains, boss):
         if "Bauteil1" in player.inventory and "Bauteil2" in player.inventory:
-            player.boss(villains,boss)
+            player.boss(villains, boss, player)
         print("Hier passiert noch nichts...")
 
 class EastWoods:

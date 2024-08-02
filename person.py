@@ -231,7 +231,7 @@ class Player(Person):
                 print("Diesen Artikel haben wir nicht im Angebot")
             item = input(">")
 
-    def boss(self, villains, boss):
+    def boss(self, villains, boss, player):
         remainingLayers = len(villains)
         print("Für den Bosskampf nutzt du die Angriffe aus deinem Inventar und deine tatsächlichen Leben")
 
@@ -295,7 +295,8 @@ class Player(Person):
                             boss.lives -= item["damage"]
 
             if boss.lives >= 0:
-                print("Glückwunsch, Gegner ist tot")
+                print("Glückwunsch, Gegner ist tot, hier ist das letzte fehlende Bauteil")
+                player.inventory["Bauteil3"] += 1
                 break
             
             # --- Villain attack --- #
