@@ -6,31 +6,37 @@
         {
           "name": "schussattacke",
           "price": 2,
+          "type": "Angriff",
           "damage": 10
         },
         {
           "name": "sebelattacke",
           "price": 2,
+          "type": "Angriff",
           "damage": 10
         },
         {
           "name": "bombe",
           "price": 3,
+          "type": "Mehrfachangriff",
           "damage": 15
         },
         {
           "name": "schutzschild",
           "price": 4,
+          "type": "Schutz",
           "damage": 0
         },
         {
           "name": "heiltrank",
           "price": 4,
+          "type": "Trank",
           "damage": 0
         },
         {
           "name": "laehmungstrank",
           "price": 4,
+          "type": "Trank",
           "damage": 0
         }
       ]

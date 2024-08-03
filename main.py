@@ -3,7 +3,7 @@ from person import Player, Villain
 from map import *
 from notes import *
 map = Map(4,4)
-me = Player(200, 10, "myself", ["Bauteil1","lol", "bombe", "bombe", "Bauteil2", "Bauteil3"], 42) #Start: Townhall
+me = Player(200, 10, "myself", [], 42) #Start: Townhall
 townhall = TownHall()
 woods = Woods("open")
 wf = Waterfall("open")

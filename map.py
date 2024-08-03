@@ -1,4 +1,4 @@
-import globals
+import globals, json
 positiveAnswers = ["yes", "y", "ja", "j", "yep", "jop"]
 negativeAnswers = ["no", "n", "nein", "ne", "nop", "nope", "nee"]
 class Map:
@@ -67,11 +67,17 @@ class Square:
 
 class TownHall:
     def explore(self, player):
-        #TODO Noch nicht fertig!
+        shop = {}
+        
         print("Hier kannst du Gutscheine in Ausrüstung tauschen (Tippe 'ende' wenn du fertig bist) \nWir haben im Angebot:")
-        print("\u001b[4mAngriffe(je -2 Gutscheine):\u001b[0m \nSchussattacke; Sebelattacke; \nBombe (-3 Gutscheine)")
-        print("\u001b[4mTränke(je -4 Gutscheine):\u001b[0m \nHeiltrank; Laehmungstrank")
-        shop = {"schussattacke": 2, "sebelattacke": 2, "bombe": 3, "heiltrank": 4, "laehmungstrank": 4}
+        with open("shop.json", "r") as f:
+            data = json.load(f)
+            for res in data["res"]:
+                if res["villain"] == "boss":
+                    for item in res["items"]:
+                        print(f"{item["type"]}: {item["name"]} (-{item["price"]} Gutscheine)\n")
+                        shop[item["name"]] = item["price"]
+
         item = input(">")
         while item.lower().strip() != "ende":
             if item.lower().strip() in shop and (player.inventory["Gutschein"] - shop[item]) >= 0:
@@ -201,7 +207,6 @@ class Aquarium:
         return self.quest
 
 class BirdHouse:
-
     def __init__(self, quest):
         self.quest = quest 
         
@@ -239,7 +244,6 @@ class BirdHouse:
         return self.quest
 
 class Woods:
-
     def __init__(self, quest):
         self.quest = quest 
         
@@ -259,6 +263,7 @@ class Woods:
                 elif option.lower().strip() == "c":
                     print("Du bist vom Baum gefallen und gestorben, lol")
         return self.quest
+    
 class SouthWoods:
     def explore(self):
         print("Hier passiert noch nichts...")
@@ -267,7 +272,8 @@ class WestWoods:
     def explore(self, player, villains, boss):
         if "Bauteil1" in player.inventory and "Bauteil2" in player.inventory:
             player.boss(villains, boss, player)
-        print("Hier passiert noch nichts...")
+        else:
+            print("Hier passiert noch nichts...")
 
 class EastWoods:
     def explore(self):
