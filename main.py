@@ -75,9 +75,6 @@ def printposition(position): #TODO mach match-case draus
 map.printMap()
 notes.read()
 
-#TODO Stelle sicher, dass es verschiedene Arten von Angriffen gibt, die der Spieler verwenden kann, z.B. physische -, oder magische Angriffe
-# oder Statusveränderungen. Jeder Angriffstyp sollte seine eigenen Vor- und Nachteile haben, so dass der Spieler strategisch vorgehen muss.
-#TODO Zeit abbrechen wenn alle fragen durch sind
 #TODO maybe bei nicht bestandenem quiz, hinweis in die notes schreiben?
 
 block = False # avoids two fights after another
