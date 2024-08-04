@@ -41,16 +41,20 @@ class Trivia:
                     rprint(f"[red]{userInput} ist falsch.[/red] Die richtige Antwort wäre: " + question['correct_answer'])
 
             rprint(f"Du hast {points} von {len(questions)} möglichen Fragen richtig!\n")
-
+        quizFinished.set()
         return points
 
     def timer(quizFinished):
         for i in range(100, 0, -1):
+            if quizFinished.is_set():
+                break
             if i % 5 == 0:
                 rprint(f"\n[bright_magenta]Verbleibende Zeit: {i} Sekunden[/bright_magenta]")
             time.sleep(1)
-        rprint("[red]Die zeit ist abgelaufen, mache deine letzte Eingabe...[/red]")
-        quizFinished.set()
+
+        if not quizFinished.is_set():
+            rprint("[red]Die zeit ist abgelaufen, mache deine letzte Eingabe...[/red]")
+            quizFinished.set()
 
     def main(self, player):
         quizFinished = threading.Event()
