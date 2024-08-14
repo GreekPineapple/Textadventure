@@ -236,12 +236,14 @@ class Player(Person):
         print("Für den Bosskampf nutzt du die Angriffe aus deinem Inventar und deine tatsächlichen Leben")
 
         possibleItems = []
-        with open("shop.json", "r") as f:
-            data = json.load(f)
-            for villain in data["res"]:
-                if villain["villain"] == "boss":
-                    for item in villain["items"]:
-                        possibleItems.append(item["name"])
+        # with open("shop.json", "r") as f:
+        #     data = json.load(f)
+        #     for villain in data["res"]:
+        #         if villain["villain"] == "boss":
+        #             for item in villain["items"]:
+        items = self.filterJsonBoss()
+        for item in items:
+            possibleItems.append(item["name"])
 
         protectiveLayer = []
         for villain in villains:
@@ -256,20 +258,19 @@ class Player(Person):
             print(f"Der Gegner hat ein Schutzschild um sich herum, welches nur mit den überresten der besiegten gener zerstört werden kann. Insgesammt gibt es noch {remainingLayers} Schutzschichten. Du kannst nicht zwei schichten mit den gleichen überresten zerstören, und immer nur eine schicht gleichzeitig pro angriff zerstören.\n")
             
             round = self.choose(inventory, [""])
-            first = round[0]
-            bonus = round[1]
+            attacks = round[0]
 
-            if first in protectiveLayer and bonus in protectiveLayer and first != bonus:
+            if attacks[0] in protectiveLayer and attacks[1] in protectiveLayer and attacks[0] != attacks[1]:
                 print("die überreste vermischen sich und wirken nicht gegen das schutzschild, hättest du mal zugehört ")
 
-            elif not first in protectiveLayer and not bonus in protectiveLayer:
+            elif not attacks[0] in protectiveLayer and not attacks[1] in protectiveLayer:
                 print("Der Gegner hat eine schutzschicht")
             
-            elif any(element in round for element in protectiveLayer) or first == bonus:
-                if bonus != "none" and first != bonus:
+            elif any(element in attacks for element in protectiveLayer) or attacks[0] == attacks[1]:
+                if attacks[1] != "none" and attacks[0] != attacks[1]:
                     print("Deine normale attacke ist leider nutzlos")
                 remainingLayers -=1
-                protectiveLayer[:] = [element for element in protectiveLayer if element not in round]
+                protectiveLayer[:] = [element for element in protectiveLayer if element not in attacks]
 
                 print(f"\nSuper, du hast eine schicht entfernt, es fehlen noch {protectiveLayer}")
          
@@ -282,19 +283,20 @@ class Player(Person):
 
             # --- Player attack --- #
             round = self.choose(inventory, [""])
-            first = round[0]
-            bonus = round[1]
-            for villain in data["res"]:
-                if villain["villain"] == "boss":
-                    for item in villain["items"]:
-                        if item["name"] in round:
-                            if item["name"] == "heiltrank":
-                                self.lives = 200
-                            if item["name"] == "laehmungstrank":
-                                pass
-                            boss.lives -= item["damage"]
+            attacks = round[0]
+            # for villain in data["res"]:
+            #     if villain["villain"] == "boss":
+            #         for item in villain["items"]:
+            items = self.filterJsonBoss()
+            for item in items:
+                if item["name"] in round[0]:
+                    if item["name"] == "heiltrank":
+                        self.lives = 200
+                    if item["name"] == "laehmungstrank":
+                        pass
+                    boss.lives -= item["damage"]
 
-            if boss.lives >= 0:
+            if boss.lives <= 0:
                 print("Glückwunsch, Gegner ist tot, hier ist das letzte fehlende Bauteil")
                 player.inventory["Bauteil3"] += 1
                 break
@@ -306,7 +308,8 @@ class Player(Person):
                 print("Der gegner nutzt die Energie der Toten Gegner um einen Spezial angruff zu machen. Wehre ihn entweder mit den passenden Überresten ab, oder nutze den Lehmungstrank in der nächsten Runde.")
                 print("Hast du nichts von beiden, bekommst du doppelten Schaden.")
                 round = self.choose(inventory, [""])
-                if any(element in round for element in protectiveLayer) or "laehmungstrank" in round:
+                attacks = round[0]
+                if any(element in attacks[0] for element in protectiveLayer) or "laehmungstrank" in attacks[0]:
                     print("yaay Du whrst den schaden ab")
                 else:
                     print("Der Gegner trifft dch mit doppeltem schaden :((")
@@ -342,3 +345,13 @@ class Player(Person):
         round = [first, bonus]
 
         return round, inventory
+    def filterJsonBoss(self):
+        items = []
+        with open("shop.json", "r") as f:
+            data = json.load(f)
+            for res in data["res"]:
+                if res["villain"] == "boss":
+                    for item in res["items"]:
+                        items.append(item)
+        return items
+
