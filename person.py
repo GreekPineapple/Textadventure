@@ -110,15 +110,12 @@ class Player(Person):
         swordBonus = False
 
         # --- Filter attacks and special attacks--- #
-        with open("shop.json", "r") as f:
-            data = json.load(f)
-            for res in data["res"]:
-                if res["villain"] == "nightServants":
-                    for item in res["items"]:
-                        if item["type"] == "Ausweichmanöver":
-                            specialAttacks.append(item["name"])
-                        elif item["type"] == "Angriff" or item["type"] == "Verteidigung":
-                            attacks[item["name"]] = 0
+        items = self.filterJsonNightServants()
+        for item in items:
+            if item["type"] == "Ausweichmanöver":
+                specialAttacks.append(item["name"])
+            elif item["type"] == "Angriff" or item["type"] == "Verteidigung":
+                attacks[item["name"]] = 0
 
         self.shop(fightInventory)
         vc = Counter(fightInventory)
@@ -132,44 +129,15 @@ class Player(Person):
             choose = self.choose(vc, specialAttacks)
             round = choose[0]
             vc = choose[1]
-            damage = 0
 
-            for res in data["res"]:
-                if res["villain"] == "nightServants":
-                    for item in res["items"]:
-                        if item["name"] in round:
-                            if item["name"] == "defence":
-                                defencepoints -= 0.1
-                                if round[0] == round[1]:
-                                    defencepoints -= 0.1
-                                print("defence", defencepoints)
-                            else:
-                                if attacks[item["name"]] > 3:
-                                    print(item["name"], " macht keinen Schaden mehr")
-                                else:
-                                    fail = random.random()
-                                    if item["name"] == "arrow" and fail < 0.10:
-                                        print("Leider hast du daneben geschossen")
-                                    else:
-                                        if round[0] == round[1]:
-                                            print("Solch einen speziellen Angriff zu machen, raubt dir deine Kraft, du verlierts 10 Leben")
-                                            damage = (getattr(villain, f"{item["name"]}Proof") + self.strength) * 2.5
-                                            self.lives -= 10
-                                        elif not swordBonus:
-                                            damage = getattr(villain, f"{item["name"]}Proof") + self.strength
-                                        elif swordBonus:
-                                            print("Durch den Angriff des Schwerts in der letzten Runde, macht dein Angriff mehr schaden")
-                                            print(item["name"] + " wurde benutzt")
-                                            damage = getattr(villain, f"{item["name"]}Proof") + 5 + self.strength
-                                            swordBonus = False
-                                        if item["name"] == "sword":
-                                            swordBonus = True
-                                            print("Die Wunde des Gegners heilt sehr langsam, du wirst im Nächsten zug mehr schaden anrichten, wenn du die Wunde triffst.")
-
-                            villain.lives -= damage
-                            attacks[item["name"]] += 1
-                            if attacks[item["name"]] > 3:
-                                print("\nDu hast jetzt zu oft den selben angriff genutzt. Der Gegner lernt daraus und ist jetzt immun...\n")
+            items = self.filterJsonNightServants()
+            for item in items:
+                if item["name"] in round:
+                    damage = self.checkDamage(item, attacks, villain, defencepoints, swordBonus, round)
+                    villain.lives -= damage
+                    attacks[item["name"]] += 1
+                    if attacks[item["name"]] > 3:
+                        print("\nDu hast jetzt zu oft den selben angriff genutzt. Der Gegner lernt daraus und ist jetzt immun...\n")
 
             if "kick" in round:
                 villain.lives -= self.strength
@@ -201,20 +169,49 @@ class Player(Person):
                 self.lives = tempLives
                 break
     
+    def checkDamage(self,item, attacks, villain, defencepoints, swordBonus, round):
+        damage = 0
+        if item["name"] == "defence":
+            defencepoints -= 0.1
+            if round[0] == round[1]:
+                defencepoints -= 0.1
+            print("defence", defencepoints)
+        else:
+            if attacks[item["name"]] > 3:
+                print(item["name"], " macht keinen Schaden mehr")
+            else:
+                fail = random.random()
+                if item["name"] == "arrow" and fail < 0.10:
+                    print("Leider hast du daneben geschossen")
+                else:
+                    if round[0] == round[1]:
+                        print("Solch einen speziellen Angriff zu machen, raubt dir deine Kraft, du verlierts 10 Leben")
+                        damage = (getattr(villain, f"{item["name"]}Proof") + self.strength) * 2.5
+                        self.lives -= 10
+                    elif not swordBonus:
+                        damage = getattr(villain, f"{item["name"]}Proof") + self.strength
+                    elif swordBonus:
+                        print("Durch den Angriff des Schwerts in der letzten Runde, macht dein Angriff mehr schaden")
+                        print(item["name"] + " wurde benutzt")
+                        damage = getattr(villain, f"{item["name"]}Proof") + 5 + self.strength
+                        swordBonus = False
+                    if item["name"] == "sword":
+                        swordBonus = True
+                        print("Die Wunde des Gegners heilt sehr langsam, du wirst im Nächsten zug mehr schaden anrichten, wenn du die Wunde triffst.")
+        return damage
+
     def shop(self, fightInventory):
         defenceCount = 0
         shop = {}
         print("Willkommen in der Kampfarena. Hier kaufst du Ausrüstung für den Kampf. Die Aurüstung bleibt in der Arena, d.h. was übrig bleibt, landet nicht in deinem Inventar.")
         print("Gewinst du den Kampf, werden deine Leben wieder zurückgesetzt, und du bekommst eine Belohnung. Verlierst du den kampf allerdings, verlierst du 10 Leben außerhalb der Arena.")
         print("Tippe einfach den namen ein, und beende deinen Eimkauf mit 'ende'\n")
+
         # --- Print items--- #
-        with open("shop.json", "r") as f:
-            data = json.load(f)
-            for res in data["res"]:
-                if res["villain"] == "nightServants":
-                    for item in res["items"]:
-                        print(f"{item["type"]}: {item["name"]} (-{item["price"]} Leben) \n{item["info"]}\n")
-                        shop[item["name"]] = item["price"]
+        items = self.filterJsonNightServants()
+        for item in items:
+            print(f"{item["type"]}: {item["name"]} (-{item["price"]} Leben) \n{item["info"]}\n")
+            shop[item["name"]] = item["price"]
 
         item = input(">")
         while item.lower().strip() != "ende":
@@ -236,11 +233,6 @@ class Player(Person):
         print("Für den Bosskampf nutzt du die Angriffe aus deinem Inventar und deine tatsächlichen Leben")
 
         possibleItems = []
-        # with open("shop.json", "r") as f:
-        #     data = json.load(f)
-        #     for villain in data["res"]:
-        #         if villain["villain"] == "boss":
-        #             for item in villain["items"]:
         items = self.filterJsonBoss()
         for item in items:
             possibleItems.append(item["name"])
@@ -284,9 +276,6 @@ class Player(Person):
             # --- Player attack --- #
             round = self.choose(inventory, [""])
             attacks = round[0]
-            # for villain in data["res"]:
-            #     if villain["villain"] == "boss":
-            #         for item in villain["items"]:
             items = self.filterJsonBoss()
             for item in items:
                 if item["name"] in round[0]:
@@ -345,6 +334,17 @@ class Player(Person):
         round = [first, bonus]
 
         return round, inventory
+    
+    def filterJsonNightServants(self):
+        items = []
+        with open("shop.json", "r") as f:
+            data = json.load(f)
+            for res in data["res"]:
+                if res["villain"] == "nightServants":
+                    for item in res["items"]:
+                        items.append(item)
+        return items
+
     def filterJsonBoss(self):
         items = []
         with open("shop.json", "r") as f:
