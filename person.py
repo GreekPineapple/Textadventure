@@ -133,7 +133,7 @@ class Player(Person):
             items = self.filterJsonNightServants()
             for item in items:
                 if item["name"] in round:
-                    damage = self.checkDamage(item, attacks, villain, defencepoints, swordBonus, round)
+                    damage, defencepoints = self.checkDamage(item, attacks, villain, defencepoints, swordBonus, round)
                     villain.lives -= damage
                     attacks[item["name"]] += 1
                     if attacks[item["name"]] > 3:
@@ -198,7 +198,7 @@ class Player(Person):
                     if item["name"] == "sword":
                         swordBonus = True
                         print("Die Wunde des Gegners heilt sehr langsam, du wirst im Nächsten zug mehr schaden anrichten, wenn du die Wunde triffst.")
-        return damage
+        return damage, defencepoints
 
     def shop(self, fightInventory):
         defenceCount = 0
