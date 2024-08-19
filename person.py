@@ -213,20 +213,18 @@ class Player(Person):
             print(f"{item["type"]}: {item["name"]} (-{item["price"]} Leben) \n{item["info"]}\n")
             shop[item["name"]] = item["price"]
 
-        item = input(">")
-        while item.lower().strip() != "ende":
-            if item.lower().strip() == "defence":
+        while (item := input(">>").lower().strip()) != "ende":
+            if item == "defence":
                 defenceCount += 1
-            if item.lower().strip() in shop:
-                if defenceCount <= 5 or item.lower().strip() != "defence":
-                    self.lives -= shop[item.lower().strip()]
-                    fightInventory.append(item.lower().strip())
+            if item in shop:
+                if defenceCount <= 5 or item != "defence":
+                    self.lives -= shop[item]
+                    fightInventory.append(item)
                     print("Du hast noch: " + str(self.lives) + " leben")
                 else:
                     print("Du darfst nur 5 mal deine Verteidugng verbessern, wähle was anderes aus.")
             else:
                 print("Diesen Artikel haben wir nicht im Angebot")
-            item = input(">")
 
     def boss(self, villains, boss, player):
         remainingLayers = len(villains)
@@ -311,21 +309,15 @@ class Player(Person):
     def choose(self, inventory, specialAttacks):
         print("Wähle 1-2 Items aus deinem Inventar aus, die du nutzen möchtest. Wenn du 2 gleiche Angriffe auswählst, machst du automatisch einen Sepzialangriff. Dieser macht zwar mehr schaden, raubt dir allerdings 10 Leben.")
         print("Wenn du nur 1 Item verwenden willst, tippe beim 2. angriff 'none' ein.")
-        first = input("1. Angriff: ")
-        while first.lower().strip() not in inventory or first.lower().strip() in specialAttacks:
+        while (first := input("1. Angriff: ").lower().strip()) not in inventory or first in specialAttacks:
             print("ungültig")
-            first = input("1. Angriff: ")
-        first = first.lower().strip()
         if not first == "kick":
             inventory[first] -= 1
         print(str(inventory).replace("Counter", "Dein Inventar nach einer Eingabe: "))
         inventory = +inventory
 
-        bonus = input("2. Angriff: ")
-        while bonus.lower().strip() != "none" and bonus.lower().strip() not in inventory or bonus.lower().strip() in specialAttacks:
+        while (bonus := input("2. Angriff: ").lower().strip()) != "none" and bonus not in inventory or bonus in specialAttacks:
             print("ungültig")
-            bonus = input("2. Angriff: ")
-        bonus = bonus.lower().strip()
         if not bonus == "kick":
             inventory[bonus] -= 1
         inventory = +inventory

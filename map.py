@@ -78,19 +78,17 @@ class TownHall:
                         print(f"{item["type"]}: {item["name"]} (-{item["price"]} Gutscheine)\n")
                         shop[item["name"]] = item["price"]
 
-        item = input(">")
-        while item.lower().strip() != "ende":
-            if item.lower().strip() in shop and (player.inventory["Gutschein"] - shop[item]) >= 0:
+        while (item := input(">").lower().strip()) != "ende":
+            if item in shop and (player.inventory["Gutschein"] - shop[item]) >= 0:
                 player.inventory["Gutschein"] -= shop[item]
                 player.inventory[item] += 1
                 print(player.inventory)
             else:
-                if item.lower().strip() in shop:
+                if item in shop:
                     print("Scheint als hättest du nicht genug Gutscheine")
                 else:
                     print("Diesen Artikel haben wir nicht im Angebot")
             print("Du hast noch " + str(player.inventory["Gutschein"]) + " Gutscheine zur verfügung")
-            item = input(">")
 
 class Waterfall:
     def __init__(self, quest):
