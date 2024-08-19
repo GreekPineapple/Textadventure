@@ -50,7 +50,7 @@ class Player(Person):
             if position == 30:
                 if not self.secretPath:
                     print("Hier ist ein geheimweg, den du noch nicht freigeschalten hast!")
-                    answer = input("Möchtest du jetzt dein Wissen unter Beweis stellen? (ja/nein)")
+                    answer = input("Möchtest du jetzt dein Wissen unter Beweis stellen? (ja/nein)").lower().strip()
                     if answer == "ja":
                         if Trivia.main(Trivia, self):
                             position = 22
@@ -85,7 +85,7 @@ class Player(Person):
             if position == 22:
                 if not self.secretPath:
                     print("Hier ist ein geheimweg, den du noch nicht freigeschalten hast!")
-                    answer = input("Möchtest du jetzt dein Wissen unter Beweis stellen? (ja/nein)")
+                    answer = input("Möchtest du jetzt dein Wissen unter Beweis stellen? (ja/nein)").lower().strip()
                     if answer == "ja":
                         if Trivia.main(Trivia, self):
                             position = 30
@@ -111,11 +111,8 @@ class Player(Person):
 
         # --- Filter attacks and special attacks --- #
         items = self.filterJsonNightServants()
-        for item in items:
-            if item["type"] == "Ausweichmanöver":
-                specialAttacks.append(item["name"])
-            elif item["type"] == "Angriff" or item["type"] == "Verteidigung":
-                attacks[item["name"]] = 0
+        specialAttacks = [item["name"] for item in items if item["type"] == "Ausweichmanöver"]
+        attacks = {item["name"]: 0 for item in items if item["type"] in {"Angriff", "Verteidigung"}}
 
         self.shop(fightInventory)
         vc = Counter(fightInventory)
@@ -207,7 +204,7 @@ class Player(Person):
             print(f"{item["type"]}: {item["name"]} (-{item["price"]} Leben) \n{item["info"]}\n")
             shop[item["name"]] = item["price"]
 
-        while (item := input(">>").lower().strip()) != "ende":
+        while (item := input(">").lower().strip()) != "ende":
             if item == "defence":
                 defenceCount += 1
             if item in shop:
@@ -326,19 +323,13 @@ class Player(Person):
         items = []
         with open("shop.json", "r") as f:
             data = json.load(f)
-            for res in data["res"]:
-                if res["villain"] == "nightServants":
-                    for item in res["items"]:
-                        items.append(item)
+            items = [item for res in data["res"] if res["villain"] == "nightServants" for item in res["items"]]
         return items
 
     def filterJsonBoss(self):
         items = []
         with open("shop.json", "r") as f:
             data = json.load(f)
-            for res in data["res"]:
-                if res["villain"] == "boss":
-                    for item in res["items"]:
-                        items.append(item)
+            items = [item for res in data["res"] if res["villain"] == "boss" for item in res["items"]]
         return items
 

@@ -55,8 +55,8 @@ class Square:
     def explore(self, player):
         print("Hier kannst du deine Bauteile zusammenbauen und speichern (wird später implementiert hihi)")
         print("Was möchtest du machen? (Bauteile/Speichern)")
-        action = input(">")
-        if action.lower().strip() == "bauteile":
+        action = input(">").lower().strip()
+        if action == "bauteile":
             if {"Bauteil1", "Bauteil2", "Bauteil3"}.issubset(player.inventory):
                 print("Super, du hast alle 3 bauteile gefunden. Als du diese zusammenbaust, merkst du dass es ein schlüssel für die schatzkammer ist, in der du ewigen reichtum findest!")
                 print("Herzlichen Glückwunsch du hast das Spiel gewonne :D")
@@ -98,12 +98,12 @@ class Waterfall:
         if self.quest == "open":
             print('Rainer: "Oh man, hier war mal ein schöner Wasserfall, aber irgenjemand musste ja unbedingt ein Staudamm in Richtung Norden bauen...')
             print('Kannst du der Sache auf den Grund gehen?"')
-            option = input(">")
-            if option.lower().strip() in positiveAnswers:
+            option = input(">").lower().strip()
+            if option in positiveAnswers:
                 print("Gehe nach Norden und schau dich da mal um.")
                 self.quest = "active"
                 note.write(" - Sieh dich im Norden um")
-            elif option.lower().strip() in negativeAnswers:
+            elif option in negativeAnswers:
                 print('Rainer: "Okay schade, vielleicht ja später!"')
             else:
                 print("ungültige eingabe")
@@ -133,13 +133,13 @@ class Dam:
                 print('A: "Der Wasserfall ist aber total ausgetrocknet!"')
                 print('B: "Darf ich auch mal Füttern?"')
                 print('C: "Okay, dann viel Spaß noch."')
-                option = input(">")
-                if option.capitalize().strip() == "A":
+                option = input(">").capitalize().strip()
+                if option == "A":
                     print('Inge: "Ich würde dir ja gerne helfen, aber die Fische brauchen einen Ort zum Leben. Wenn es doch nur irgendwie einen weg geben würde, ein Aquarium zu besorgen..."')
                     self.quest = "active"
                     note.delete(" - Sieh dich im Norden um")
                     note.write(" - Besorge ein Aquarium")
-                elif option.capitalize().strip() == "B":
+                elif option == "B":
                     print("*Fütter*")
 
         elif self.quest == "active":
@@ -167,16 +167,16 @@ class Aquarium:
             if damquest == "active":
                 print("Wilkommmen bei Aquilinas Aquarium Laden! *(kurz: AAL)*")
                 print("Was kann ich für dich tun?")
-                option = input(">")
-                if "aquarium" in option.lower().strip():
+                option = input(">").lower().strip()
+                if "aquarium" in option:
                     print("Ah, du interessierst dich für unsere Aquarien?")
-                    option = input(">")
-                    if option.lower().strip() in positiveAnswers:
+                    option = input(">").lower().strip()
+                    if option in positiveAnswers:
                         print("Ich kann dir ein Angebot machen: Mein Kollege von der Vogelzucht braucht hilfe mit einem seiner Vögel...")
                         print("Er hat mich gebeten ihm zu helfen, doch ich habe einfach keine zeit. Wenn du ihm stattdessen hilfst, bekommst du ein Aquaium umsonst. Frage dort nach, was genau du tun kannst.")
                         print("Würdest du mir diesen gefallen tun?")
-                        option = input(">")
-                        if option.lower().strip() in positiveAnswers:
+                        option = input(">").lower().strip()
+                        if option in positiveAnswers:
                             self.quest = "active"
                             note.delete(" - Besorge ein Aquarium")
                             note.write(" - Gehe zum Vogelhaus um rauszufinden wo sich der Vogel versteckt")
@@ -189,8 +189,8 @@ class Aquarium:
         elif self.quest == "active":
             if birdquest == "done":
                 print("Hast du den Vogel gefunden und zurück gebracht?")
-                option = input(">")
-                if option.lower().strip() in positiveAnswers:
+                option = input(">").lower().strip()
+                if option in positiveAnswers:
                     print("Super, vielen Dank! Hier bekommst du ein Aquarium")
                     player.inventory["Aquarium"] += 1
                     self.quest = "done"
@@ -213,8 +213,8 @@ class BirdHouse:
             if aqquest == "active":
                 print("Leider ist mir unser schönster Vogel abgehauen, aber mein kollege und ich suchen grade zusammen nach ihm") 
                 print("Kannst du uns vielleicht dabei helfen?")
-                answer = input(">")
-                if answer.lower().strip() in positiveAnswers: 
+                answer = input(">").lower().strip()
+                if answer in positiveAnswers: 
                     print("Mega, danke! Vermutlich wird er sich irgendwo im Wald aufhalten, aber sicher bin ich mir da nicht..")
                     self.quest = "active"
                     note.delete(" - Gehe zum Vogelhaus um rauszufinden wo sich der Vogel versteckt")
@@ -226,8 +226,8 @@ class BirdHouse:
             if birdquest == "done":
                 print("Wilkommmen bei der Vogelzucht")
                 print("wie ich sehe hast du meinen Vogel gefunden?")
-                answer = input(">")
-                if answer.lower().strip() in positiveAnswers:
+                answer = input(">").lower().strip()
+                if answer in positiveAnswers:
                     print("Super, vielen Dank!")
                     print("Kannst du noch bei mienem Kollegen im Aquarium shop vorbei schauen und sagen, der Vogel ist wieder da? Danke!")
                     self.quest = "done"
@@ -250,15 +250,15 @@ class Woods:
             if birdquest == "active":
                 print("Das hier muss der Vogel sein der weggeflogen ist... \nAber wie fang ich ihn am besten?")
                 print("A: Vogelgeräusche imitieren \nB: Warten bis der Vogel weiter runter fliegt und ihn dann fangen \nC: Auf den Baum klettern und ihn fangen")
-                option = input(">")
-                if option.lower().strip() == "a":
+                option = input(">").lower().strip()
+                if option == "a":
                     print("Der Vogel denkt du bist ein Angreifer, du stirbst...")
-                elif option.lower().strip() == "b":
+                elif option == "b":
                     print("Glükwunssch du hast in gefangen")
                     self.quest = "done"
                     note.delete(" - Suche den Vogel und bringe ihn in das Vogelzucht haus")
                     note.write(" - Bringe den Vogel in das Vogelzucht haus")
-                elif option.lower().strip() == "c":
+                elif option == "c":
                     print("Du bist vom Baum gefallen und gestorben, lol")
         return self.quest
     

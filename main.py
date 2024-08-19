@@ -84,7 +84,7 @@ while me.lives > 0:
         print("Yaay du hast gewonnen")
         break
     print("Was möchtest du machen?")
-    doing = input(">")
+    doing = input(">").lower().strip()
     if doing == "umschauen":
         fight = random.choices((True, False), weights = [1, 3])
         if fight[0] and not block:
