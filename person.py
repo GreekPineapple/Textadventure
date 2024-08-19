@@ -45,8 +45,8 @@ class Player(Person):
         position = self.positionNow
         
         print("In welche Richtung möchtest du gehen? (N/O/S/W)")
-        direction = input(">")
-        if direction.lower().strip() == "n":
+        direction = input(">").lower().strip()
+        if direction == "n":
             if position == 30:
                 if not self.secretPath:
                     print("Hier ist ein geheimweg, den du noch nicht freigeschalten hast!")
@@ -59,29 +59,29 @@ class Player(Person):
                     position = 22
             elif position == 33 and wfquest == "done":
                 print("Diesen Weg gibt es leider nichtmehr. Hier fließt jetzt Wasser!")                               
-            elif position == 11 or position == 12 or position == 13 or position == 23 or position == 31:
+            elif position in {11, 12, 13, 23, 31}:
                 print("Hier gibt es keinen weg nach Norden")
             else:
                 print("Du gehst nach Norden")
                 position -= 10
 
-        elif direction.lower().strip() == "o":
-            if position == 13 or position == 23 or position == 33 or position == 42:
+        elif direction == "o":
+            if position in {13, 23, 33, 42}:
                 print("Hier gibt es keinen weg nach Osten")
             else:
                 print("Du gehst nach Osten")
                 position += 1
         
-        elif direction.lower().strip() == "s":
+        elif direction == "s":
             if position == 23 and wfquest == "done" :
                 print("Diesen Weg gibt es leider nichtmehr. Hier fließt jetzt Wasser!")               
-            elif position == 11 or position == 13 or position == 30 or position == 31 or position == 33 or position == 42:
+            elif position in { 11, 13, 30, 31, 33, 42}:
                 print("Hier gibt es keinen weg nach Sueden")
             else:
                 print("Du gehst nach Sueden")
                 position += 10
         
-        elif direction.lower().strip() == "w":
+        elif direction == "w":
             if position == 22:
                 if not self.secretPath:
                     print("Hier ist ein geheimweg, den du noch nicht freigeschalten hast!")
@@ -92,7 +92,7 @@ class Player(Person):
                 else:
                     print("Du gehst den Geheimweg")
                     position = 30
-            elif position == 11 or position == 30 or position == 42:
+            elif position in {11, 30, 42}:
                 print("Hier gibt es keinen weg nach Westen")
             else:
                 print("Du gehst nach Westen")
@@ -109,7 +109,7 @@ class Player(Person):
         attacks = {}
         swordBonus = False
 
-        # --- Filter attacks and special attacks--- #
+        # --- Filter attacks and special attacks --- #
         items = self.filterJsonNightServants()
         for item in items:
             if item["type"] == "Ausweichmanöver":
@@ -124,8 +124,7 @@ class Player(Person):
 
             # --- Player attack --- #
             vc = +vc
-            vcStr = str(vc).replace("Counter", "Dein Inventar für den Kampf: ")
-            print(vcStr)
+            print(str(vc).replace("Counter", "Dein Inventar für den Kampf: "))
             choose = self.choose(vc, specialAttacks)
             round = choose[0]
             vc = choose[1]
@@ -145,8 +144,8 @@ class Player(Person):
             
             # --- Villain attack --- #
             print("Der Gegner greift dich an")
-            special_attack = random.random()
-            if special_attack < 0.20:
+            isSpecialAttack = random.random()
+            if isSpecialAttack < 0.20:
                 print("Der gegner macht einen Spezialangriff,")
                 if "ausweichmanöver" in vc:
                     print("aber du weichst dem Spezialangriff aus")
@@ -172,32 +171,27 @@ class Player(Person):
     def checkDamage(self,item, attacks, villain, defencepoints, swordBonus, round):
         damage = 0
         if item["name"] == "defence":
-            defencepoints -= 0.1
-            if round[0] == round[1]:
-                defencepoints -= 0.1
+            value = 0.2 if round[0] == round[1] else 0.1
+            defencepoints -= value
             print("defence", defencepoints)
-        else:
-            if attacks[item["name"]] > 3:
-                print(item["name"], " macht keinen Schaden mehr")
-            else:
-                fail = random.random()
-                if item["name"] == "arrow" and fail < 0.10:
-                    print("Leider hast du daneben geschossen")
-                else:
-                    if round[0] == round[1]:
-                        print("Solch einen speziellen Angriff zu machen, raubt dir deine Kraft, du verlierts 10 Leben")
-                        damage = (getattr(villain, f"{item["name"]}Proof") + self.strength) * 2.5
-                        self.lives -= 10
-                    elif not swordBonus:
-                        damage = getattr(villain, f"{item["name"]}Proof") + self.strength
-                    elif swordBonus:
-                        print("Durch den Angriff des Schwerts in der letzten Runde, macht dein Angriff mehr schaden")
-                        print(item["name"] + " wurde benutzt")
-                        damage = getattr(villain, f"{item["name"]}Proof") + 5 + self.strength
-                        swordBonus = False
-                    if item["name"] == "sword":
-                        swordBonus = True
-                        print("Die Wunde des Gegners heilt sehr langsam, du wirst im Nächsten zug mehr schaden anrichten, wenn du die Wunde triffst.")
+        elif attacks[item["name"]] > 3:
+            print(item["name"], " macht keinen Schaden mehr")
+        elif item["name"] == "arrow" and random.random() < 0.10:
+            print("Leider hast du daneben geschossen")
+        elif round[0] == round[1]:
+            print("Solch einen speziellen Angriff zu machen, raubt dir deine Kraft, du verlierts 10 Leben")
+            damage = (getattr(villain, f"{item["name"]}Proof") + self.strength) * 2.5
+            self.lives -= 10
+        elif not swordBonus:
+            damage = getattr(villain, f"{item["name"]}Proof") + self.strength
+        elif swordBonus:
+            print("Durch den Angriff des Schwerts in der letzten Runde, macht dein Angriff mehr schaden")
+            print(item["name"] + " wurde benutzt")
+            damage = getattr(villain, f"{item["name"]}Proof") + 5 + self.strength
+            swordBonus = False
+        if item["name"] == "sword":
+            swordBonus = True
+            print("Die Wunde des Gegners heilt sehr langsam, du wirst im Nächsten zug mehr schaden anrichten, wenn du die Wunde triffst.")
         return damage, defencepoints
 
     def shop(self, fightInventory):
@@ -313,8 +307,9 @@ class Player(Person):
             print("ungültig")
         if not first == "kick":
             inventory[first] -= 1
-        print(str(inventory).replace("Counter", "Dein Inventar nach einer Eingabe: "))
         inventory = +inventory
+        print(str(inventory).replace("Counter", "Dein Inventar nach einer Eingabe: "))
+        
 
         while (bonus := input("2. Angriff: ").lower().strip()) != "none" and bonus not in inventory or bonus in specialAttacks:
             print("ungültig")
