@@ -88,10 +88,11 @@ while me.lives > 0:
     if doing == "umschauen":
         fight = random.choices((True, False), weights = [1, 3])
         if fight[0] and not block:
-           villain = random.choice(villains)
-           villain.printInfo()
-           me.fight(villain)
-           block = not block
+            villain = random.choice(villains)
+            villain.printInfo()
+            if input("Nimmst du den Kampf an?").lower().strip() == "ja":
+                me.fight(villain)
+            block = not block
         else:       
             checkaction(me.positionNow)
             block = not block
