@@ -71,11 +71,24 @@ def printposition(position): #TODO mach match-case draus
     else:
         print("You're out of map lul")
 
-# quest can be: open; active; done; 
-map.printMap()
-notes.read()
+def lookAround():
+    fight = random.choices((True, False), weights = [1, 3])
+    if fight[0] and not block:
+        villain = random.choice(villains)
+        villain.printInfo()
+        if input("Nimmst du den Kampf an?").lower().strip() == "ja":
+            me.fight(villain)
+        block = not block
+    else:       
+        checkaction(me.positionNow)
+        block = not block
 
 #TODO maybe bei nicht bestandenem quiz, hinweis in die notes schreiben?
+
+# quest can be: open; active; done; 
+
+map.printMap()
+notes.read()
 
 block = False # avoids two fights after another
 
@@ -86,16 +99,7 @@ while me.lives > 0:
     print("Was möchtest du machen?")
     doing = input(">").lower().strip()
     if doing == "umschauen":
-        fight = random.choices((True, False), weights = [1, 3])
-        if fight[0] and not block:
-            villain = random.choice(villains)
-            villain.printInfo()
-            if input("Nimmst du den Kampf an?").lower().strip() == "ja":
-                me.fight(villain)
-            block = not block
-        else:       
-            checkaction(me.positionNow)
-            block = not block
+        lookAround()
     elif doing == "laufen":
         me.move(wf.quest)
         printposition(me.positionNow)
