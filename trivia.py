@@ -1,4 +1,5 @@
 import json, random, time, threading
+from notes import Notes
 from rich import print as rprint
 
 class Trivia:
@@ -64,6 +65,7 @@ class Trivia:
         countdownThread.join()
         if points >= 10:
             print("Glückwunsch, du hast den Geheimweg freigeschalten :)")
+            Notes.delete(Notes, " - Entschlüssel den Geheimweg")
             time.sleep(2)
             print(" .", end="\r")
             time.sleep(1)
@@ -79,3 +81,5 @@ class Trivia:
             return True
         else:
             print("Leider hast du den Test nicht bestanden :(")
+            Notes.delete(Notes, " - Entschlüssel den Geheimweg")
+            Notes.write(Notes, " - Entschlüssel den Geheimweg")

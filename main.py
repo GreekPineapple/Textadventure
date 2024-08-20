@@ -82,8 +82,7 @@ def lookAround():
     else:       
         checkaction(me.positionNow)
         block = not block
-
-#TODO maybe bei nicht bestandenem quiz, hinweis in die notes schreiben?
+    return block
 
 # quest can be: open; active; done; 
 
