@@ -26,29 +26,28 @@ boss = Villain("Boss", 150, 150, ["a","b","c"], "special glitzer boss attacke")
 villains = [goblin, golem, wizard, luftGegner]
 fields = [townhall, woods, wf, dam, aquarium, square, birdhouse, ww, ew, sw]
 
-def checkaction(position): #TODO mach match-case draus
-    if position == 11: # Wald
-        ww.explore(me, villains, boss)
-    elif position == 12: # Wald
-       pass
-    elif position == 13: # Wald
-       pass
-    elif position == 22: # Wald
-        woods.quest = woods.explore(birdhouse.quest, notes)
-    elif position == 23: # Staudamm
-        dam.quest = dam.explore(wf.quest, aquarium.quest, me, notes)
-    elif position == 30: # Vogelhaus
-        birdhouse.quest = birdhouse.explore(aquarium.quest, woods.quest, notes)
-    elif position == 31: # Aquarium
-        aquarium.quest = aquarium.explore(dam.quest, birdhouse.quest, me, notes)
-    elif position == 32: # Dorfplatz
-        square.explore(me)
-    elif position == 33: # Wasserfall
-        wf.quest = wf.explore(dam.quest, notes, me)
-    elif position == 42: # Rathaus
-        townhall.explore(me)
-    else:
-        print("You're out of map lul")
+def checkAction(position):
+    match position:
+        case 11:
+            ww.explore(me, villains, boss)
+        case 12:
+            pass
+        case 13:
+            pass
+        case 22:
+            woods.quest = woods.explore(birdhouse.quest, notes)
+        case 23:
+            dam.quest = dam.explore(wf.quest, aquarium.quest, me, notes)
+        case 30:
+            birdhouse.quest = birdhouse.explore(aquarium.quest, woods.quest, notes)
+        case 31:
+            aquarium.quest = aquarium.explore(dam.quest, birdhouse.quest, me, notes)
+        case 32:
+            square.explore(me)
+        case 33:
+            wf.quest = wf.explore(dam.quest, notes, me)
+        case 42:
+            townhall.explore(me)
 
 def printposition(position):
     for field in fields:
@@ -64,7 +63,7 @@ def lookAround(block):
             me.fight(villain)
         block = not block
     else:       
-        checkaction(me.positionNow)
+        checkAction(me.positionNow)
         block = not block
     return block
 
