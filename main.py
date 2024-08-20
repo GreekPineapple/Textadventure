@@ -71,7 +71,7 @@ def printposition(position): #TODO mach match-case draus
     else:
         print("You're out of map lul")
 
-def lookAround():
+def lookAround(block):
     fight = random.choices((True, False), weights = [1, 3])
     if fight[0] and not block:
         villain = random.choice(villains)
@@ -98,7 +98,7 @@ while me.lives > 0:
     print("Was möchtest du machen?")
     doing = input(">").lower().strip()
     if doing == "umschauen":
-        lookAround()
+        lookAround(block)
     elif doing == "laufen":
         me.move(wf.quest)
         printposition(me.positionNow)
