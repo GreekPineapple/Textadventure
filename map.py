@@ -4,31 +4,9 @@ negativeAnswers = ["no", "n", "nein", "ne", "nop", "nope", "nee"]
 class Map:
     def __init__(self, rows, columns):
         self.rows = rows
-        self.cols = columns
-        
-    def addFieldName(self, numb):
-        match numb:
-            case 1 | 5 | 6 | 13 | 14 | 16:
-                numb = "          "
-            case 2 | 3 | 4 | 7:
-                numb = "   Wald   "
-            case 8:
-                numb = " Staudamm "
-            case 9:
-                numb = "Vogelhaus "
-            case 10:
-                numb = " Aquarium "
-            case 11:
-                numb = "Dorfplatz "
-            case 12:
-                numb = "Wasserfall"
-            case 15:
-                numb = " Rathaus  "
-            case _:
-                numb = "    " + str(numb) + "    "
-        return numb
+        self.cols = columns    
 
-    def printMap(self):
+    def printMap(self, fields):
         row = col = numb = 0
         topString = "____________"
         sideString = "|          |"
@@ -42,8 +20,10 @@ class Map:
                     if i == 2: #string with num
                         int(numb)
                         numb+=1
-                        strnumb = str(numb)
-                        strnumb = self.addFieldName(numb)
+                        strnumb = "          "
+                        for field in fields:
+                            if field.position == numb:
+                                strnumb = field.name
                         card[2][0] = "|" + str(strnumb) + "|"
                     print(card[i][0], end=" ")
                     col += 1
@@ -52,6 +32,11 @@ class Map:
             row+=1
 
 class Square:
+    def __init__(self):
+        self.name = "Dorfplatz "
+        self.position = 11
+        self.number = 32
+
     def explore(self, player):
         print("Hier kannst du deine Bauteile zusammenbauen und speichern (wird später implementiert hihi)")
         print("Was möchtest du machen? (Bauteile/Speichern)")
@@ -66,6 +51,11 @@ class Square:
 
 
 class TownHall:
+    def __init__(self):
+        self.name = " Rathaus  "
+        self.position = 15
+        self.number = 42
+
     def explore(self, player):
         shop = {}
         
@@ -93,6 +83,9 @@ class TownHall:
 class Waterfall:
     def __init__(self, quest):
         self.quest = quest
+        self.name = "Wasserfall"
+        self.position = 12
+        self.number = 33
     
     def explore(self, damquest, note, player):
         if self.quest == "open":
@@ -123,7 +116,10 @@ class Waterfall:
         
 class Dam:
     def __init__(self, quest):
-        self.quest = quest 
+        self.quest = quest
+        self.name = " Staudamm "
+        self.position = 8
+        self.number = 23
 
     def explore(self, wfquest, aqquest, player, note):
         if self.quest == "open":
@@ -159,7 +155,10 @@ class Dam:
 
 class Aquarium:
     def __init__(self, quest):
-        self.quest = quest 
+        self.quest = quest
+        self.name = " Aquarium "
+        self.position = 10
+        self.number = 31
 
     def explore(self, damquest, birdquest, player, note):
         
@@ -206,7 +205,10 @@ class Aquarium:
 
 class BirdHouse:
     def __init__(self, quest):
-        self.quest = quest 
+        self.quest = quest
+        self.name = "Vogelhaus "
+        self.position = 9
+        self.number = 30
         
     def explore(self, aqquest, birdquest, note):
         if self.quest == "open":
@@ -243,7 +245,10 @@ class BirdHouse:
 
 class Woods:
     def __init__(self, quest):
-        self.quest = quest 
+        self.quest = quest
+        self.name = "   Wald   "
+        self.position = 3
+        self.number = 12
         
     def explore(self, birdquest, note):
         if self.quest == "open":
@@ -263,10 +268,20 @@ class Woods:
         return self.quest
     
 class SouthWoods:
+    def __init__(self):
+        self.name = "Wald(Süd) "
+        self.position = 7
+        self.number = 22
+
     def explore(self):
         print("Hier passiert noch nichts...")
 
 class WestWoods:
+    def __init__(self):
+        self.name = "Wald(West)"
+        self.position = 2
+        self.number = 11
+
     def explore(self, player, villains, boss):
         if "Bauteil1" in player.inventory and "Bauteil2" in player.inventory:
             player.boss(villains, boss, player)
@@ -274,5 +289,10 @@ class WestWoods:
             print("Hier passiert noch nichts...")
 
 class EastWoods:
+    def __init__(self):
+        self.name = "Wald(Ost) "
+        self.position = 4
+        self.number = 13
+
     def explore(self):
         print("Hier passiert noch nichts...")

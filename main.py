@@ -4,6 +4,7 @@ from map import *
 from notes import *
 map = Map(4,4)
 me = Player(200, 10, "myself", [], 42) #Start: Townhall
+notes = Notes()
 townhall = TownHall()
 woods = Woods("open")
 wf = Waterfall("open")
@@ -12,7 +13,8 @@ aquarium = Aquarium("open")
 square = Square()
 birdhouse = BirdHouse("open")
 ww = WestWoods()
-notes = Notes()
+sw = SouthWoods()
+ew = EastWoods()
 
 goblin = Villain("Goblin", 90, 35, [10, 20, 15], "goblin überreste")
 golem = Villain("Erdgolem", 140, 50, [20, 20, 10], "golem überreste")
@@ -22,6 +24,7 @@ luftGegner = Villain("Luftgegner", 110, 30,[5, 20, 0], "vogel überreste")
 boss = Villain("Boss", 150, 150, ["a","b","c"], "special glitzer boss attacke")
 
 villains = [goblin, golem, wizard, luftGegner]
+fields = [townhall, woods, wf, dam, aquarium, square, birdhouse, ww, ew, sw]
 
 def checkaction(position): #TODO mach match-case draus
     if position == 11: # Wald
@@ -47,29 +50,10 @@ def checkaction(position): #TODO mach match-case draus
     else:
         print("You're out of map lul")
 
-def printposition(position): #TODO mach match-case draus
-    if position == 11:
-        print("--Wald--")
-    elif position == 12:
-        print("--Wald--")
-    elif position == 13:
-        print("--Wald--")
-    elif position == 22:
-        print("--Wald--")
-    elif position == 23:
-        print("--Staudamm--")
-    elif position == 30:
-        print("--Vogelhaus--")
-    elif position == 31:
-        print("--Aquarium--")
-    elif position == 32:
-        print("--Dorfplatz--")
-    elif position == 33:
-        print("--Wasserfall--")
-    elif position == 42:
-        print("--Rathaus--")
-    else:
-        print("You're out of map lul")
+def printposition(position):
+    for field in fields:
+        if field.number == position:
+            print(f"--{field.name.strip()}--")
 
 def lookAround(block):
     fight = random.choices((True, False), weights = [1, 3])
@@ -86,7 +70,7 @@ def lookAround(block):
 
 # quest can be: open; active; done; 
 
-map.printMap()
+map.printMap(fields)
 notes.read()
 
 block = False # avoids two fights after another
@@ -98,7 +82,7 @@ while me.lives > 0:
     print("Was möchtest du machen?")
     doing = input(">").lower().strip()
     if doing == "umschauen":
-        lookAround(block)
+        block = lookAround(block)
     elif doing == "laufen":
         me.move(wf.quest)
         printposition(me.positionNow)
