@@ -2,7 +2,7 @@ import random, globals
 from person import Player, Villain
 from map import *
 from notes import *
-map = Map(4,4)
+map = Map(40,4)
 me = Player(200, 10, "myself", [], 42) #Start: Townhall
 notes = Notes()
 townhall = TownHall()

@@ -7,34 +7,33 @@ class Map:
         self.cols = columns    
 
     def printMap(self, fields):
-        row = col = numb = 0
+        numb, row, col = 10, 10, 0
         topString = "____________"
         sideString = "|          |"
         sideStringNum = "" #later implemented
         bottomString = "|__________|"
         card = [[topString],[sideString],[sideStringNum],[bottomString]]
     
-        while row < self.rows:
+        while row <= self.rows:
             for i in range(len(card)):
                 while col < self.cols:
                     if i == 2: #string with num
                         int(numb)
-                        numb+=1
+                        numb = col + row
                         strnumb = "          "
                         for field in fields:
-                            if field.position == numb:
+                            if field.number == numb:
                                 strnumb = field.name
                         card[2][0] = "|" + str(strnumb) + "|"
                     print(card[i][0], end=" ")
                     col += 1
                 print()
                 col = 0
-            row+=1
+            row+=10
 
 class Square:
     def __init__(self):
         self.name = "Dorfplatz "
-        self.position = 11
         self.number = 32
 
     def explore(self, player):
@@ -53,7 +52,6 @@ class Square:
 class TownHall:
     def __init__(self):
         self.name = " Rathaus  "
-        self.position = 15
         self.number = 42
 
     def explore(self, player):
@@ -84,7 +82,6 @@ class Waterfall:
     def __init__(self, quest):
         self.quest = quest
         self.name = "Wasserfall"
-        self.position = 12
         self.number = 33
     
     def explore(self, damquest, note, player):
@@ -117,8 +114,7 @@ class Waterfall:
 class Dam:
     def __init__(self, quest):
         self.quest = quest
-        self.name = " Staudamm "
-        self.position = 8
+        self.name = " Staudamm "        
         self.number = 23
 
     def explore(self, wfquest, aqquest, player, note):
@@ -157,7 +153,6 @@ class Aquarium:
     def __init__(self, quest):
         self.quest = quest
         self.name = " Aquarium "
-        self.position = 10
         self.number = 31
 
     def explore(self, damquest, birdquest, player, note):
@@ -206,8 +201,7 @@ class Aquarium:
 class BirdHouse:
     def __init__(self, quest):
         self.quest = quest
-        self.name = "Vogelhaus "
-        self.position = 9
+        self.name = "Vogelhaus "        
         self.number = 30
         
     def explore(self, aqquest, birdquest, note):
@@ -246,8 +240,7 @@ class BirdHouse:
 class Woods:
     def __init__(self, quest):
         self.quest = quest
-        self.name = "   Wald   "
-        self.position = 3
+        self.name = "   Wald   "        
         self.number = 12
         
     def explore(self, birdquest, note):
@@ -269,8 +262,7 @@ class Woods:
     
 class SouthWoods:
     def __init__(self):
-        self.name = "Wald(Süd) "
-        self.position = 7
+        self.name = "Wald(Süd) "        
         self.number = 22
 
     def explore(self):
@@ -278,8 +270,7 @@ class SouthWoods:
 
 class WestWoods:
     def __init__(self):
-        self.name = "Wald(West)"
-        self.position = 2
+        self.name = "Wald(West)"        
         self.number = 11
 
     def explore(self, player, villains, boss):
@@ -290,8 +281,7 @@ class WestWoods:
 
 class EastWoods:
     def __init__(self):
-        self.name = "Wald(Ost) "
-        self.position = 4
+        self.name = "Wald(Ost) "        
         self.number = 13
 
     def explore(self):
