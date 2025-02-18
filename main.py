@@ -1,7 +1,9 @@
 import random, globals
-from person import Player, Villain
+from person import NPC, Villain
+from player import Player
 from map import *
 from notes import *
+from state_quest import *
 map = Map(40,4)
 me = Player(200, 10, "myself", [], 42) #Start: Townhall
 notes = Notes()
@@ -25,6 +27,44 @@ boss = Villain("Boss", 150, 150, ["a","b","c"], "special glitzer boss attacke")
 
 villains = [goblin, golem, wizard, luftGegner]
 fields = [townhall, woods, wf, dam, aquarium, square, birdhouse, ww, ew, sw]
+
+
+quest1 = state_quest("Wasserfallquest", "Entferne den Staudamm damit der Wasserfall wieder fließen kann")
+quest2 = state_quest("Aquariumquest", "Besorge mir einen Fisch für das Aquarium")
+
+rainer = NPC("Rainer", 100, 5, "nothing", quest1, {
+    "open": "Oh man, hier war mal ein schöner Wasserfall, aber irgenjemand musste ja unbedingt ein Staudamm in Richtung Norden bauen...\nKannst du der Sache auf den Grund gehen? (ja/nein)",
+    "active": { # wenn anschließende quest... ist
+        "done": "Woow, der Wasserfall fließt wieder, jetzt kann ich ganz entspannt meine Mittagspause hier verbingen!\nDu erhälst dafür eine kleine Belohnung von mir, hoffe du kannst damit was anfangen",
+        "open": "Schon im Norden umgeschauet?",
+        "active": "Schon im Norden umgeschauet?"
+    },
+    "done": "Danke! Jetzt fließt das Wasser wieder!"
+}, {
+    "open": {
+        "ja": "Gehe nach Norden und schau dich da mal um.",
+        "nein": "Okay schade, vielleicht ja später!"
+    }
+})
+
+def get_dependencies():
+    return {
+        "Aquariumquest": "ready" if quest1.state == "active" else "locked",
+        "Wasserfallquest_done": "ready" if quest2.state == "done" else "blocked"
+    }
+
+
+rainer.talk(get_dependencies())
+quest1.start()
+quest2.complete()
+rainer.talk(get_dependencies())
+print("hat raner getalked?")
+# inge = NPC("Inge", 100, 5, "nothing", quest2)
+# inge.quest.transition("active")
+# print(rainer.quest.state)
+# print(inge.quest.state)
+# rainer.main()
+# inge.main()
 
 def checkAction(position):
     match position:
