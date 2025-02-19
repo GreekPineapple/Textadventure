@@ -1,3 +1,3 @@
-python > 3.10
+python > 3.12
 
 Just start main.py
