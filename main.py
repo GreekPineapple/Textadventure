@@ -34,10 +34,9 @@ quest2 = state_quest("Aquariumquest", "Besorge mir einen Fisch für das Aquarium
 
 rainer = NPC("Rainer", 100, 5, "nothing", quest1, {
     "open": "Oh man, hier war mal ein schöner Wasserfall, aber irgenjemand musste ja unbedingt ein Staudamm in Richtung Norden bauen...\nKannst du der Sache auf den Grund gehen? (ja/nein)",
-    "active": { # wenn anschließende quest... ist
-        "done": "Woow, der Wasserfall fließt wieder, jetzt kann ich ganz entspannt meine Mittagspause hier verbingen!\nDu erhälst dafür eine kleine Belohnung von mir, hoffe du kannst damit was anfangen",
-        "open": "Schon im Norden umgeschauet?",
-        "active": "Schon im Norden umgeschauet?"
+    "active": { # next quest is done(ready) or not (blocked)
+        "ready": "Woow, der Wasserfall fließt wieder, jetzt kann ich ganz entspannt meine Mittagspause hier verbingen!\nDu erhälst dafür eine kleine Belohnung von mir, hoffe du kannst damit was anfangen",
+        "blocked": "Schon im Norden umgeschauet?"
     },
     "done": "Danke! Jetzt fließt das Wasser wieder!"
 }, {
@@ -56,9 +55,11 @@ def get_dependencies():
 
 rainer.talk(get_dependencies())
 quest1.start()
+rainer.talk(get_dependencies())
+quest2.start()
+rainer.talk(get_dependencies())
 quest2.complete()
 rainer.talk(get_dependencies())
-print("hat raner getalked?")
 # inge = NPC("Inge", 100, 5, "nothing", quest2)
 # inge.quest.transition("active")
 # print(rainer.quest.state)

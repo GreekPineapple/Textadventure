@@ -1,3 +1,6 @@
+from state_quest import state_quest
+
+
 class Person:
     def __init__(self, lives, strength, name):
         self.lives = lives
@@ -21,19 +24,32 @@ class Villain (Person):
         super().printInfo()
 
 class NPC (Person):
-    def __init__(self, name, lives, strength, quest, drop):
+    def __init__(self, name, lives, strength, drop, quest: state_quest, dialogues: dict, choices: dict):
         self.quest = quest
         self.drop = drop
+        self.dialogues = dialogues
+        self.choices = choices
         super().__init__(lives, strength, name)
 
     def printInfo(self):
         super().printInfo()
 
-    def szeneOpen(self):
-        print("Hier ist das Gespräch wenn die quest noch nicht aktiv ist") 
-    
-    def szeneActive(self):
-        print("Hier ist das Gespräch wenn die quest aktiv ist")
-    
-    def szeneDone(self):
-        print("Hier ist das Gespräch wenn die quest erledigt ist")
+    def talk(self, dependencies):
+        print(dependencies.get(self.quest.name))
+        print(dependencies.get(self.quest.name + "_done"))
+
+        if self.quest.state == "open":
+            print(f"\n{self.name}: {self.dialogues.get(self.quest.state)}")
+
+            answer = input(">").lower().strip()
+
+            response = self.choices[self.quest.state][answer]
+            print(f"{self.name}: {response}")
+            return
+
+        elif self.quest.state == "active":
+            print(f"{self.name}: {self.dialogues[self.quest.state][dependencies.get(self.quest.name + "_done")]}")
+            return
+
+        elif self.quest.state == "done":
+            print(f"\n{self.name}: {self.dialogues.get(self.quest.state)}")
