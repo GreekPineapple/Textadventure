@@ -30,10 +30,12 @@ fields = [townhall, woods, wf, dam, aquarium, square, birdhouse, ww, ew, sw]
 
 
 quest1 = state_quest("Wasserfallquest", "Entferne den Staudamm damit der Wasserfall wieder fließen kann")
-quest2 = state_quest("Aquariumquest", "Besorge mir einen Fisch für das Aquarium")
+quest2 = state_quest("Staudammquest", "Besorge ein Aquarium damit der Staudamm entfernt werden kann")
 
 rainer = NPC("Rainer", 100, 5, "nothing", quest1, {
-    "open": "Oh man, hier war mal ein schöner Wasserfall, aber irgenjemand musste ja unbedingt ein Staudamm in Richtung Norden bauen...\nKannst du der Sache auf den Grund gehen? (ja/nein)",
+    "open": {
+        "ready": "Oh man, hier war mal ein schöner Wasserfall, aber irgenjemand musste ja unbedingt ein Staudamm in Richtung Norden bauen...\nKannst du der Sache auf den Grund gehen? (ja/nein)"
+    },
     "active": { # next quest is done(ready) or not (blocked)
         "ready": "Woow, der Wasserfall fließt wieder, jetzt kann ich ganz entspannt meine Mittagspause hier verbingen!\nDu erhälst dafür eine kleine Belohnung von mir, hoffe du kannst damit was anfangen",
         "blocked": "Schon im Norden umgeschauet?"
@@ -48,24 +50,20 @@ rainer = NPC("Rainer", 100, 5, "nothing", quest1, {
 
 def get_dependencies():
     return {
-        "Aquariumquest": "ready" if quest1.state == "active" else "locked",
+        "Wasserfallquest": "ready",
+        "Staudammquest": "ready" if quest1.state == "active" else "blocked",
         "Wasserfallquest_done": "ready" if quest2.state == "done" else "blocked"
     }
 
 
 rainer.talk(get_dependencies())
 quest1.start()
-rainer.talk(get_dependencies())
+inge.talk(get_dependencies())
 quest2.start()
 rainer.talk(get_dependencies())
 quest2.complete()
 rainer.talk(get_dependencies())
-# inge = NPC("Inge", 100, 5, "nothing", quest2)
-# inge.quest.transition("active")
-# print(rainer.quest.state)
-# print(inge.quest.state)
-# rainer.main()
-# inge.main()
+
 
 def checkAction(position):
     match position:
