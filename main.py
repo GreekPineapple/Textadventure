@@ -48,6 +48,24 @@ rainer = NPC("Rainer", 100, 5, "nothing", quest1, {
     }
 })
 
+inge = NPC("Inge", 100, 5, "nothing", quest2, {
+    "open": { # previous quest is active(ready) or not (blocked)
+        "ready": "Durch den Damm den ich gebaut habe, sind die Fische endlich sicher und ich kann mich gut um sie kümmern.\nA: Der Wasserfall ist aber total ausgetrocknet!\nB: Darf ich auch mal Füttern?\nC: Okay, dann viel Spaß noch.",
+        "blocked": "Hier ist eine Frau die Fische füttert"
+    },
+    "active": { # next quest is done(ready) or not (blocked)
+        "ready": "Super, jetzt kann ich die fische bei mir zuhause versorgen",
+        "blocked": "Besorge ein Aquarium um die Fische zu retten"
+    },
+    "done": "Der Wasserfall geht ja ganz schön tief!"
+}, {
+    "open": {
+        "a": "Ich würde dir ja gerne helfen, aber die Fische brauchen einen Ort zum Leben. Wenn es doch nur irgendwie einen weg geben würde, ein Aquarium zu besorgen...",
+        "b": "*Fütter*",
+        "c": "Danke"
+    }
+})
+
 def get_dependencies():
     return {
         "Wasserfallquest": "ready",
