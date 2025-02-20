@@ -31,6 +31,7 @@ fields = [townhall, woods, wf, dam, aquarium, square, birdhouse, ww, ew, sw]
 
 quest1 = state_quest("Wasserfallquest", "Entferne den Staudamm damit der Wasserfall wieder fließen kann")
 quest2 = state_quest("Staudammquest", "Besorge ein Aquarium damit der Staudamm entfernt werden kann")
+quest3 = state_quest("Aquariumquest", "Hilf dem Kollegen um ein Aquarium zu bekommen")
 
 rainer = NPC("Rainer", 100, 5, "nothing", quest1, {
     "open": {
@@ -66,21 +67,61 @@ inge = NPC("Inge", 100, 5, "nothing", quest2, {
     }
 })
 
+aquilina = NPC("Aquilina", 100, 5, "nothing", quest3, {
+    "open": { # previous quest is active(ready) or not (blocked)
+        "ready": "Wilkommmen bei Aquilinas Aquarium Laden! *(kurz: AAL)*\n",
+        "blocked": "Hier ist ein Aquarium shop. Er scheint aber geschlossen zu sein..."
+    },
+    "active": { # next quest is done(ready) or not (blocked)
+        "ready": "",
+        "blocked": "Finde den Vogel und bringe ihn zum Vogelhaus, um dir später hier ein Aquarium abzuholen!"
+    },
+    "done": "Wilkommmen bei Aquilinas Aquarium Laden! *(kurz: AAL)*"
+}, {
+    "open1": {
+        "question": "Was kann ich für dich tun?\nA: Ich interessiere mich für ein Aquarium.\nB: Ich möchte Fische kaufen\nC: Nichts.",
+        "a": "Ich kann dir ein Angebot machen: Mein Kollege von der Vogelzucht braucht hilfe mit einem seiner Vögel...\nEr hat mich gebeten ihm zu helfen, doch ich habe einfach keine zeit. Wenn du ihm stattdessen hilfst, bekommst du ein Aquarium umsonst.",
+        "b": "Dann schau dich gerne um, ich habe eine große Auswahl an Fischen.",
+        "c": "Okay, bis bald."
+    },
+    "open2": { 
+        "question": "Würdest du mir diesen gefallen tun? (ja/nein)",
+        "ja": "Super, frage einfach bei der Vogelzucht nach, was genau du tun kannst.",
+        "nein": "Schade, vielleicht ja später."
+    },
+    "active3": { 
+        "question": "Hast du den Vogel gefunden und zurück gebracht? (ja/nein)",
+        "ja": "Super, vielen Dank! Hier bekommst du ein Aquarium.",
+        "nein": "Dann such mal weiter!"
+    }
+})
+
+
 def get_dependencies():
     return {
         "Wasserfallquest": "ready",
         "Staudammquest": "ready" if quest1.state == "active" else "blocked",
-        "Wasserfallquest_done": "ready" if quest2.state == "done" else "blocked"
+        "Wasserfallquest_done": "ready" if quest2.state == "done" else "blocked",
+        "Aquariumquest": "ready" if quest2.state == "active" else "blocked",
+        "Staudammquest_done": "ready" if quest3.state == "done" else "blocked",
+        "Aquariumquest_done": "ready" if quest1.state == "done" else "blocked"
     }
 
-
-rainer.talk(get_dependencies())
 quest1.start()
-inge.talk(get_dependencies())
 quest2.start()
-rainer.talk(get_dependencies())
-quest2.complete()
-rainer.talk(get_dependencies())
+quest3.start()
+aquilina.talk(get_dependencies())
+
+
+# rainer.talk(get_dependencies())
+# quest1.start()
+# inge.talk(get_dependencies())
+# quest2.start()
+# aquilina.talk(get_dependencies())
+# quest3.start()
+# rainer.talk(get_dependencies())
+# quest2.complete()
+# rainer.talk(get_dependencies())
 
 
 def checkAction(position):
