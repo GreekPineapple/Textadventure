@@ -32,6 +32,7 @@ fields = [townhall, woods, wf, dam, aquarium, square, birdhouse, ww, ew, sw]
 quest1 = state_quest("Wasserfallquest", "Entferne den Staudamm damit der Wasserfall wieder fließen kann")
 quest2 = state_quest("Staudammquest", "Besorge ein Aquarium damit der Staudamm entfernt werden kann")
 quest3 = state_quest("Aquariumquest", "Hilf dem Kollegen um ein Aquarium zu bekommen")
+quest4 = state_quest("Birdquest", "Such den Vogel und hold dir dein Aquarium ab!")
 
 rainer = NPC("Rainer", 100, 5, "nothing", quest1, {
     "open": {
@@ -96,6 +97,28 @@ aquilina = NPC("Aquilina", 100, 5, "nothing", quest3, {
     }
 })
 
+tom = NPC("Tom", 100, 5, "nothing", quest4, {
+    "open": { # previous quest is active(ready) or not (blocked)
+        "ready": "Leider ist mir unser schönster Vogel abgehauen, aber mein kollege und ich suchen grade zusammen nach ihm",
+        "blocked": "Hier Vögel, da Vögel, überall Vögel!"
+    },
+    "active": { # next quest is done(ready) or not (blocked)
+        "ready": "Hi, wie ich sehe hast du meinen Vogel gefunden?(ja/nein)",
+        "blocked": "Der Vogel sollte sich irgendwo im Wald verstecken!"
+    },
+    "done": "Wilkommmen bei der Vogelzucht noch kannst du hier nichts machen, außer den ausreißer betrachten"
+}, {
+    "open1": {
+        "question": "Kannst du uns vielleicht dabei helfen?(ja/nein)",
+        "ja": "Mega, danke! Vermutlich wird er sich irgendwo im Wald aufhalten, aber sicher bin ich mir da nicht..",
+        "nein": "Dann entschuldige mich, ich muss meinen Vogel finden!"
+    },
+    "active2": { 
+        "question": ">",
+        "ja": "Super, vielen Dank!\nKannst du noch bei mienem Kollegen im Aquarium shop vorbei schauen und sagen, der Vogel ist wieder da? Danke!",
+        "nein": "Dann such mal weiter!"
+    }
+})
 
 def get_dependencies():
     return {
