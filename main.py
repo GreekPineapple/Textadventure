@@ -33,6 +33,7 @@ quest1 = state_quest("Wasserfallquest", "Entferne den Staudamm damit der Wasserf
 quest2 = state_quest("Staudammquest", "Besorge ein Aquarium damit der Staudamm entfernt werden kann")
 quest3 = state_quest("Aquariumquest", "Hilf dem Kollegen um ein Aquarium zu bekommen")
 quest4 = state_quest("Birdquest", "Such den Vogel und hold dir dein Aquarium ab!")
+quest5 = state_quest("Vogelquest", "Fange den Vogel ein")
 
 rainer = NPC("Rainer", 100, 5, "nothing", quest1, {
     "open": {
@@ -99,7 +100,7 @@ aquilina = NPC("Aquilina", 100, 5, "nothing", quest3, {
 
 tom = NPC("Tom", 100, 5, "nothing", quest4, {
     "open": { # previous quest is active(ready) or not (blocked)
-        "ready": "Leider ist mir unser schönster Vogel abgehauen, aber mein kollege und ich suchen grade zusammen nach ihm",
+        "ready": "Leider ist mir unser schönster Vogel abgehauen. Er ist krank und braucht hilfe, aber mein kollege und ich suchen grade zusammen nach ihm",
         "blocked": "Hier Vögel, da Vögel, überall Vögel!"
     },
     "active": { # next quest is done(ready) or not (blocked)
@@ -120,6 +121,24 @@ tom = NPC("Tom", 100, 5, "nothing", quest4, {
     }
 })
 
+berndTheBird = NPC("Bernd the Bird", 100, 5, "nothing", quest5, {
+    "open": { # previous quest is active(ready) or not (blocked)
+        "ready": "Das hier muss der Vogel sein der weggeflogen ist... \nAber wie fang ich ihn am besten?",
+        "blocked": "Schöner Wald hier :)"
+    },
+    "active": { # next quest is done(ready) or not (blocked)
+        "ready": "Dann versuche ich noch einmal den Vogel einzufangen!",
+        "blocked": ""
+    },
+    "done": "Dem Vogel geht es jetzt bestimmt besser!"
+}, {
+    "open1": {
+        "question": "A: Vogelgeräusche imitieren \nB: Warten bis der Vogel weiter runter fliegt und ihn dann fangen \nC: Auf den Baum klettern und ihn fangen\n>",
+        "a": "Der Vogel denkt du bist ein Angreifer, du stirbst...",
+        "b": "Glükwunssch du hast in gefangen",
+        "c": "Du bist vom Baum gefallen und gestorben, lol"
+    },
+})
 def get_dependencies():
     return {
         "Wasserfallquest": "ready",
