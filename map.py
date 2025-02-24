@@ -44,7 +44,7 @@ class Square:
             if {"Bauteil1", "Bauteil2", "Bauteil3"}.issubset(player.inventory):
                 print("Super, du hast alle 3 bauteile gefunden. Als du diese zusammenbaust, merkst du dass es ein schlüssel für die schatzkammer ist, in der du ewigen reichtum findest!")
                 print("Herzlichen Glückwunsch du hast das Spiel gewonne :D")
-                globals.winning = True
+                globals.WINNING = True
             else:
                 print("Sorry, dir fehlen wohl teile, gehe auf die Suche um insgesammt 3 Bauteile zu finden")
 

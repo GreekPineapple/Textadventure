@@ -48,7 +48,7 @@ notes.read()
 block = False # avoids two fights after another
 
 while me.lives > 0:
-    if globals.winning:
+    if globals.WINNING:
         print("Yaay du hast gewonnen")
         break
     print("Was möchtest du machen?")

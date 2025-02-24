@@ -1,1 +1,1 @@
-winning = False
+WINNING = False
