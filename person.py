@@ -1,6 +1,5 @@
 from state_quest import state_quest
 
-
 class Person:
     def __init__(self, lives, strength, name):
         self.lives = lives
@@ -24,9 +23,8 @@ class Villain (Person):
         super().printInfo()
 
 class NPC (Person):
-    def __init__(self, name, lives, strength, drop, quest: state_quest, dialogues: dict, choices: dict):
+    def __init__(self, name, lives, strength, quest: state_quest, dialogues: dict, choices: dict):
         self.quest = quest
-        self.drop = drop
         self.dialogues = dialogues
         self.choices = choices
         super().__init__(lives, strength, name)
@@ -35,10 +33,7 @@ class NPC (Person):
         super().printInfo()
 
     def talk(self, dependencies):
-        print(self.quest.name)
-        print(dependencies.get(self.quest.name))
-        print(dependencies.get(self.quest.name + "_done"))
-
+    
         if self.quest.state == "open":
             print(f"\n{self.name}: {self.dialogues[self.quest.state][dependencies.get(self.quest.name)]}")
 
@@ -54,4 +49,7 @@ class NPC (Person):
                 print(self.choices[swi]["question"])
                 answer = input(">").lower().strip()
                 response = self.choices[swi][answer]
+                if "quest_start" in response:
+                    response = response.replace("quest_start", "").strip()
+                    self.quest.start()
                 print(f"{self.name}: {response}")

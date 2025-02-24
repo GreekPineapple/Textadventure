@@ -1,4 +1,4 @@
-import globals, json
+import globals, json, init_game
 positiveAnswers = ["yes", "y", "ja", "j", "yep", "jop"]
 negativeAnswers = ["no", "n", "nein", "ne", "nop", "nope", "nee"]
 class Map:
@@ -83,33 +83,38 @@ class Waterfall:
         self.quest = quest
         self.name = "Wasserfall"
         self.number = 33
-    
-    def explore(self, damquest, note, player):
-        if self.quest == "open":
-            print('Rainer: "Oh man, hier war mal ein schöner Wasserfall, aber irgenjemand musste ja unbedingt ein Staudamm in Richtung Norden bauen...')
-            print('Kannst du der Sache auf den Grund gehen?"')
-            option = input(">").lower().strip()
-            if option in positiveAnswers:
-                print("Gehe nach Norden und schau dich da mal um.")
-                self.quest = "active"
-                note.write(" - Sieh dich im Norden um")
-            elif option in negativeAnswers:
-                print('Rainer: "Okay schade, vielleicht ja später!"')
-            else:
-                print("ungültige eingabe")
-        elif self.quest == "active":
-            if damquest == "done":
-                print('Rainer: "Woow, der Wasserfall fließt wieder, jetzt kann ich ganz entspannt meine Mittagspause hier verbingen')
-                print('Du erhälst dafür eine kleine Belohnung von mir, hoffe du kannst damit was anfangen"')
-                # erstes Bauteil geben
-                player.inventory["Bauteil1"] += 1
-                self.quest = "done"
-                note.delete(" - Rede mit Rainer am Wasserfall")
-            else:
-                print("Schon im Norden umgeschauet?")
-        elif self.quest == "done":
-            print("Diese Quest wurde schon beendet! ;)")
-        return self.quest
+
+    def explore(self, player, rainer):
+
+        rainer.talk(init_game.get_dependencies())
+        if rainer.quest.state == "done" and not "Bauteil1" in player.inventory:
+            player.inventory["Bauteil1"] += 1
+
+        # if self.quest == "open":
+        #     print('Rainer: "Oh man, hier war mal ein schöner Wasserfall, aber irgenjemand musste ja unbedingt ein Staudamm in Richtung Norden bauen...')
+        #     print('Kannst du der Sache auf den Grund gehen?"')
+        #     option = input(">").lower().strip()
+        #     if option in positiveAnswers:
+        #         print("Gehe nach Norden und schau dich da mal um.")
+        #         self.quest = "active"
+        #         note.write(" - Sieh dich im Norden um")
+        #     elif option in negativeAnswers:
+        #         print('Rainer: "Okay schade, vielleicht ja später!"')
+        #     else:
+        #         print("ungültige eingabe")
+        # elif self.quest == "active":
+        #     if damquest == "done":
+        #         print('Rainer: "Woow, der Wasserfall fließt wieder, jetzt kann ich ganz entspannt meine Mittagspause hier verbingen')
+        #         print('Du erhälst dafür eine kleine Belohnung von mir, hoffe du kannst damit was anfangen"')
+        #         # erstes Bauteil geben
+        #         player.inventory["Bauteil1"] += 1
+        #         self.quest = "done"
+        #         note.delete(" - Rede mit Rainer am Wasserfall")
+        #     else:
+        #         print("Schon im Norden umgeschauet?")
+        # elif self.quest == "done":
+        #     print("Diese Quest wurde schon beendet! ;)")
+        # return self.quest
         
 class Dam:
     def __init__(self, quest):

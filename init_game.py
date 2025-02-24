@@ -4,7 +4,6 @@ from player import Player
 from map import *
 from notes import *
 from state_quest import *
-from init_game import *
 
 # Notes
 
@@ -41,7 +40,7 @@ villains = [goblin, golem, wizard, luftGegner]
 
 # Quests
 
-quest1 = state_quest("Wasserfallquest", "Entferne den Staudamm damit der Wasserfall wieder fließen kann")
+quest1 = state_quest("Wasserfallquest", " - Sieh dich im Norden um", "", notes)
 quest2 = state_quest("Staudammquest", "Besorge ein Aquarium damit der Staudamm entfernt werden kann")
 quest3 = state_quest("Aquariumquest", "Hilf dem Kollegen um ein Aquarium zu bekommen")
 quest4 = state_quest("Birdhousequest", "Such den Vogel und hold dir dein Aquarium ab!")

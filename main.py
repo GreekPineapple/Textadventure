@@ -20,7 +20,7 @@ def checkAction(position):
         case 32:
             square.explore(me)
         case 33:
-            wf.explore(notes, me, rainer)
+            wf.explore(me, rainer)
         case 42:
             townhall.explore(me)
 
