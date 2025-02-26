@@ -52,4 +52,7 @@ class NPC (Person):
                 if "quest_start" in response:
                     response = response.replace("quest_start", "").strip()
                     self.quest.start()
+                elif "quest_done" in response:
+                    response = response.replace("quest_done", "").strip()
+                    self.quest.complete()
                 print(f"{self.name}: {response}")
