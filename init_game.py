@@ -160,12 +160,18 @@ berndTheBird = NPC("Bernd the Bird", 100, 5, quest5, {
         "question": "Na dann versuchen wir mal dich einzufangen (lets go)",
         "lets go": "Aber wie fange ich den Vogel am besten? quest_start"
     },
-    "active2": {
+    "open2": {
         "question": "A: Vogelgeräusche imitieren \nB: Warten bis der Vogel weiter runter fliegt und ihn dann fangen \nC: Auf den Baum klettern und ihn fangen",
         "a": "Der Vogel denkt du bist ein Angreifer, du stirbst...",
         "b": "Glükwunssch du hast in gefangen quest_done",
         "c": "Du bist vom Baum gefallen und gestorben, lol"
     },
+    "active3": {
+        "question": "A: Vogelgeräusche imitieren \nB: Warten bis der Vogel weiter runter fliegt und ihn dann fangen \nC: Auf den Baum klettern und ihn fangen",
+        "a": "Der Vogel denkt du bist ein Angreifer, du stirbst...",
+        "b": "Glükwunssch du hast in gefangen quest_done",
+        "c": "Du bist vom Baum gefallen und gestorben, lol"
+    }
 })
 
 def get_dependencies():

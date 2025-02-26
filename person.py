@@ -43,8 +43,9 @@ class NPC (Person):
         elif self.quest.state == "done":
             print(f"\n{self.name}: {self.dialogues.get(self.quest.state)}")
 
+        current_quest = self.quest.state
         for index, key in enumerate(self.choices):
-            swi = self.quest.state + str(index + 1) #State with Index (swi)
+            swi = current_quest + str(index + 1) #State with Index (swi)
             if dependencies.get(self.quest.name) == "ready" and key == swi:
                 print(self.choices[swi]["question"])
                 answer = input(">").lower().strip()
