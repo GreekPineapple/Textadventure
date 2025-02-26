@@ -33,7 +33,8 @@ class NPC (Person):
         super().printInfo()
 
     def talk(self, dependencies):
-    
+        dependency = None
+        
         if self.quest.state == "open":
             print(f"\n{self.name}: {self.dialogues[self.quest.state][dependencies.get(self.quest.name)]}")
             dependency = dependencies.get(self.quest.name)

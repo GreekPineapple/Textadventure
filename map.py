@@ -95,7 +95,7 @@ class Dam:
 
     def explore(self, player, inge):
         inge.talk(init_game.get_dependencies())
-        if inge.quest.state == "active" and "Aquarium" in player.inventory:
+        if inge.quest.state == "active" and player.inventory["Aquarium"] > 0:
             player.inventory["Aquarium"] -= 1
 
 class Aquarium:

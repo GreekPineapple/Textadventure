@@ -59,7 +59,8 @@ while me.lives > 0:
         me.move(inge.quest.state)
         printposition(me.positionNow)
     elif doing == "inventar":
-        print(me.inventory)
+        me.inventory = +me.inventory
+        print(str(me.inventory).replace("Counter", "Dein Inventar: "))
     elif doing == "help":
         notes.read()
     elif doing == "map":

@@ -87,9 +87,9 @@ inge = NPC("Inge", 100, 5, quest2, {
         "c": "Danke"
     },
     "active2": { 
-        "question": "Vielen Dank für das Aquarium!",
+        "question": "Vielen Dank für das Aquarium! (kein problem/bitte schön, war ganz schön aufwendig)",
         "kein problem": "Super, jetzt kann ich die fische bei mir zuhause versorgen. quest_done",
-        "Bitte schön, war ganz schön aufwendig": "Oh, das tut mir leid quest_done"
+        "bitte schön, war ganz schön aufwendig": "Oh, das tut mir leid quest_done"
     }
 })
 
