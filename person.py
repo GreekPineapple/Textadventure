@@ -49,17 +49,12 @@ class NPC (Person):
             if dependencies.get(self.quest.name) == "ready" and key == swi:
                 print(self.choices[swi]["question"])
                 answer = input(">").lower().strip()
-                try: 
-                    response = self.choices[swi][answer]
-                    if "quest_start" in response:
-                        response = response.replace("quest_start", "").strip()
-                        self.quest.start()
-                    elif "quest_done" in response:
-                        response = response.replace("quest_done", "").strip()
-                        self.quest.complete()
-                    print(f"{self.name}: {response}")
-                except KeyError: 
-                    print("Ungültige Antwort")
-                
-               
-               
+                response = self.choices[swi].get(answer, "Ungültige Antwort")
+                if "quest_start" in response:
+                    response = response.replace("quest_start", "").strip()
+                    self.quest.start()
+                elif "quest_done" in response:
+                    response = response.replace("quest_done", "").strip()
+                    self.quest.complete()
+                print(f"{self.name}: {response}")
+         
