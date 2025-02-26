@@ -107,48 +107,9 @@ class Aquarium:
         self.number = 31
 
     def explore(self, player, aquilina):
-
         aquilina.talk(init_game.get_dependencies())
-        # if self.quest == "open": 
-        #     if damquest == "active":
-        #         print("Wilkommmen bei Aquilinas Aquarium Laden! *(kurz: AAL)*")
-        #         print("Was kann ich für dich tun?")
-        #         option = input(">").lower().strip()
-        #         if "aquarium" in option:
-        #             print("Ah, du interessierst dich für unsere Aquarien?")
-        #             option = input(">").lower().strip()
-        #             if option in positiveAnswers:
-        #                 print("Ich kann dir ein Angebot machen: Mein Kollege von der Vogelzucht braucht hilfe mit einem seiner Vögel...")
-        #                 print("Er hat mich gebeten ihm zu helfen, doch ich habe einfach keine zeit. Wenn du ihm stattdessen hilfst, bekommst du ein Aquaium umsonst. Frage dort nach, was genau du tun kannst.")
-        #                 print("Würdest du mir diesen gefallen tun?")
-        #                 option = input(">").lower().strip()
-        #                 if option in positiveAnswers:
-        #                     self.quest = "active"
-        #                     note.delete(" - Besorge ein Aquarium")
-        #                     note.write(" - Gehe zum Vogelhaus um rauszufinden wo sich der Vogel versteckt")
-        #             else:
-        #                 pass
-        #         else:
-        #             print("Mit dieser Sache kann ich dir leider nicht weiterhelfen.")
-        #     else:
-        #         print("Hier ist ein Aquarium shop. Er scheint aber geschlossen zu sein...")
-        # elif self.quest == "active":
-        #     if birdquest == "done":
-        #         print("Hast du den Vogel gefunden und zurück gebracht?")
-        #         option = input(">").lower().strip()
-        #         if option in positiveAnswers:
-        #             print("Super, vielen Dank! Hier bekommst du ein Aquarium")
-        #TODO             player.inventory["Aquarium"] += 1
-        #             self.quest = "done"
-        #             note.delete(" - Gehe zum Aquarium shop und hohle dir ein Aquarium")
-        #             note.write(" - Gehe zu der Frau am Staudamm und übergib ihr das Aquarium für ihre Fische")
-        #     else:
-        #         print("Finde den Vogel und bringe ihn zum Vogelhaus, um dir später hier ein Aquarium abzuholen!")
-        # elif self.quest == "done":
-        #     print("Wilkommmen bei Aquilinas Aquarium Laden! *(kurz: AAL)*")
-        #     print("Was kann ich für dich tun?")
-            
-        # return self.quest
+        if aquilina.quest.state == "done" and aquilina.quest.prev_quest.state == "active" and not "Aquarium" in player.inventory:
+           player.inventory["Aquarium"] += 1
 
 class BirdHouse:
     def __init__(self, quest):
