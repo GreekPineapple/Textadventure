@@ -10,13 +10,13 @@ def checkAction(position):
         case 13:
             pass
         case 22:
-            woods.quest = woods.explore(birdhouse.quest, notes)
+            woods.explore(berndTheBird)
         case 23:
             dam.explore(me, inge)
         case 30:
-            birdhouse.quest = birdhouse.explore(aquarium.quest, woods.quest, notes)
+            birdhouse.explore(me, tom)
         case 31:
-            aquarium.quest = aquarium.explore(dam.quest, birdhouse.quest, me, notes)
+            aquarium.explore(me, aquilina)
         case 32:
             square.explore(me)
         case 33:
