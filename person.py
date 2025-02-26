@@ -35,13 +35,7 @@ class NPC (Person):
     def talk(self, dependencies):
     
         if self.quest.state == "open":
-            if "quest_start" in self.dialogues[self.quest.state][dependencies.get(self.quest.name)]:
-                self.dialogues[self.quest.state][dependencies.get(self.quest.name)] = self.dialogues[self.quest.state][dependencies.get(self.quest.name)].replace("quest_start", "").strip()
-                print(f"\n{self.name}: {self.dialogues[self.quest.state][dependencies.get(self.quest.name)]}")
-                self.quest.start()
-            else:
-                print(f"\n{self.name}: {self.dialogues[self.quest.state][dependencies.get(self.quest.name)]}")
-
+            print(f"\n{self.name}: {self.dialogues[self.quest.state][dependencies.get(self.quest.name)]}")
 
         elif self.quest.state == "active":
             print(f"{self.name}: {self.dialogues[self.quest.state][dependencies.get(self.quest.name + "_done")]}")

@@ -148,7 +148,7 @@ tom = NPC("Tom", 100, 5, quest4, {
 
 berndTheBird = NPC("Bernd the Bird", 100, 5, quest5, {
     "open": { # previous quest is active(ready) or not (blocked)
-        "ready": "Das hier muss der Vogel sein der weggeflogen ist... \nAber wie fang ich ihn am besten? quest_start",
+        "ready": "Das hier muss der Vogel sein der weggeflogen ist...",
         "blocked": "Schöner Wald hier :)"
     },
     "active": { # next quest is done(ready) or not (blocked)
@@ -156,7 +156,11 @@ berndTheBird = NPC("Bernd the Bird", 100, 5, quest5, {
     },
     "done": "Dem Vogel geht es jetzt bestimmt besser!"
 }, {
-    "active1": {
+    "open1": {
+        "question": "Na dann versuchen wir mal dich einzufangen (lets go)",
+        "lets go": "Aber wie fange ich den Vogel am besten? quest_start"
+    },
+    "active2": {
         "question": "A: Vogelgeräusche imitieren \nB: Warten bis der Vogel weiter runter fliegt und ihn dann fangen \nC: Auf den Baum klettern und ihn fangen",
         "a": "Der Vogel denkt du bist ein Angreifer, du stirbst...",
         "b": "Glükwunssch du hast in gefangen quest_done",
