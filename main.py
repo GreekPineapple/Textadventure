@@ -6,15 +6,15 @@ def checkAction(position):
         case 11:
             ww.explore(me, villains, boss)
         case 12:
-            pass
+            woods.explore(berndTheBird)
         case 13:
             pass
         case 22:
-            woods.explore(berndTheBird)
+            pass
         case 23:
             dam.explore(me, inge)
         case 30:
-            birdhouse.explore(me, tom)
+            birdhouse.explore(tom)
         case 31:
             aquarium.explore(me, aquilina)
         case 32:
@@ -56,14 +56,14 @@ while me.lives > 0:
     if doing == "umschauen":
         block = lookAround(block)
     elif doing == "laufen":
-        me.move(wf.quest)
+        me.move(inge.quest)
         printposition(me.positionNow)
     elif doing == "inventar":
         print(me.inventory)
     elif doing == "help":
         notes.read()
     elif doing == "map":
-        map.printMap()
+        map.printMap(fields)
     elif doing == "ende":
         break
     else:

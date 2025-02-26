@@ -40,11 +40,11 @@ villains = [goblin, golem, wizard, luftGegner]
 
 # Quests
 
-quest1 = state_quest("Wasserfallquest", " - Sieh dich im Norden um", "", notes)
-quest2 = state_quest("Staudammquest", " - Besorge ein Aquarium", " - Rede mit Rainer am Wasserfall", notes)
-quest3 = state_quest("Aquariumquest", " - Gehe zum Vogelhaus um rauszufinden wo sich der Vogel versteckt"," - Gehe zu der Frau am Staudamm und übergib ihr das Aquarium für ihre Fische", notes)
-quest4 = state_quest("Birdhousequest", " - Suche den Vogel und bringe ihn in das Vogelzucht haus"," - Gehe zum Aquarium shop und hohle dir ein Aquarium", notes)
-quest5 = state_quest("Vogelquest", " - Fange den Vogel"," - Bringe den Vogel in das Vogelzucht haus", notes)
+quest1 = state_quest("Wasserfallquest", " - Sieh dich im Norden um", "", notes, prev_quest=None)
+quest2 = state_quest("Staudammquest", " - Besorge ein Aquarium", " - Rede mit Rainer am Wasserfall", notes, prev_quest=quest1)
+quest3 = state_quest("Aquariumquest", " - Gehe zum Vogelhaus um rauszufinden wo sich der Vogel versteckt"," - Gehe zu der Frau am Staudamm und übergib ihr das Aquarium für ihre Fische", notes, prev_quest=quest2)
+quest4 = state_quest("Birdhousequest", " - Suche den Vogel und bringe ihn in das Vogelzucht haus"," - Gehe zum Aquarium shop und hohle dir ein Aquarium", notes, prev_quest=quest3)
+quest5 = state_quest("Vogelquest", " - Fange den Vogel"," - Bringe den Vogel in das Vogelzucht haus", notes, prev_quest=quest4)
 
 # NPCs
 
@@ -53,7 +53,7 @@ rainer = NPC("Rainer", 100, 5, quest1, {
         "ready": "Oh man, hier war mal ein schöner Wasserfall, aber irgenjemand musste ja unbedingt ein Staudamm in Richtung Norden bauen..."
     },
     "active": { # next quest is done(ready) or not (blocked)
-        "ready": "Woow, der Wasserfall fließt wieder, jetzt kann ich ganz entspannt meine Mittagspause hier verbingen!\nDu erhälst dafür eine kleine Belohnung von mir, hoffe du kannst damit was anfangen quest_done",
+        "ready": "Woow, der Wasserfall fließt wieder, jetzt kann ich ganz entspannt meine Mittagspause hier verbingen!",
         "blocked": "Schon im Norden umgeschauet?"
     },
     "done": "Danke! Jetzt fließt das Wasser wieder!"
@@ -62,6 +62,11 @@ rainer = NPC("Rainer", 100, 5, quest1, {
         "question": "Kannst du der Sache auf den Grund gehen? (ja/nein)",
         "ja": "Gehe nach Norden und schau dich da mal um. quest_start",
         "nein": "Okay schade, vielleicht ja später!"
+    },
+    "active2": { 
+        "question": "Du erhälst dafür eine kleine Belohnung von mir, hoffe du kannst damit was anfangen (danke/nö)",
+        "danke": "Kein Problem, danke dir! quest_done",
+        "nö": "Okay, dann behalte ichs eben"
     }
 })
 
@@ -71,7 +76,7 @@ inge = NPC("Inge", 100, 5, quest2, {
         "blocked": "Hier ist eine Frau die Fische füttert"
     },
     "active": { # next quest is done(ready) or not (blocked)
-        "ready": "Super, jetzt kann ich die fische bei mir zuhause versorgen quest_done",
+        "ready": "",
         "blocked": "Besorge ein Aquarium um die Fische zu retten"
     },
     "done": "Der Wasserfall geht ja ganz schön tief!"
@@ -81,6 +86,11 @@ inge = NPC("Inge", 100, 5, quest2, {
         "a": "Ich würde dir ja gerne helfen, aber die Fische brauchen einen Ort zum Leben. Wenn es doch nur irgendwie einen weg geben würde, ein Aquarium zu besorgen... quest_start",
         "b": "*Fütter*",
         "c": "Danke"
+    },
+    "active2": { 
+        "question": "Vielen Dank für das Aquarium!",
+        "kein problem": "Super, jetzt kann ich die fische bei mir zuhause versorgen. quest_done",
+        "Bitte schön, war ganz schön aufwendig": "Oh, das tut mir leid quest_done"
     }
 })
 
@@ -146,7 +156,7 @@ berndTheBird = NPC("Bernd the Bird", 100, 5, quest5, {
     },
     "done": "Dem Vogel geht es jetzt bestimmt besser!"
 }, {
-    "open1": {
+    "active1": {
         "question": "A: Vogelgeräusche imitieren \nB: Warten bis der Vogel weiter runter fliegt und ihn dann fangen \nC: Auf den Baum klettern und ihn fangen",
         "a": "Der Vogel denkt du bist ein Angreifer, du stirbst...",
         "b": "Glükwunssch du hast in gefangen quest_done",

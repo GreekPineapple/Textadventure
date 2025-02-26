@@ -35,7 +35,13 @@ class NPC (Person):
     def talk(self, dependencies):
     
         if self.quest.state == "open":
-            print(f"\n{self.name}: {self.dialogues[self.quest.state][dependencies.get(self.quest.name)]}")
+            if "quest_start" in self.dialogues[self.quest.state][dependencies.get(self.quest.name)]:
+                self.dialogues[self.quest.state][dependencies.get(self.quest.name)] = self.dialogues[self.quest.state][dependencies.get(self.quest.name)].replace("quest_start", "").strip()
+                print(f"\n{self.name}: {self.dialogues[self.quest.state][dependencies.get(self.quest.name)]}")
+                self.quest.start()
+            else:
+                print(f"\n{self.name}: {self.dialogues[self.quest.state][dependencies.get(self.quest.name)]}")
+
 
         elif self.quest.state == "active":
             print(f"{self.name}: {self.dialogues[self.quest.state][dependencies.get(self.quest.name + "_done")]}")
@@ -48,11 +54,17 @@ class NPC (Person):
             if dependencies.get(self.quest.name) == "ready" and key == swi:
                 print(self.choices[swi]["question"])
                 answer = input(">").lower().strip()
-                response = self.choices[swi][answer]
-                if "quest_start" in response:
-                    response = response.replace("quest_start", "").strip()
-                    self.quest.start()
-                elif "quest_done" in response:
-                    response = response.replace("quest_done", "").strip()
-                    self.quest.complete()
-                print(f"{self.name}: {response}")
+                try: 
+                    response = self.choices[swi][answer]
+                    if "quest_start" in response:
+                        response = response.replace("quest_start", "").strip()
+                        self.quest.start()
+                    elif "quest_done" in response:
+                        response = response.replace("quest_done", "").strip()
+                        self.quest.complete()
+                    print(f"{self.name}: {response}")
+                except KeyError: 
+                    print("Ungültige Antwort")
+                
+               
+               
