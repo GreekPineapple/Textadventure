@@ -1,4 +1,4 @@
-from state_quest import state_quest
+from quest import Quest
 
 class Person:
     def __init__(self, lives, strength, name):
@@ -23,7 +23,7 @@ class Villain (Person):
         super().printInfo()
 
 class NPC (Person):
-    def __init__(self, name, lives, strength, quest: state_quest, dialogues: dict, choices: dict):
+    def __init__(self, name, lives, strength, quest: Quest, dialogues: dict, choices: dict):
         self.quest = quest
         self.dialogues = dialogues
         self.choices = choices
@@ -34,7 +34,7 @@ class NPC (Person):
 
     def talk(self, dependencies):
         dependency = None
-        
+
         if self.quest.state == "open":
             print(f"\n{self.name}: {self.dialogues[self.quest.state][dependencies.get(self.quest.name)]}")
             dependency = dependencies.get(self.quest.name)

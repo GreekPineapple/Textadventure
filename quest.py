@@ -1,4 +1,4 @@
-class state_quest:
+class Quest:
     def __init__(self, name, start_desc, complete_desc, note, prev_quest=None):
         self.state = "open"  # Startzustand
         self.name = name

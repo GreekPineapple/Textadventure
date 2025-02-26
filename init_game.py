@@ -1,4 +1,4 @@
-from state_quest import *
+from quest import *
 from person import NPC, Villain
 from player import Player
 from map import *
@@ -39,11 +39,11 @@ villains = [goblin, golem, wizard, luftGegner]
 
 # --- Quests --- #
 
-quest1 = state_quest("Wasserfallquest", " - Sieh dich im Norden um", "", notes, prev_quest=None)
-quest2 = state_quest("Staudammquest", " - Besorge ein Aquarium", " - Rede mit Rainer am Wasserfall", notes, prev_quest=quest1)
-quest3 = state_quest("Aquariumquest", " - Gehe zum Vogelhaus um rauszufinden wo sich der Vogel versteckt"," - Gehe zu der Frau am Staudamm und übergib ihr das Aquarium für ihre Fische", notes, prev_quest=quest2)
-quest4 = state_quest("Birdhousequest", " - Suche den Vogel und bringe ihn in das Vogelzucht haus"," - Gehe zum Aquarium shop und hohle dir ein Aquarium", notes, prev_quest=quest3)
-quest5 = state_quest("Vogelquest", " - Fange den Vogel"," - Bringe den Vogel in das Vogelzucht haus", notes, prev_quest=quest4)
+quest1 = Quest("Wasserfallquest", " - Sieh dich im Norden um", "", notes, prev_quest=None)
+quest2 = Quest("Staudammquest", " - Besorge ein Aquarium", " - Rede mit Rainer am Wasserfall", notes, prev_quest=quest1)
+quest3 = Quest("Aquariumquest", " - Gehe zum Vogelhaus um rauszufinden wo sich der Vogel versteckt"," - Gehe zu der Frau am Staudamm und übergib ihr das Aquarium für ihre Fische", notes, prev_quest=quest2)
+quest4 = Quest("Birdhousequest", " - Suche den Vogel und bringe ihn in das Vogelzucht haus"," - Gehe zum Aquarium shop und hohle dir ein Aquarium", notes, prev_quest=quest3)
+quest5 = Quest("Vogelquest", " - Fange den Vogel"," - Bringe den Vogel in das Vogelzucht haus", notes, prev_quest=quest4)
 
 # --- NPCs --- #
 
