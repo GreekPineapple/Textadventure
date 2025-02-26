@@ -1,6 +1,5 @@
 import globals, json, init_game
-positiveAnswers = ["yes", "y", "ja", "j", "yep", "jop"]
-negativeAnswers = ["no", "n", "nein", "ne", "nop", "nope", "nee"]
+
 class Map:
     def __init__(self, rows, columns):
         self.rows = rows
