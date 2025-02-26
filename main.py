@@ -12,7 +12,7 @@ def checkAction(position):
         case 22:
             woods.quest = woods.explore(birdhouse.quest, notes)
         case 23:
-            dam.quest = dam.explore(wf.quest, aquarium.quest, me, notes)
+            dam.explore(me, inge)
         case 30:
             birdhouse.quest = birdhouse.explore(aquarium.quest, woods.quest, notes)
         case 31:

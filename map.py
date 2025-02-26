@@ -122,37 +122,42 @@ class Dam:
         self.name = " Staudamm "        
         self.number = 23
 
-    def explore(self, wfquest, aqquest, player, note):
-        if self.quest == "open":
-            print("Hier ist eine Frau die Fische füttert")
-            if wfquest == "active":
-                print('Inge: "Durch den Damm den ich gebaut habe, sind die Fische endlich sicher und ich kann mich gut um sie kümmern."')
-                print('A: "Der Wasserfall ist aber total ausgetrocknet!"')
-                print('B: "Darf ich auch mal Füttern?"')
-                print('C: "Okay, dann viel Spaß noch."')
-                option = input(">").capitalize().strip()
-                if option == "A":
-                    print('Inge: "Ich würde dir ja gerne helfen, aber die Fische brauchen einen Ort zum Leben. Wenn es doch nur irgendwie einen weg geben würde, ein Aquarium zu besorgen..."')
-                    self.quest = "active"
-                    note.delete(" - Sieh dich im Norden um")
-                    note.write(" - Besorge ein Aquarium")
-                elif option == "B":
-                    print("*Fütter*")
+    def explore(self, player, inge):
 
-        elif self.quest == "active":
-            if aqquest == "done":
-                print("Super, jetzt kann ich die fische bei mir zuhause versorgen")
-                self.quest = "done"
-                player.inventory["Aquarium"] -= 1
-                note.delete(" - Gehe zu der Frau am Staudamm und übergib ihr das Aquarium für ihre Fische")
-                note.write(" - Rede mit Rainer am Wasserfall")
-            else:
-                print("Besorge ein AAquarium um die Fische zu retten")
+        inge.talk(init_game.get_dependencies())
+        if inge.quest.state == "active" and "Aquarium" in player.inventory:
+            player.inventory["Aquarium"] -= 1
 
-        elif self.quest == "done":
-            print('Inge: "Der Wasserfall geht ja ganz schön tief"')
+        # if self.quest == "open":
+        #     print("Hier ist eine Frau die Fische füttert")
+        #     if wfquest == "active":
+        #         print('Inge: "Durch den Damm den ich gebaut habe, sind die Fische endlich sicher und ich kann mich gut um sie kümmern."')
+        #         print('A: "Der Wasserfall ist aber total ausgetrocknet!"')
+        #         print('B: "Darf ich auch mal Füttern?"')
+        #         print('C: "Okay, dann viel Spaß noch."')
+        #         option = input(">").capitalize().strip()
+        #         if option == "A":
+        #             print('Inge: "Ich würde dir ja gerne helfen, aber die Fische brauchen einen Ort zum Leben. Wenn es doch nur irgendwie einen weg geben würde, ein Aquarium zu besorgen..."')
+        #             self.quest = "active"
+        #             note.delete(" - Sieh dich im Norden um")
+        #             note.write(" - Besorge ein Aquarium")
+        #         elif option == "B":
+        #             print("*Fütter*")
+
+        # elif self.quest == "active":
+        #     if aqquest == "done":
+        #         print("Super, jetzt kann ich die fische bei mir zuhause versorgen")
+        #         self.quest = "done"
+        #         player.inventory["Aquarium"] -= 1
+        #         note.delete(" - Gehe zu der Frau am Staudamm und übergib ihr das Aquarium für ihre Fische")
+        #         note.write(" - Rede mit Rainer am Wasserfall")
+        #     else:
+        #         print("Besorge ein AAquarium um die Fische zu retten")
+
+        # elif self.quest == "done":
+        #     print('Inge: "Der Wasserfall geht ja ganz schön tief"')
             
-        return self.quest
+        # return self.quest
 
 class Aquarium:
     def __init__(self, quest):
