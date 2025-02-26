@@ -45,7 +45,7 @@ class NPC (Person):
 
         for index, key in enumerate(self.choices):
             swi = self.quest.state + str(index + 1) #State with Index (swi)
-            if key == swi:
+            if dependencies.get(self.quest.name) == "ready" and key == swi:
                 print(self.choices[swi]["question"])
                 answer = input(">").lower().strip()
                 response = self.choices[swi][answer]
