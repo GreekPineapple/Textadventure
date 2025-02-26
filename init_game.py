@@ -3,13 +3,12 @@ from person import NPC, Villain
 from player import Player
 from map import *
 from notes import *
-from state_quest import *
 
-# Notes
+# --- Notes --- #
 
 notes = Notes()
 
-# Map
+# --- Map --- #
 
 map = Map(40,4)
 townhall = TownHall()
@@ -25,7 +24,7 @@ ew = EastWoods()
 
 fields = [townhall, woods, wf, dam, aquarium, square, birdhouse, ww, ew, sw]
 
-# Characters
+# --- Characters --- #
 
 me = Player(200, 10, "myself", [], 42) #Start: Townhall
 
@@ -38,7 +37,7 @@ boss = Villain("Boss", 150, 150, ["a","b","c"], "special glitzer boss attacke")
 
 villains = [goblin, golem, wizard, luftGegner]
 
-# Quests
+# --- Quests --- #
 
 quest1 = state_quest("Wasserfallquest", " - Sieh dich im Norden um", "", notes, prev_quest=None)
 quest2 = state_quest("Staudammquest", " - Besorge ein Aquarium", " - Rede mit Rainer am Wasserfall", notes, prev_quest=quest1)
@@ -46,7 +45,7 @@ quest3 = state_quest("Aquariumquest", " - Gehe zum Vogelhaus um rauszufinden wo 
 quest4 = state_quest("Birdhousequest", " - Suche den Vogel und bringe ihn in das Vogelzucht haus"," - Gehe zum Aquarium shop und hohle dir ein Aquarium", notes, prev_quest=quest3)
 quest5 = state_quest("Vogelquest", " - Fange den Vogel"," - Bringe den Vogel in das Vogelzucht haus", notes, prev_quest=quest4)
 
-# NPCs
+# --- NPCs --- #
 
 rainer = NPC("Rainer", 100, 5, quest1, {
     "open": {

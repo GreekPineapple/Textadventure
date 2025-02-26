@@ -14,7 +14,7 @@ class state_quest:
     def start(self):
         if self.state == "open":
             self.state = "active"
-            print(f"Quest '{self.name}' gestartet!")
+           # print(f"Quest '{self.name}' gestartet!")
             if self.prev_quest:
                 self.note.delete(self.prev_quest.start_desc)
             self.note.write(self.start_desc)
@@ -22,8 +22,7 @@ class state_quest:
     def complete(self):
         if self.state == "active":
             self.state = "done"
-            print(f"Quest '{self.name}' abgeschlossen!")
-
+            #print(f"Quest '{self.name}' abgeschlossen!")
             if self.next_quest:
                 self.note.delete(self.next_quest.complete_desc)
             else:

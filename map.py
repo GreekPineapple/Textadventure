@@ -85,36 +85,9 @@ class Waterfall:
         self.number = 33
 
     def explore(self, player, rainer):
-
         rainer.talk(init_game.get_dependencies())
         if rainer.quest.state == "done" and not "Bauteil1" in player.inventory:
             player.inventory["Bauteil1"] += 1
-
-        # if self.quest == "open":
-        #     print('Rainer: "Oh man, hier war mal ein schöner Wasserfall, aber irgenjemand musste ja unbedingt ein Staudamm in Richtung Norden bauen...')
-        #     print('Kannst du der Sache auf den Grund gehen?"')
-        #     option = input(">").lower().strip()
-        #     if option in positiveAnswers:
-        #         print("Gehe nach Norden und schau dich da mal um.")
-        #         self.quest = "active"
-        #         note.write(" - Sieh dich im Norden um")
-        #     elif option in negativeAnswers:
-        #         print('Rainer: "Okay schade, vielleicht ja später!"')
-        #     else:
-        #         print("ungültige eingabe")
-        # elif self.quest == "active":
-        #     if damquest == "done":
-        #         print('Rainer: "Woow, der Wasserfall fließt wieder, jetzt kann ich ganz entspannt meine Mittagspause hier verbingen')
-        #         print('Du erhälst dafür eine kleine Belohnung von mir, hoffe du kannst damit was anfangen"')
-        #         # erstes Bauteil geben
-        #         player.inventory["Bauteil1"] += 1
-        #         self.quest = "done"
-        #         note.delete(" - Rede mit Rainer am Wasserfall")
-        #     else:
-        #         print("Schon im Norden umgeschauet?")
-        # elif self.quest == "done":
-        #     print("Diese Quest wurde schon beendet! ;)")
-        # return self.quest
         
 class Dam:
     def __init__(self, quest):
@@ -123,41 +96,9 @@ class Dam:
         self.number = 23
 
     def explore(self, player, inge):
-
         inge.talk(init_game.get_dependencies())
         if inge.quest.state == "active" and "Aquarium" in player.inventory:
             player.inventory["Aquarium"] -= 1
-
-        # if self.quest == "open":
-        #     print("Hier ist eine Frau die Fische füttert")
-        #     if wfquest == "active":
-        #         print('Inge: "Durch den Damm den ich gebaut habe, sind die Fische endlich sicher und ich kann mich gut um sie kümmern."')
-        #         print('A: "Der Wasserfall ist aber total ausgetrocknet!"')
-        #         print('B: "Darf ich auch mal Füttern?"')
-        #         print('C: "Okay, dann viel Spaß noch."')
-        #         option = input(">").capitalize().strip()
-        #         if option == "A":
-        #             print('Inge: "Ich würde dir ja gerne helfen, aber die Fische brauchen einen Ort zum Leben. Wenn es doch nur irgendwie einen weg geben würde, ein Aquarium zu besorgen..."')
-        #             self.quest = "active"
-        #             note.delete(" - Sieh dich im Norden um")
-        #             note.write(" - Besorge ein Aquarium")
-        #         elif option == "B":
-        #             print("*Fütter*")
-
-        # elif self.quest == "active":
-        #     if aqquest == "done":
-        #         print("Super, jetzt kann ich die fische bei mir zuhause versorgen")
-        #         self.quest = "done"
-        #         player.inventory["Aquarium"] -= 1
-        #         note.delete(" - Gehe zu der Frau am Staudamm und übergib ihr das Aquarium für ihre Fische")
-        #         note.write(" - Rede mit Rainer am Wasserfall")
-        #     else:
-        #         print("Besorge ein AAquarium um die Fische zu retten")
-
-        # elif self.quest == "done":
-        #     print('Inge: "Der Wasserfall geht ja ganz schön tief"')
-            
-        # return self.quest
 
 class Aquarium:
     def __init__(self, quest):
@@ -216,40 +157,7 @@ class BirdHouse:
         self.number = 30
         
     def explore(self, tom):
-
         tom.talk(init_game.get_dependencies())
-
-        # if self.quest == "open":
-        #     if aqquest == "active":
-        #         print("Leider ist mir unser schönster Vogel abgehauen, aber mein kollege und ich suchen grade zusammen nach ihm") 
-        #         print("Kannst du uns vielleicht dabei helfen?")
-        #         answer = input(">").lower().strip()
-        #         if answer in positiveAnswers: 
-        #             print("Mega, danke! Vermutlich wird er sich irgendwo im Wald aufhalten, aber sicher bin ich mir da nicht..")
-        #             self.quest = "active"
-        #             note.delete(" - Gehe zum Vogelhaus um rauszufinden wo sich der Vogel versteckt")
-        #             note.write(" - Suche den Vogel und bringe ihn in das Vogelzucht haus")
-        #     else:
-        #         print("Hier Vogelhaus")
-
-        # elif self.quest == "active":
-        #     if birdquest == "done":
-        #         print("Wilkommmen bei der Vogelzucht")
-        #         print("wie ich sehe hast du meinen Vogel gefunden?")
-        #         answer = input(">").lower().strip()
-        #         if answer in positiveAnswers:
-        #             print("Super, vielen Dank!")
-        #             print("Kannst du noch bei mienem Kollegen im Aquarium shop vorbei schauen und sagen, der Vogel ist wieder da? Danke!")
-        #             self.quest = "done"
-        #             note.delete(" - Bringe den Vogel in das Vogelzucht haus")
-        #             note.write(" - Gehe zum Aquarium shop und hohle dir ein Aquarium")
-        #         else:
-        #             print("ungültige eingabe")
-        #     else:
-        #         print("Der Vogel sollte sich irgendwo im Wald verstecken")
-        # elif self.quest == "done":
-        #     print("Wilkommmen bei der Vogelzucht noch kannst du hier nichts machen, außer den ausreißer betrachten")
-        # return self.quest
 
 class Woods:
     def __init__(self, quest):
@@ -258,23 +166,7 @@ class Woods:
         self.number = 12
         
     def explore(self, berndTheBird):
-
         berndTheBird.talk(init_game.get_dependencies())
-        # if self.quest == "open":
-        #     if birdquest == "active":
-        #         print("Das hier muss der Vogel sein der weggeflogen ist... \nAber wie fang ich ihn am besten?")
-        #         print("A: Vogelgeräusche imitieren \nB: Warten bis der Vogel weiter runter fliegt und ihn dann fangen \nC: Auf den Baum klettern und ihn fangen")
-        #         option = input(">").lower().strip()
-        #         if option == "a":
-        #             print("Der Vogel denkt du bist ein Angreifer, du stirbst...")
-        #         elif option == "b":
-        #             print("Glükwunssch du hast in gefangen")
-        #             self.quest = "done"
-        #             note.delete(" - Suche den Vogel und bringe ihn in das Vogelzucht haus")
-        #             note.write(" - Bringe den Vogel in das Vogelzucht haus")
-        #         elif option == "c":
-        #             print("Du bist vom Baum gefallen und gestorben, lol")
-        # return self.quest
     
 class SouthWoods:
     def __init__(self):
