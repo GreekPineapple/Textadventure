@@ -41,10 +41,10 @@ villains = [goblin, golem, wizard, luftGegner]
 # Quests
 
 quest1 = state_quest("Wasserfallquest", " - Sieh dich im Norden um", "", notes)
-quest2 = state_quest("Staudammquest", "Besorge ein Aquarium damit der Staudamm entfernt werden kann")
-quest3 = state_quest("Aquariumquest", "Hilf dem Kollegen um ein Aquarium zu bekommen")
-quest4 = state_quest("Birdhousequest", "Such den Vogel und hold dir dein Aquarium ab!")
-quest5 = state_quest("Vogelquest", "Fange den Vogel ein")
+quest2 = state_quest("Staudammquest", " - Besorge ein Aquarium", " - Rede mit Rainer am Wasserfall", notes)
+quest3 = state_quest("Aquariumquest", " - Gehe zum Vogelhaus um rauszufinden wo sich der Vogel versteckt"," - Gehe zu der Frau am Staudamm und übergib ihr das Aquarium für ihre Fische", notes)
+quest4 = state_quest("Birdhousequest", " - Suche den Vogel und bringe ihn in das Vogelzucht haus"," - Gehe zum Aquarium shop und hohle dir ein Aquarium", notes)
+quest5 = state_quest("Vogelquest", " - Fange den Vogel"," - Bringe den Vogel in das Vogelzucht haus", notes)
 
 # NPCs
 
