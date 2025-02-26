@@ -56,7 +56,7 @@ while me.lives > 0:
     if doing == "umschauen":
         block = lookAround(block)
     elif doing == "laufen":
-        me.move(inge.quest)
+        me.move(inge.quest.state)
         printposition(me.positionNow)
     elif doing == "inventar":
         print(me.inventory)

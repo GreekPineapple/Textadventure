@@ -79,8 +79,7 @@ class TownHall:
             print("Du hast noch " + str(player.inventory["Gutschein"]) + " Gutscheine zur verfügung")
 
 class Waterfall:
-    def __init__(self, quest):
-        self.quest = quest
+    def __init__(self):
         self.name = "Wasserfall"
         self.number = 33
 
@@ -90,8 +89,7 @@ class Waterfall:
             player.inventory["Bauteil1"] += 1
         
 class Dam:
-    def __init__(self, quest):
-        self.quest = quest
+    def __init__(self):
         self.name = " Staudamm "        
         self.number = 23
 
@@ -101,8 +99,7 @@ class Dam:
             player.inventory["Aquarium"] -= 1
 
 class Aquarium:
-    def __init__(self, quest):
-        self.quest = quest
+    def __init__(self):
         self.name = " Aquarium "
         self.number = 31
 
@@ -112,8 +109,7 @@ class Aquarium:
            player.inventory["Aquarium"] += 1
 
 class BirdHouse:
-    def __init__(self, quest):
-        self.quest = quest
+    def __init__(self):
         self.name = "Vogelhaus "        
         self.number = 30
         
@@ -121,8 +117,7 @@ class BirdHouse:
         tom.talk(init_game.get_dependencies())
 
 class Woods:
-    def __init__(self, quest):
-        self.quest = quest
+    def __init__(self):
         self.name = "   Wald   "        
         self.number = 12
         
