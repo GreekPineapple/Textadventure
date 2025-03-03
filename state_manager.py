@@ -4,6 +4,3 @@ class Statemanager:
 
   def add(self, state):
     self.states.append(state)
-
-  def update(self):
-    pass

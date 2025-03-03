@@ -185,13 +185,13 @@ berndTheBird = NPC("Bernd the Bird", 100, 5, quest5, {
 def get_dependencies():
     return {
         "Wasserfallquest": "ready",
-        "Staudammquest": "ready" if quest1.state == "active" else "blocked",
-        "Aquariumquest": "ready" if quest2.state == "active" else "blocked",
-        "Birdhousequest": "ready" if quest3.state == "active" else "blocked",
-        "Vogelquest": "ready" if quest4.state == "active" else "blocked",
+        "Staudammquest": "ready" if quest1.state.name == "active" else "blocked",
+        "Aquariumquest": "ready" if quest2.state.name == "active" else "blocked",
+        "Birdhousequest": "ready" if quest3.state.name == "active" else "blocked",
+        "Vogelquest": "ready" if quest4.state.name == "active" else "blocked",
         "Vogelquest_done": "ready",
-        "Birdhousequest_done": "ready" if quest5.state =="done" else "blocked",
-        "Aquariumquest_done": "ready" if quest4.state == "done" else "blocked",
-        "Staudammquest_done": "ready" if quest3.state == "done" else "blocked",
-        "Wasserfallquest_done": "ready" if quest2.state == "done" else "blocked",
+        "Birdhousequest_done": "ready" if quest5.state.name =="done" else "blocked",
+        "Aquariumquest_done": "ready" if quest4.state.name == "done" else "blocked",
+        "Staudammquest_done": "ready" if quest3.state.name == "done" else "blocked",
+        "Wasserfallquest_done": "ready" if quest2.state.name == "done" else "blocked",
     }

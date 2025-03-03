@@ -35,18 +35,19 @@ class NPC (Person):
     def talk(self, dependencies):
         dependency = None
 
-        if self.quest.state == "open":
-            print(f"\n{self.name}: {self.dialogues[self.quest.state][dependencies.get(self.quest.name)]}")
+        if self.quest.state.__class__ == self.quest.state_manager.states[0].__class__:
+
+            print(f"\n{self.name}: {self.dialogues[self.quest.state.name][dependencies.get(self.quest.name)]}")
             dependency = dependencies.get(self.quest.name)
 
-        elif self.quest.state == "active":
-            print(f"{self.name}: {self.dialogues[self.quest.state][dependencies.get(self.quest.name + "_done")]}")
+        elif self.quest.state.__class__ == self.quest.state_manager.states[1].__class__:
+            print(f"{self.name}: {self.dialogues[self.quest.state.name][dependencies.get(self.quest.name + "_done")]}")
             dependency = dependencies.get(self.quest.name + "_done")
 
-        elif self.quest.state == "done":
-            print(f"\n{self.name}: {self.dialogues.get(self.quest.state)}")
+        elif self.quest.state.__class__ == self.quest.state_manager.states[-1].__class__:
+            print(f"\n{self.name}: {self.dialogues.get(self.quest.state.name)}")
 
-        current_quest = self.quest.state
+        current_quest = self.quest.state.name
         for index, key in enumerate(self.choices):
             swi = current_quest + str(index + 1) #State with Index (swi)
             if dependency == "ready" and key == swi:

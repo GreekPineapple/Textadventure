@@ -5,7 +5,7 @@ class OpenState:
     self.next_state = ActiveState
 
   def update(self):
-    return self.next_state
+    return self.next_state()
 
   def execute():
     pass
@@ -17,8 +17,7 @@ class ActiveState:
     self.next_state = DoneState
 
   def update(self):
-    return self.next_state
-
+    return self.next_state()
 
   def execute():
     pass

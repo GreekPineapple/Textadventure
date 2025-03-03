@@ -84,7 +84,7 @@ class Waterfall:
 
     def explore(self, player, rainer):
         rainer.talk(init_game.get_dependencies())
-        if rainer.quest.state == "done" and not "Bauteil1" in player.inventory:
+        if rainer.quest.state.name == "done" and not "Bauteil1" in player.inventory:
             player.inventory["Bauteil1"] += 1
         
 class Dam:
@@ -94,7 +94,7 @@ class Dam:
 
     def explore(self, player, inge):
         inge.talk(init_game.get_dependencies())
-        if inge.quest.state == "active" and player.inventory["Aquarium"] > 0:
+        if inge.quest.state.name == "active" and player.inventory["Aquarium"] > 0:
             player.inventory["Aquarium"] -= 1
 
 class Aquarium:
@@ -104,7 +104,7 @@ class Aquarium:
 
     def explore(self, player, aquilina):
         aquilina.talk(init_game.get_dependencies())
-        if aquilina.quest.state == "done" and aquilina.quest.prev_quest.state == "active" and not "Aquarium" in player.inventory:
+        if aquilina.quest.state.name == "done" and aquilina.quest.prev_quest.state.name == "active" and not "Aquarium" in player.inventory:
            player.inventory["Aquarium"] += 1
 
 class BirdHouse:
