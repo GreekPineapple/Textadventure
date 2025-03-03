@@ -1,5 +1,5 @@
 class Quest:
-    def __init__(self, name, start_desc, complete_desc, note, prev_quest=None):
+    def __init__(self, name, start_desc, complete_desc, note, state_manager, prev_quest=None):
         self.state = "open"  # Startzustand
         self.name = name
         self.start_desc = start_desc
@@ -7,6 +7,7 @@ class Quest:
         self.note = note
         self.prev_quest = prev_quest
         self.next_quest = None
+        self.state_manager = state_manager
 
         if prev_quest:
             prev_quest.next_quest = self

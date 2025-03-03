@@ -3,6 +3,8 @@ from person import NPC, Villain
 from player import Player
 from map import *
 from notes import *
+from states import *
+from state_manager import Statemanager
 
 # --- Notes --- #
 
@@ -37,13 +39,20 @@ boss = Villain("Boss", 150, 150, ["a","b","c"], "special glitzer boss attacke")
 
 villains = [goblin, golem, wizard, luftGegner]
 
+# --- States --- #
+
+state_manager = Statemanager()
+state_manager.add(OpenState())
+state_manager.add(ActiveState())
+state_manager.add(DoneState())
+
 # --- Quests --- #
 
-quest1 = Quest("Wasserfallquest", " - Sieh dich im Norden um", "", notes, prev_quest=None)
-quest2 = Quest("Staudammquest", " - Besorge ein Aquarium", " - Rede mit Rainer am Wasserfall", notes, prev_quest=quest1)
-quest3 = Quest("Aquariumquest", " - Gehe zum Vogelhaus um rauszufinden wo sich der Vogel versteckt"," - Gehe zu der Frau am Staudamm und übergib ihr das Aquarium für ihre Fische", notes, prev_quest=quest2)
-quest4 = Quest("Birdhousequest", " - Suche den Vogel und bringe ihn in das Vogelzucht haus"," - Gehe zum Aquarium shop und hohle dir ein Aquarium", notes, prev_quest=quest3)
-quest5 = Quest("Vogelquest", " - Fange den Vogel"," - Bringe den Vogel in das Vogelzucht haus", notes, prev_quest=quest4)
+quest1 = Quest("Wasserfallquest", " - Sieh dich im Norden um", "", notes, state_manager, prev_quest=None)
+quest2 = Quest("Staudammquest", " - Besorge ein Aquarium", " - Rede mit Rainer am Wasserfall", notes, state_manager, prev_quest=quest1)
+quest3 = Quest("Aquariumquest", " - Gehe zum Vogelhaus um rauszufinden wo sich der Vogel versteckt"," - Gehe zu der Frau am Staudamm und übergib ihr das Aquarium für ihre Fische", notes, state_manager, prev_quest=quest2)
+quest4 = Quest("Birdhousequest", " - Suche den Vogel und bringe ihn in das Vogelzucht haus"," - Gehe zum Aquarium shop und hohle dir ein Aquarium", notes, state_manager, prev_quest=quest3)
+quest5 = Quest("Vogelquest", " - Fange den Vogel"," - Bringe den Vogel in das Vogelzucht haus", notes, state_manager, prev_quest=quest4)
 
 # --- NPCs --- #
 
