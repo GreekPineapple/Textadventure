@@ -7,9 +7,6 @@ class OpenState:
   def update(self):
     return self.next_state()
 
-  def execute():
-    pass
-
 class ActiveState:
 
   def __init__(self):
@@ -19,9 +16,6 @@ class ActiveState:
   def update(self):
     return self.next_state()
 
-  def execute():
-    pass
-
 class DoneState:
 
   def __init__(self):
@@ -30,6 +24,4 @@ class DoneState:
 
   def update():
     print("No more Updates available")
-
-  def execute():
-    pass
+    
