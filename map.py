@@ -83,7 +83,7 @@ class Waterfall:
         self.number = 33
 
     def explore(self, player, rainer):
-        rainer.talk(init_game.get_dependencies())
+        rainer.talk(init_game.get_dependencies(init_game.quests))
         if rainer.quest.state.name == "done" and not "Bauteil1" in player.inventory:
             player.inventory["Bauteil1"] += 1
         
@@ -93,7 +93,7 @@ class Dam:
         self.number = 23
 
     def explore(self, player, inge):
-        inge.talk(init_game.get_dependencies())
+        inge.talk(init_game.get_dependencies(init_game.quests))
         if inge.quest.state.name == "active" and player.inventory["Aquarium"] > 0:
             player.inventory["Aquarium"] -= 1
 
@@ -103,7 +103,7 @@ class Aquarium:
         self.number = 31
 
     def explore(self, player, aquilina):
-        aquilina.talk(init_game.get_dependencies())
+        aquilina.talk(init_game.get_dependencies(init_game.quests))
         if aquilina.quest.state.name == "done" and aquilina.quest.prev_quest.state.name == "active" and not "Aquarium" in player.inventory:
            player.inventory["Aquarium"] += 1
 
@@ -113,7 +113,7 @@ class BirdHouse:
         self.number = 30
         
     def explore(self, tom):
-        tom.talk(init_game.get_dependencies())
+        tom.talk(init_game.get_dependencies(init_game.quests))
 
 class Woods:
     def __init__(self):
@@ -121,7 +121,7 @@ class Woods:
         self.number = 12
         
     def explore(self, berndTheBird):
-        berndTheBird.talk(init_game.get_dependencies())
+        berndTheBird.talk(init_game.get_dependencies(init_game.quests))
     
 class SouthWoods:
     def __init__(self):

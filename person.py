@@ -36,7 +36,6 @@ class NPC (Person):
         dependency = None
 
         if self.quest.state.__class__ == self.quest.state_manager.states[0].__class__:
-
             print(f"\n{self.name}: {self.dialogues[self.quest.state.name][dependencies.get(self.quest.name)]}")
             dependency = dependencies.get(self.quest.name)
 
@@ -44,7 +43,7 @@ class NPC (Person):
             print(f"{self.name}: {self.dialogues[self.quest.state.name][dependencies.get(self.quest.name + "_done")]}")
             dependency = dependencies.get(self.quest.name + "_done")
 
-        elif self.quest.state.__class__ == self.quest.state_manager.states[-1].__class__:
+        elif self.quest.state.__class__ == self.quest.state_manager.states[2].__class__:
             print(f"\n{self.name}: {self.dialogues.get(self.quest.state.name)}")
 
         current_quest = self.quest.state.name

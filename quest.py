@@ -21,7 +21,7 @@ class Quest:
             self.note.write(self.start_desc)
 
     def complete(self):
-        if self.state.__class__ == self.state_manager.states[-2].__class__:
+        if self.state.__class__ == self.state_manager.states[1].__class__:
             self.state = self.state.update()
             #print(f"Quest '{self.name}' abgeschlossen!")
             if self.next_quest:

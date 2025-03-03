@@ -54,6 +54,8 @@ quest3 = Quest("Aquariumquest", " - Gehe zum Vogelhaus um rauszufinden wo sich d
 quest4 = Quest("Birdhousequest", " - Suche den Vogel und bringe ihn in das Vogelzucht haus"," - Gehe zum Aquarium shop und hohle dir ein Aquarium", notes, state_manager, prev_quest=quest3)
 quest5 = Quest("Vogelquest", " - Fange den Vogel"," - Bringe den Vogel in das Vogelzucht haus", notes, state_manager, prev_quest=quest4)
 
+quests = [quest1, quest2, quest3, quest4, quest5]
+
 # --- NPCs --- #
 
 rainer = NPC("Rainer", 100, 5, quest1, {
@@ -182,16 +184,18 @@ berndTheBird = NPC("Bernd the Bird", 100, 5, quest5, {
     }
 })
 
-def get_dependencies():
-    return {
-        "Wasserfallquest": "ready",
-        "Staudammquest": "ready" if quest1.state.name == "active" else "blocked",
-        "Aquariumquest": "ready" if quest2.state.name == "active" else "blocked",
-        "Birdhousequest": "ready" if quest3.state.name == "active" else "blocked",
-        "Vogelquest": "ready" if quest4.state.name == "active" else "blocked",
-        "Vogelquest_done": "ready",
-        "Birdhousequest_done": "ready" if quest5.state.name =="done" else "blocked",
-        "Aquariumquest_done": "ready" if quest4.state.name == "done" else "blocked",
-        "Staudammquest_done": "ready" if quest3.state.name == "done" else "blocked",
-        "Wasserfallquest_done": "ready" if quest2.state.name == "done" else "blocked",
-    }
+def get_dependencies(quests):
+    dependencies = {}
+
+    for i, quest in enumerate(quests):
+        if i == 0:
+            dependencies[quest.name] = "ready"
+        else:
+            dependencies[quest.name] = "ready" if quests[i - 1].state.name == "active" else "blocked"
+
+    for i in range(len(quests) - 1):
+        dependencies[f"{quests[i].name}_done"] = "ready" if quests[i + 1].state.name == "done" else "blocked"
+
+    dependencies[f"{quests[-1].name}_done"] = "ready"
+
+    return dependencies

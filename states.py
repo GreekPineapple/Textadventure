@@ -22,6 +22,6 @@ class DoneState:
     self.name = "done"
     self.next_state = None
 
-  def update():
+  def update(self):
     print("No more Updates available")
-    
+    return self
