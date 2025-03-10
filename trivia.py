@@ -46,7 +46,7 @@ class Trivia:
         return points
 
     def timer(quizFinished):
-        for i in range(100, 0, -1):
+        for i in range(150, 0, -1):
             if quizFinished.is_set():
                 break
             if i % 5 == 0:
