@@ -1,3 +1,5 @@
 python > 3.12
 
-Just start main.py
+pip install rich
+
+Just start main.py (python main.py)
