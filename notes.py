@@ -3,7 +3,18 @@ class Notes:
      
     def read(self):
         note = open("notes.txt", "r")
-        print(note.read())
+        text = note.read()
+
+        colors = {
+            "command": "\033[32m",  # green
+            "reset": "\033[0m" 
+        }
+
+        for key, code in colors.items():
+            text = text.replace(f"{{{key}:", code).replace("}", colors["reset"])
+
+        print(text)
+
         note.close()
     
     def write(self, text):
