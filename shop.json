@@ -54,7 +54,7 @@
           "name": "sword",
           "price": 4,
           "type": "Angriff",
-          "info": "   Vorteil: Der darauffolgende Angriff ist um 5 Pubkte stärker \n   Nachteil: Unwirksam bei Gegnern die fliegen"
+          "info": "   Vorteil: Der darauffolgende Angriff ist um 5 Punkte stärker \n   Nachteil: Unwirksam bei Gegnern die fliegen"
         },
         {
           "name": "arrow",

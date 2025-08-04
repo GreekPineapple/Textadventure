@@ -173,7 +173,7 @@ class Player(Person):
     def shop(self, fightInventory):
         defenceCount = 0
         shop = {}
-        print("Willkommen in der Kampfarena. Hier kaufst du Ausrüstung für den Kampf. Die Aurüstung bleibt in der Arena, d.h. was übrig bleibt, landet nicht in deinem Inventar.")
+        print("Willkommen in der Kampfarena. Hier kaufst du Ausrüstung für den Kampf. Währung sind deine eigenen Leben. Die Aurüstung bleibt in der Arena, d.h. was übrig bleibt, landet nicht in deinem Inventar.")
         print("Gewinst du den Kampf, werden deine Leben wieder zurückgesetzt, und du bekommst eine Belohnung. Verlierst du den kampf allerdings, verlierst du 10 Leben außerhalb der Arena.")
         print("Tippe einfach den namen ein, und beende deinen Eimkauf mit 'ende'\n")
 
