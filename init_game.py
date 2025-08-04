@@ -5,10 +5,12 @@ from map import *
 from notes import *
 from states import *
 from state_manager import Statemanager
+from save_and_load import SaveAndLoad
 
 # --- Notes --- #
 
 notes = Notes()
+save_and_load = SaveAndLoad()
 
 # --- Map --- #
 
@@ -28,7 +30,7 @@ fields = [townhall, woods, wf, dam, aquarium, square, birdhouse, ww, ew, sw]
 
 # --- Characters --- #
 
-me = Player(200, 10, "myself", [], 42) #Start: Townhall
+me = Player(save_and_load.load()["lives"], 10, "myself", save_and_load.load()["inventory"], save_and_load.load()["position"]) #Start: Townhall
 
 goblin = Villain("Goblin", 90, 35, [10, 20, 15], "goblin überreste")
 golem = Villain("Erdgolem", 140, 50, [20, 20, 10], "golem überreste")
@@ -199,3 +201,13 @@ def get_dependencies(quests):
     dependencies[f"{quests[-1].name}_done"] = "ready"
 
     return dependencies
+
+def loadquests():
+    for load_quest in save_and_load.load()["quests"]:
+        for quest in quests:
+            if load_quest.strip() == quest.name.strip():
+                new_state_name = save_and_load.load()["quests"][load_quest]
+                old_state_name = quest.state.name
+                for state in quest.state_manager.states:
+                    if state.name == new_state_name:
+                        quest.state = state

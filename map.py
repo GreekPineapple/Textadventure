@@ -36,7 +36,7 @@ class Square:
         self.number = 32
 
     def explore(self, player):
-        print("Hier kannst du deine Bauteile zusammenbauen und speichern (wird später implementiert hihi)")
+        print("Hier kannst du deine Bauteile zusammenbauen und speichern")
         print("Was möchtest du machen? (Bauteile/Speichern)")
         action = input(">").lower().strip()
         if action == "bauteile":
@@ -47,6 +47,12 @@ class Square:
             else:
                 print("Sorry, dir fehlen wohl teile, gehe auf die Suche um insgesammt 3 Bauteile zu finden")
 
+        elif action == "speichern":
+            quests_dict = {}
+            for quest in init_game.quests:
+                quests_dict[quest.name] = quest.state.name
+            init_game.save_and_load.save(player.positionNow, player.inventory, player.lives, quests_dict)
+            print("Dein Spielstand wurde gespeichert!")
 
 class TownHall:
     def __init__(self):

@@ -42,6 +42,8 @@ def lookAround(block):
         block = not block
     return block
 
+init_game.loadquests()
+
 map.printMap(fields)
 notes.read()
 
