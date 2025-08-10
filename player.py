@@ -238,6 +238,9 @@ class Player(Person):
         print("Du hast die schutzschicht des gegners gebrochen, jetzt kannst du angreifen")
 
         # --- Phase 2 --- #
+
+        dot_rounds = 0
+        dot_damage = boss.dpw[0]
         while self.lives > 0 or boss.lives > 0:
 
             # --- Player attack --- #
@@ -245,8 +248,6 @@ class Player(Person):
             attacks = round[0]
             items = self.filterJsonBoss()
             paralize = False
-            dot_rounds = 0
-            dot_damage = boss.dpw[0]
 
             for attack in attacks:
                 if attack in [item["name"] for item in items]:
@@ -266,15 +267,15 @@ class Player(Person):
                 break
             
             # --- Villain attack --- #
-            
-            if dot_rounds > 0:
-                spieler_leben -= dot_damage
-                dot_rounds -= 1
-                print(f"Du bist vergiftet! -{dot_damage} Leben.")
 
             if boss.lives <= 90 and dot_rounds == 0:
                 dot_rounds = 3
                 print("Der Boss hat die hälfte seiner leben verloren, er ist wütend und vergiftet dich. :(")
+
+            if dot_rounds > 0:
+                player.lives -= dot_damage
+                dot_rounds -= 1
+                print(f"Du bist vergiftet! -{dot_damage} Leben.")
 
             if paralize:
                 print("Der Gegner ist gelähmt und kann dich für eine Runde nicht angreifen")
