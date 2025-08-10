@@ -73,9 +73,12 @@ class TownHall:
 
         while (item := input(">").lower().strip()) != "ende":
             if item in shop and (player.inventory["Gutschein"] - shop[item]) >= 0:
-                player.inventory["Gutschein"] -= shop[item]
-                player.inventory[item] += 1
-                print(player.inventory)
+                if (item == "schutzschild" or item == "rüstung") and item in player.inventory:
+                    print("Du hast bereits diesen Artikel im Inventar")
+                else:
+                    player.inventory["Gutschein"] -= shop[item]
+                    player.inventory[item] += 1
+                    print(player.inventory)
             else:
                 if item in shop:
                     print("Scheint als hättest du nicht genug Gutscheine")

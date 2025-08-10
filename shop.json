@@ -28,6 +28,12 @@
           "damage": 0
         },
         {
+          "name": "rüstung",
+          "price": 4,
+          "type": "Schutz",
+          "damage": 0
+        },
+        {
           "name": "heiltrank",
           "price": 4,
           "type": "Trank",
