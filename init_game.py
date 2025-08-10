@@ -7,7 +7,7 @@ from states import *
 from state_manager import Statemanager
 from save_and_load import SaveAndLoad
 
-# --- Notes --- #
+# --- Notes / Save and Load --- #
 
 notes = Notes()
 save_and_load = SaveAndLoad()
@@ -37,7 +37,7 @@ golem = Villain("Erdgolem", 140, 50, [20, 20, 10], "golem überreste")
 wizard = Villain("Magier", 135, 40,[10, 20, 10], "wizard überreste")
 luftGegner = Villain("Luftgegner", 110, 30,[5, 20, 0], "vogel überreste")
 
-boss = Villain("Boss", 150, 150, ["a","b","c"], "special glitzer boss attacke")
+boss = Villain("Boss", 180, 80, [10, 0, 0], "special glitzer boss attacke")
 
 villains = [goblin, golem, wizard, luftGegner]
 
