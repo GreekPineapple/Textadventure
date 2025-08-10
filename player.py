@@ -197,6 +197,7 @@ class Player(Person):
                 print("Diesen Artikel haben wir nicht im Angebot")
 
     def boss(self, villains, boss, player):
+        protection = 0
         remainingLayers = len(villains)
         print("Für den Bosskampf nutzt du die Angriffe aus deinem Inventar und deine tatsächlichen Leben")
 
@@ -233,8 +234,6 @@ class Player(Person):
                 protectiveLayer[:] = [element for element in protectiveLayer if element not in attacks]
 
                 print(f"\nSuper, du hast eine schicht entfernt, es fehlen noch {protectiveLayer}")
-         
-            print(remainingLayers)
             
         print("Du hast die schutzschicht des gegners gebrochen, jetzt kannst du angreifen")
 
@@ -242,16 +241,24 @@ class Player(Person):
         while self.lives > 0 or boss.lives > 0:
 
             # --- Player attack --- #
-            round = self.choose(inventory, [""])
+            round, inventory = self.choose(inventory, [""])
             attacks = round[0]
             items = self.filterJsonBoss()
-            for item in items:
-                if item["name"] in round[0]:
+            paralize = False
+            dot_rounds = 0
+            dot_damage = boss.dpw[0]
+
+            for attack in attacks:
+                if attack in [item["name"] for item in items]:
                     if item["name"] == "heiltrank":
-                        self.lives = 200
+                        self.lives = 250
                     if item["name"] == "laehmungstrank":
-                        pass
+                        paralize = True
+                    if item["type"] == "Schutz":
+                        protection += 10
                     boss.lives -= item["damage"]
+
+            print(f"\nGegner Leben: {boss.lives} \n Deine Leben: {self.lives}\n")
 
             if boss.lives <= 0:
                 print("Glückwunsch, Gegner ist tot, hier ist das letzte fehlende Bauteil")
@@ -259,33 +266,57 @@ class Player(Person):
                 break
             
             # --- Villain attack --- #
-            print("Du wirst angegriffen")
-            specialAttack = random.random()
-            if specialAttack < 0.30: #probabilty of 30% that enemy makes a special attack
-                print("Der gegner nutzt die Energie der Toten Gegner um einen Spezial angruff zu machen. Wehre ihn entweder mit den passenden Überresten ab, oder nutze den Lehmungstrank in der nächsten Runde.")
-                print("Hast du nichts von beiden, bekommst du doppelten Schaden.")
-                round = self.choose(inventory, [""])
-                attacks = round[0]
-                if any(element in attacks[0] for element in protectiveLayer) or "laehmungstrank" in attacks[0]:
-                    print("yaay Du whrst den schaden ab")
-                else:
-                    print("Der Gegner trifft dch mit doppeltem schaden :((")
-                    self.lives -= boss.strength * 2
-                    print("Deine Leben: ", self.lives)
+            
+            if dot_rounds > 0:
+                spieler_leben -= dot_damage
+                dot_rounds -= 1
+                print(f"Du bist vergiftet! -{dot_damage} Leben.")
+
+            if boss.lives <= 90 and dot_rounds == 0:
+                dot_rounds = 3
+                print("Der Boss hat die hälfte seiner leben verloren, er ist wütend und vergiftet dich. :(")
+
+            if paralize:
+                print("Der Gegner ist gelähmt und kann dich für eine Runde nicht angreifen")
+                paralize = False
             else:
-                self.lives -= boss.strength
-                print("Deine Leben: ", self.lives)
+                print("Du wirst angegriffen")
+                specialAttack = random.random()
+                if specialAttack < 0.30: #probabilty of 30% that enemy makes a special attack
+                    print("Der gegner nutzt die Energie der Toten Gegner um einen Spezial angruff zu machen. Wehre ihn entweder mit den passenden Überresten ab, oder nutze den Lehmungstrank in der nächsten Runde.")
+                    print("Hast du nichts von beiden, bekommst du doppelten Schaden.")
+                    round = self.choose(inventory, [""])
+                    attacks = round[0]
+                    if any(element in attacks for element in protectiveLayer) or "laehmungstrank" in attacks[0]:
+                        print("yaay Du whrst den schaden ab")
+                    else:
+                        print("Der Gegner trifft dch mit mehr schaden :((")
+                        self.lives -= (boss.strength - protection) * 1.5 
+
+                else:
+                    self.lives -= boss.strength  - protection
+
+                if self.lives <= 0:
+                    print("Du wurdest besiegt. Den nächstem Kampf bestreitest du mit 10 Leben weniger.")
+                    self.lives = 240
+                    break
+
+                print(f"\nGegner Leben: {boss.lives} \n Deine Leben: {self.lives}\n")
 
     def choose(self, inventory, specialAttacks):
         print("Wähle 1-2 Items aus deinem Inventar aus, die du nutzen möchtest. Wenn du 2 gleiche Angriffe auswählst, machst du automatisch einen Sepzialangriff. Dieser macht zwar mehr schaden, raubt dir allerdings 10 Leben.")
         print("Wenn du nur 1 Item verwenden willst, tippe beim 2. angriff 'none' ein.")
-        while (first := input("1. Angriff: ").lower().strip()) not in inventory or first in specialAttacks:
+
+        # --- First Item --- #
+
+        while (first := input("1. Angriff: ").lower().strip()) not in inventory or inventory[first] <= 0 or first in specialAttacks:
             print("ungültig")
         if not first == "kick":
             inventory[first] -= 1
         inventory = +inventory
-        print(str(inventory).replace("Counter", "Dein Inventar nach einer Eingabe: "))
+        print(str(inventory).replace("Counter", "Dein Inventar nach einer Eingabe: ")+"\n")
         
+        # --- Second Item --- #
 
         while (bonus := input("2. Angriff: ").lower().strip()) != "none" and bonus not in inventory or bonus in specialAttacks:
             print("ungültig")

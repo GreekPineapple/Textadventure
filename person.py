@@ -13,6 +13,7 @@ class Person:
 
 class Villain (Person):
     def __init__(self, name, lives, strength, dpw, drop): #Damage Per Weapon (dpw)
+        self.dpw = dpw
         self.waterProof = dpw[0]
         self.arrowProof = dpw[1]
         self.swordProof = dpw[2]
