@@ -54,7 +54,8 @@ while me.lives > 0:
         print("Yaay du hast gewonnen")
         break
     print("Was möchtest du machen?")
-    doing = input(">").lower().strip()
+    doing = input(f"{globals.COLOR_INPUT}>").lower().strip()
+    print(f"{globals.COLOR_RESET}")
     if doing == "umschauen":
         block = lookAround(block)
     elif doing == "laufen":
@@ -62,7 +63,7 @@ while me.lives > 0:
         printposition(me.positionNow)
     elif doing == "inventar":
         me.inventory = +me.inventory
-        print(str(me.inventory).replace("Counter", "Dein Inventar: "))
+        print(str(me.inventory).replace("Counter", f"Dein {globals.COLOR_NOUN} Inventar: {globals.COLOR_RESET}"))
     elif doing == "help":
         notes.read()
     elif doing == "map":

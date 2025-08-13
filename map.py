@@ -37,8 +37,9 @@ class Square:
 
     def explore(self, player):
         print("Hier kannst du deine Bauteile zusammenbauen und speichern")
-        print("Was möchtest du machen? (Bauteile/Speichern)")
-        action = input(">").lower().strip()
+        print(f"Was möchtest du machen? ({globals.COLOR_COMMAND}Bauteile/Speichern\{globals.COLOR_RESET})")
+        action = input(f"{globals.COLOR_INPUT}>").lower().strip()
+        print(f"{globals.COLOR_RESET}")
         if action == "bauteile":
             if {"Bauteil1", "Bauteil2", "Bauteil3"}.issubset(player.inventory):
                 print("Super, du hast alle 3 bauteile gefunden. Als du diese zusammenbaust, merkst du dass es ein schlüssel für die schatzkammer ist, in der du ewigen reichtum findest!")
@@ -71,10 +72,11 @@ class TownHall:
                         print(f"{item["type"]}: {item["name"]} (-{item["price"]} Gutscheine)\n")
                         shop[item["name"]] = item["price"]
 
-        while (item := input(">").lower().strip()) != "ende":
+        while (item := input(f"{globals.COLOR_INPUT}>").lower().strip()) != "ende":
+            print(f"{globals.COLOR_RESET}")
             if item in shop and (player.inventory["Gutschein"] - shop[item]) >= 0:
                 if (item == "schutzschild" or item == "rüstung") and item in player.inventory:
-                    print("Du hast bereits diesen Artikel im Inventar")
+                    print(f"Du hast bereits diesen Artikel im {globals.COLOR_NOUN}Inventar{globals.COLOR_RESET}")
                 else:
                     player.inventory["Gutschein"] -= shop[item]
                     player.inventory[item] += 1
@@ -85,6 +87,7 @@ class TownHall:
                 else:
                     print("Diesen Artikel haben wir nicht im Angebot")
             print("Du hast noch " + str(player.inventory["Gutschein"]) + " Gutscheine zur verfügung")
+        print(f"{globals.COLOR_RESET}")
 
 class Waterfall:
     def __init__(self):

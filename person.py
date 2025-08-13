@@ -52,7 +52,8 @@ class NPC (Person):
             swi = current_quest + str(index + 1) #State with Index (swi)
             if dependency == "ready" and key == swi:
                 print(self.choices[swi]["question"])
-                answer = input(">").lower().strip()
+                answer = input(f"{globals.COLOR_INPUT}>").lower().strip()
+                print(f"{globals.COLOR_RESET}")
                 response = self.choices[swi].get(answer, "Ungültige Antwort")
                 if "quest_start" in response:
                     response = response.replace("quest_start", "").strip()

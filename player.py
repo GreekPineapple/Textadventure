@@ -24,7 +24,8 @@ class Player(Person):
         position = self.positionNow
         
         print("In welche Richtung möchtest du gehen? (N/O/S/W)")
-        direction = input(">").lower().strip()
+        direction = input(f"{globals.COLOR_INPUT}>").lower().strip()
+        print(f"{globals.COLOR_RESET}")
         if direction == "n":
             if position == 30:
                 if not self.secretPath:
@@ -100,7 +101,7 @@ class Player(Person):
 
             # --- Player attack --- #
             vc = +vc
-            print(str(vc).replace("Counter", "Dein Inventar für den Kampf: "))
+            print(str(vc).replace("Counter", f"Dein {globals.COLOR_NOUN}Inventar{globals.COLOR_RESET} für den Kampf: "))
             choose = self.choose(vc, specialAttacks)
             round = choose[0]
             vc = choose[1]
@@ -122,9 +123,9 @@ class Player(Person):
             print("Der Gegner greift dich an")
             isSpecialAttack = random.random()
             if isSpecialAttack < 0.20:
-                print("Der gegner macht einen Spezialangriff,")
+                print(f"Der gegner macht einen {globals.COLOR_NOUN}Spezialangriff{globals.COLOR_RESET},")
                 if "ausweichmanöver" in vc:
-                    print("aber du weichst dem Spezialangriff aus")
+                    print(f"aber du weichst dem {globals.COLOR_NOUN}Spezialangriff{globals.COLOR_RESET} aus")
                     vc["ausweichmanöver"] -= 1
                 else:
                     print("und du wirst getroffen")
@@ -183,7 +184,8 @@ class Player(Person):
             print(f"{item["type"]}: {item["name"]} (-{item["price"]} Leben) \n{item["info"]}\n")
             shop[item["name"]] = item["price"]
 
-        while (item := input(">").lower().strip()) != "ende":
+        while (item := input(f"{globals.COLOR_INPUT}>").lower().strip()) != "ende":
+            print(f"{globals.COLOR_RESET}")
             if item == "defence":
                 defenceCount += 1
             if item in shop:
@@ -195,11 +197,12 @@ class Player(Person):
                     print("Du darfst nur 5 mal deine Verteidugng verbessern, wähle was anderes aus.")
             else:
                 print("Diesen Artikel haben wir nicht im Angebot")
+        print(f"{globals.COLOR_RESET}")
 
     def boss(self, villains, boss, player):
         protection = 0
         remainingLayers = len(villains)
-        print("Für den Bosskampf nutzt du die Angriffe aus deinem Inventar und deine tatsächlichen Leben")
+        print(f"Für den {globals.COLOR_NOUN}Bosskampf{globals.COLOR_RESET} nutzt du die Angriffe aus deinem {globals.COLOR_NOUN}Inventar{globals.COLOR_RESET} und deine tatsächlichen Leben")
 
         possibleItems = []
         items = self.filterJsonBoss()
@@ -212,17 +215,17 @@ class Player(Person):
 
         combinedList = set(possibleItems) | set(protectiveLayer)
         inventory = +Counter({key: self.inventory[key] for key in combinedList})
-        print(str(inventory).replace("Counter", "Dein Inventar für den KAMPF: "))
+        print(str(inventory).replace("Counter", f"Dein {globals.COLOR_NOUN}Inventar{globals.COLOR_RESET} für den KAMPF: "))
 
         # --- Phase 1 --- #
         while remainingLayers > 0:
-            print(f"Der Gegner hat ein Schutzschild um sich herum, welches nur mit den überresten der besiegten gener zerstört werden kann. Insgesammt gibt es noch {remainingLayers} Schutzschichten. Du kannst nicht zwei schichten mit den gleichen überresten zerstören, und immer nur eine schicht gleichzeitig pro angriff zerstören.\n")
+            print(f"Der Gegner hat ein {globals.COLOR_NOUN}Schutzschild{globals.COLOR_RESET} um sich herum, welches nur mit den {globals.COLOR_NOUN}überresten{globals.COLOR_RESET} der besiegten gener zerstört werden kann. Insgesammt gibt es noch {remainingLayers} Schutzschichten. Du kannst nicht zwei schichten mit den gleichen überresten zerstören, und immer nur eine schicht gleichzeitig pro angriff zerstören.\n")
             
             round = self.choose(inventory, [""])
             attacks = round[0]
 
             if attacks[0] in protectiveLayer and attacks[1] in protectiveLayer and attacks[0] != attacks[1]:
-                print("die überreste vermischen sich und wirken nicht gegen das schutzschild, hättest du mal zugehört ")
+                print(f"die überreste vermischen sich und wirken nicht gegen das {globals.COLOR_NOUN}Schutzschild{globals.COLOR_RESET}, hättest du mal zugehört ")
 
             elif not attacks[0] in protectiveLayer and not attacks[1] in protectiveLayer:
                 print("Der Gegner hat eine schutzschicht")
@@ -235,7 +238,7 @@ class Player(Person):
 
                 print(f"\nSuper, du hast eine schicht entfernt, es fehlen noch {protectiveLayer}")
             
-        print("Du hast die schutzschicht des gegners gebrochen, jetzt kannst du angreifen")
+        print(f"Du hast die {globals.COLOR_NOUN}Schutzschicht{globals.COLOR_RESET} des gegners gebrochen, jetzt kannst du angreifen")
 
         # --- Phase 2 --- #
 
@@ -305,26 +308,30 @@ class Player(Person):
                 print(f"\nGegner Leben: {boss.lives} \n Deine Leben: {self.lives}\n")
 
     def choose(self, inventory, specialAttacks):
-        print("Wähle 1-2 Items aus deinem Inventar aus, die du nutzen möchtest. Wenn du 2 gleiche Angriffe auswählst, machst du automatisch einen Sepzialangriff. Dieser macht zwar mehr schaden, raubt dir allerdings 10 Leben.")
+        print(f"Wähle 1-2 Items aus deinem {globals.COLOR_NOUN}Inventar{globals.COLOR_RESET} aus, die du nutzen möchtest. Wenn du 2 gleiche Angriffe auswählst, machst du automatisch einen Sepzialangriff. Dieser macht zwar mehr schaden, raubt dir allerdings 10 Leben.")
         print("Wenn du nur 1 Item verwenden willst, tippe beim 2. angriff 'none' ein.")
 
         # --- First Item --- #
 
-        while (first := input("1. Angriff: ").lower().strip()) not in inventory or inventory[first] <= 0 or first in specialAttacks:
+        while (first := input(f"{globals.COLOR_INPUT}1. Angriff: ").lower().strip()) not in inventory or inventory[first] <= 0 or first in specialAttacks:
+            print(f"{globals.COLOR_RESET}")
             print("ungültig")
         if not first == "kick":
             inventory[first] -= 1
         inventory = +inventory
-        print(str(inventory).replace("Counter", "Dein Inventar nach einer Eingabe: ")+"\n")
+        print(f"{globals.COLOR_RESET}")
+        print(str(inventory).replace("Counter", f"Dein {globals.COLOR_NOUN}Inventar{globals.COLOR_RESET} nach einer Eingabe: ")+"\n")
         
         # --- Second Item --- #
 
-        while (bonus := input("2. Angriff: ").lower().strip()) != "none" and bonus not in inventory or bonus in specialAttacks:
+        while (bonus := input(f"{globals.COLOR_INPUT}2. Angriff: ").lower().strip()) != "none" and bonus not in inventory or bonus in specialAttacks:
+            print(f"{globals.COLOR_RESET}")
             print("ungültig")
         if not bonus == "kick":
             inventory[bonus] -= 1
         inventory = +inventory
-        print(str(inventory).replace("Counter", "Dein Inventar nach zwei Eingaben: "))
+        print(f"{globals.COLOR_RESET}")
+        print(str(inventory).replace("Counter", f"Dein {globals.COLOR_NOUN}Inventar{globals.COLOR_RESET} nach zwei Eingaben: "))
 
         round = [first, bonus]
 
