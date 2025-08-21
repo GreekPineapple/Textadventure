@@ -8,7 +8,7 @@ class Person:
         self.name = name
         
     def printInfo (self):
-        print(f"\nDu wirst vom {self.name} angegriffen")
+        print(f"\nDu wirst vom {globals.COLOR_NOUN}{self.name}{globals.COLOR_RESET} angegriffen")
         print(f"Leben: {self.lives}")
         print(f"Stärke: {self.strength}\n" )
 

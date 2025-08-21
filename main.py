@@ -27,15 +27,19 @@ def checkAction(position):
 def printposition(position):
     for field in fields:
         if field.number == position:
-            print(f"--{field.name.strip()}--")
+            print(f"\n--{field.name.strip()}--\n")
 
 def lookAround(block):
     fight = random.choices((True, False), weights = [1, 3])
     if fight[0] and not block:
         villain = random.choice(villains)
         villain.printInfo()
-        if input("Nimmst du den Kampf an?").lower().strip() == "ja":
+        take_fight = input(f"Nimmst du den Kampf an?{globals.COLOR_COMMAND}ja/nein{globals.COLOR_INPUT}\n>")
+        print(f"{globals.COLOR_RESET}")
+        if take_fight.lower().strip() == "ja":
             me.fight(villain)
+        else:
+            print("Abgelehnt oder ungültige Antwort...")
         block = not block
     else:       
         checkAction(me.positionNow)

@@ -125,7 +125,7 @@ aquilina = NPC("Aquilina", 100, 5, quest3, {
         "c": "Okay, bis bald."
     },
     "open2": { 
-        "question": f"Würdest du mir diesen gefallen tun? ({globals.COLOR_COMMAND}ja/nein{globals.COLOR_RESET})\n",
+        "question": f"Würdest du mir diesen gefallen tun? ({globals.COLOR_COMMAND}ja/nein{globals.COLOR_RESET})",
         "ja": "Super, frage einfach bei der Vogelzucht nach, was genau du tun kannst. quest_start",
         "nein": "Schade, vielleicht ja später."
     },
@@ -148,7 +148,7 @@ tom = NPC("Tom", 100, 5, quest4, {
     "done": "Wilkommmen bei der Vogelzucht noch kannst du hier nichts machen, außer den ausreißer betrachten"
 }, {
     "open1": {
-        "question": f"Kannst du uns vielleicht dabei helfen?({globals.COLOR_COMMAND}ja/nein{globals.COLOR_RESET})\n",
+        "question": f"Kannst du uns vielleicht dabei helfen?({globals.COLOR_COMMAND}ja/nein{globals.COLOR_RESET})",
         "ja": "Mega, danke! Vermutlich wird er sich irgendwo im Wald aufhalten, aber sicher bin ich mir da nicht... quest_start",
         "nein": "Dann entschuldige mich, ich muss meinen Vogel finden!"
     },
