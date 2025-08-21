@@ -1,4 +1,4 @@
-import random, json
+import random, json, globals
 from collections import Counter
 from person import Person
 from trivia import *
@@ -23,14 +23,14 @@ class Player(Person):
         #     print()
         position = self.positionNow
         
-        print("In welche Richtung möchtest du gehen? (N/O/S/W)")
+        print(f"In welche Richtung möchtest du gehen? ({globals.COLOR_COMMAND}N/O/S/W{globals.COLOR_RESET})")
         direction = input(f"{globals.COLOR_INPUT}>").lower().strip()
         print(f"{globals.COLOR_RESET}")
         if direction == "n":
             if position == 30:
                 if not self.secretPath:
                     print("Hier ist ein geheimweg, den du noch nicht freigeschalten hast!")
-                    answer = input("Möchtest du jetzt dein Wissen unter Beweis stellen? (ja/nein)").lower().strip()
+                    answer = input(f"Möchtest du jetzt dein Wissen unter Beweis stellen? ({globals.COLOR_COMMAND}ja/nein{globals.COLOR_RESET})").lower().strip()
                     if answer == "ja":
                         if Trivia.main(Trivia, self):
                             position = 22
@@ -65,7 +65,7 @@ class Player(Person):
             if position == 22:
                 if not self.secretPath:
                     print("Hier ist ein geheimweg, den du noch nicht freigeschalten hast!")
-                    answer = input("Möchtest du jetzt dein Wissen unter Beweis stellen? (ja/nein)").lower().strip()
+                    answer = input(f"Möchtest du jetzt dein Wissen unter Beweis stellen? ({globals.COLOR_COMMAND}ja/nein{globals.COLOR_RESET})").lower().strip()
                     if answer == "ja":
                         if Trivia.main(Trivia, self):
                             position = 30

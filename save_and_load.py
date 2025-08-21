@@ -1,4 +1,4 @@
-import json
+import json,globals
 class SaveAndLoad:
  
     def save(self, position, inventory, lives, quess_dict):

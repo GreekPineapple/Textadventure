@@ -1,3 +1,4 @@
+import globals
 class Quest:
     def __init__(self, name, start_desc, complete_desc, note, state_manager, prev_quest=None):
         self.state = state_manager.states[0] #"open"  # Startzustand
