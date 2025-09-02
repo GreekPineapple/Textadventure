@@ -51,25 +51,43 @@
       "villain": "nightServants",
       "items": [
         {
-          "name": "water",
+          "name": "wasserenergie",
           "price": 4,
           "type": "Angriff",
           "info": "   Vorteil: Greift mehrere Gegner gleichzeitig an \n   Nachteil: Meist nicht so stark"
         },        
         {
-          "name": "sword",
+          "name": "schwert",
           "price": 4,
           "type": "Angriff",
           "info": "   Vorteil: Der darauffolgende Angriff ist um 5 Punkte stärker \n   Nachteil: Unwirksam bei Gegnern die fliegen"
         },
         {
-          "name": "arrow",
+          "name": "pfeil und bogen",
           "price": 4,
           "type": "Angriff",
           "info": "   Vorteil: Der stärkste Angriff \n   Nachteil: Trefferwahrscheinlichkeit nur bei 90%"
-        },        
+        },      
         {
-          "name": "defence",
+          "name": "gift",
+          "price": 6,
+          "type": "Trank",
+          "info": "   Vorteil: Gegner macht in der nächsten Runde keinen Schaden an dir\n   Nachteil: Nur leichter schaden in der aktuellen Runde"
+        },  
+         {
+          "name": "stärke",
+          "price": 6,
+          "type": "Trank",
+          "info": "   Vorteil: Verdoppelten deinen 2. Angriff\n   Nachteil: Nützt nur als erster Angriff was"
+        }, 
+        {
+          "name": "feuer",
+          "price": 6,
+          "type": "Trank",
+          "info": "   Vorteil: Gegner nimmt 3 Runden zusätzlichen schaden\n   Nachteil: kann nur einmal benutzt werden"
+        }, 
+        {
+          "name": "verteidigung",
           "price": 8,
           "type": "Verteidigung",
           "info": "   Der gegner macht weniger schaden wenn er idch angreift. Bis zu 5x kannst du dich ausrüßten"

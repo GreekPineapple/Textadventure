@@ -88,11 +88,15 @@ class Player(Person):
         specialAttacks = []
         attacks = {}
         swordBonus = False
+        strength_bonus = 0
+        fire_counter = 0
 
         # --- Filter attacks and special attacks --- #
         items = self.filterJsonNightServants()
         specialAttacks = [item["name"] for item in items if item["type"] == "Ausweichmanöver"]
-        attacks = {item["name"]: 0 for item in items if item["type"] in {"Angriff", "Verteidigung"}}
+        attacks = {item["name"]: 0 for item in items if item["type"] in {"Angriff", "Verteidigung", "Trank"}}
+
+        print("attacks: ", attacks)
 
         self.shop(fightInventory)
         vc = Counter(fightInventory)
@@ -109,7 +113,7 @@ class Player(Person):
             items = self.filterJsonNightServants()
             for item in items:
                 if item["name"] in round:
-                    damage, defencepoints = self.checkDamage(item, attacks, villain, defencepoints, swordBonus, round)
+                    damage, defencepoints, fire_counter = self.checkDamage(item, attacks, villain, defencepoints, swordBonus, strength_bonus, fire_counter, round)
                     villain.lives -= damage
                     attacks[item["name"]] += 1
                     if attacks[item["name"]] > 3:
@@ -117,23 +121,31 @@ class Player(Person):
 
             if "kick" in round:
                 villain.lives -= self.strength
+            if fire_counter > 0:
+                villain.lives -= 5
+                fire_counter -= 1
+                print("Gegner brennt und nimmt noch zusätzlich schaden")
             print(f"Der Gegner hat noch {villain.lives} Leben übrig\n")
             
             # --- Villain attack --- #
-            print("Der Gegner greift dich an")
-            isSpecialAttack = random.random()
-            if isSpecialAttack < 0.20:
-                print(f"Der gegner macht einen {globals.COLOR_NOUN}Spezialangriff{globals.COLOR_RESET},")
-                if "ausweichmanöver" in vc:
-                    print(f"aber du weichst dem {globals.COLOR_NOUN}Spezialangriff{globals.COLOR_RESET} aus")
-                    vc["ausweichmanöver"] -= 1
-                else:
-                    print("und du wirst getroffen")
-                    self.lives -= villain.strength * 2 * defencepoints
-                print(f"Deine verbleibenden Leben: {self.lives}\n")
+            if "gift" in round:
+                print("Der Gegner wurde vergiftet und kann nicht angreifen")
             else:
-                self.lives -= villain.strength * defencepoints
-                print(f"Deine verbleibenden Leben: {self.lives}\n")
+                print("Der Gegner greift dich an")
+
+                isSpecialAttack = random.random()
+                if isSpecialAttack < 0.20:
+                    print(f"Der gegner macht einen {globals.COLOR_NOUN}Spezialangriff{globals.COLOR_RESET},")
+                    if "ausweichmanöver" in vc:
+                        print(f"aber du weichst dem {globals.COLOR_NOUN}Spezialangriff{globals.COLOR_RESET} aus")
+                        vc["ausweichmanöver"] -= 1
+                    else:
+                        print("und du wirst getroffen")
+                        self.lives -= villain.strength * 2 * defencepoints
+                    print(f"Deine verbleibenden Leben: {self.lives}\n")
+                else:
+                    self.lives -= villain.strength * defencepoints
+                    print(f"Deine verbleibenden Leben: {self.lives}\n")
             if self.lives <= 0:
                 print("Du wurdest besiegt und verlierst 10 Leben")
                 self.lives = tempLives - 10
@@ -145,31 +157,46 @@ class Player(Person):
                 self.lives = tempLives
                 break
     
-    def checkDamage(self,item, attacks, villain, defencepoints, swordBonus, round):
+    def checkDamage(self,item, attacks, villain, defencepoints, swordBonus, strength_bonus, fire_counter, round):
         damage = 0
+        #TODO angriffe als klassen machen
         if item["name"] == "defence":
             value = 0.2 if round[0] == round[1] else 0.1
             defencepoints -= value
             print("defence", defencepoints)
+        elif item["type"] == "Trank":
+            match item["name"]:
+                case "gift":
+                    strength_bonus = 0
+                case "stärke":
+                   strength_bonus = 2
+                case "feuer":
+                    fire_counter = 3
         elif attacks[item["name"]] > 3:
             print(item["name"], " macht keinen Schaden mehr")
         elif item["name"] == "arrow" and random.random() < 0.10:
             print("Leider hast du daneben geschossen")
         elif round[0] == round[1]:
             print("Solch einen speziellen Angriff zu machen, raubt dir deine Kraft, du verlierts 10 Leben")
-            damage = (getattr(villain, f"{item["name"]}Proof") + self.strength) * 2.5
+            strength_bonus = 2.5
             self.lives -= 10
         elif not swordBonus:
-            damage = getattr(villain, f"{item["name"]}Proof") + self.strength
+            strength_bonus = 1
         elif swordBonus:
             print("Durch den Angriff des Schwerts in der letzten Runde, macht dein Angriff mehr schaden")
             print(item["name"] + " wurde benutzt")
-            damage = getattr(villain, f"{item["name"]}Proof") + 5 + self.strength
+            strength_bonus = 1.2
             swordBonus = False
         if item["name"] == "sword":
             swordBonus = True
             print("Die Wunde des Gegners heilt sehr langsam, du wirst im Nächsten zug mehr schaden anrichten, wenn du die Wunde triffst.")
-        return damage, defencepoints
+        try:
+            proof = getattr(villain, f"{item['name']}Proof")
+        except AttributeError:
+            proof = 0
+
+        damage = (proof + self.strength) * strength_bonus
+        return damage, defencepoints, fire_counter
 
     def shop(self, fightInventory):
         defenceCount = 0
