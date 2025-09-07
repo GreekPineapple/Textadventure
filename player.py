@@ -81,7 +81,7 @@ class Player(Person):
             print("Ungültige Eingabe")
         self.positionNow = position
 
-    def fight(self, villain): 
+    def fight(self, villain, angriffe): 
         tempLives = self.lives
         fightInventory = ["kick"]
         defencepoints = 1
@@ -109,7 +109,13 @@ class Player(Person):
             choose = self.choose(vc, specialAttacks)
             round = choose[0]
             vc = choose[1]
-
+            
+            for angriff in angriffe:
+                if angriff.name.lower().strip() == round[0]:
+                    print(angriff.make_damage(villain))
+                if angriff.name.lower().strip() == round[1]:
+                    print(angriff.make_damage(villain))
+         
             items = self.filterJsonNightServants()
             for item in items:
                 if item["name"] in round:

@@ -12,6 +12,10 @@ from fight.attacks.sword import Sword
 from fight.potions.fire import Fire
 from fight.potions.poison import Poison
 from fight.potions.strength import Strength
+from fight.enemies.goblin import Goblin
+from fight.enemies.golem import Golem
+from fight.enemies.wizard import Wizard
+from fight.enemies.air_attack import AirEnemy
 import globals
 
 # --- Notes / Save and Load --- #
@@ -39,12 +43,17 @@ fields = [townhall, woods, wf, dam, aquarium, square, birdhouse, ww, ew, sw]
 
 me = Player(save_and_load.load()["lives"], 10, "myself", save_and_load.load()["inventory"], save_and_load.load()["position"]) #Start: Townhall
 
-goblin = Villain("Goblin", 90, 35, [10, 20, 15], "goblin überreste")
-golem = Villain("Erdgolem", 140, 50, [20, 20, 10], "golem überreste")
-wizard = Villain("Magier", 135, 40,[10, 20, 10], "wizard überreste")
-luftGegner = Villain("Luftgegner", 110, 30,[5, 20, 0], "vogel überreste")
+# goblin = Villain("Goblin", 90, 35, [10, 20, 15], "goblin überreste")
+# golem = Villain("Erdgolem", 140, 50, [20, 20, 10], "golem überreste")
+# wizard = Villain("Magier", 135, 40,[10, 20, 10], "wizard überreste")
+# luftGegner = Villain("Luftgegner", 110, 30,[5, 20, 0], "vogel überreste")
 
 boss = Villain("Boss", 80, 80, [10, 0, 0], "special glitzer boss attacke")
+
+goblin = Goblin()
+golem = Golem()
+wizard = Wizard()
+luftGegner = AirEnemy()
 
 villains = [goblin, golem, wizard, luftGegner]
 
