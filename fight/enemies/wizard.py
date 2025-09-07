@@ -1,9 +1,12 @@
-class Wizard():
+from fight.enemy import Enemy
+
+class Wizard(Enemy):
   name = "Magier"
   lives = 135
   strength = 40
   drop = "wizard überreste"
   active_effects = []
+  blocked = False
 
   def apply_effect(self, effect):
       self.active_effects.append(effect)

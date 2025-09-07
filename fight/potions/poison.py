@@ -9,3 +9,11 @@ class Poison(Attack):
     def make_damage(self, enemy):
         enemy.apply_effect(self)
         return super().make_damage(self,enemy)
+    
+    def use_effect(self, enemy):
+        if enemy.blocked:
+            enemy.remove_effect(self)
+            enemy.blocked = False
+        else:
+            enemy.lives -= 3
+            enemy.blocked = True

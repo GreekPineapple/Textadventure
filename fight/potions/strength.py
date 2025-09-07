@@ -8,3 +8,6 @@ class Strength(Attack):
 
     def make_damage(self, enemy):
         return super().make_damage(self,enemy)
+    
+    def use_effect(self, enemy):
+        pass
