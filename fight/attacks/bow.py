@@ -6,3 +6,5 @@ class Bow(Attack):
     type = "Attack"
     info = "   Vorteil: Der stärkste Angriff \n   Nachteil: Trefferwahrscheinlichkeit nur bei 90%"
     
+    def make_damage(self, enemy):
+        return super().make_damage(self,enemy)

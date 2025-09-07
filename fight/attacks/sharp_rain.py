@@ -6,4 +6,6 @@ class SharpRain(Attack):
     type = "Attack"
     info = "   Vorteil: Greift mehrere Gegner gleichzeitig an \n   Nachteil: Meist nicht so stark"
     
+    def make_damage(self, enemy):
+        return super().make_damage(self,enemy)
     
