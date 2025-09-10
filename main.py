@@ -53,6 +53,9 @@ notes.read()
 
 block = False # avoids two fights after another
 
+goblin.print_info()
+me.fight(goblin, attacks)
+
 while me.lives > 0:
     if globals.WINNING:
         print("Yaay du hast gewonnen")
