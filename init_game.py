@@ -6,9 +6,9 @@ from notes import *
 from states import *
 from state_manager import Statemanager
 from save_and_load import SaveAndLoad
-from fight.attacks.bow import Bow
-from fight.attacks.sharp_rain import SharpRain
-from fight.attacks.sword import Sword
+from fight.weapons.bow import Bow
+from fight.weapons.sharp_rain import SharpRain
+from fight.weapons.sword import Sword
 from fight.potions.fire import Fire
 from fight.potions.poison import Poison
 from fight.potions.strength import Strength
@@ -59,12 +59,12 @@ villains = [goblin, golem, wizard, luftGegner]
 
 # --- Attacks --- #
 
-bow = Bow()
-sharp_rain = SharpRain()
-sword = Sword()
-fire = Fire()
-poison = Poison()
-strength = Strength()
+bow = Bow(3)
+sharp_rain = SharpRain(3)
+sword = Sword(3)
+fire = Fire(1)
+poison = Poison(3)
+strength = Strength(3)
 attacks = [bow, sharp_rain, sword, fire, poison, strength]
 
 # --- States --- #
