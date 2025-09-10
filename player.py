@@ -212,7 +212,13 @@ class Player(Person):
             print(f"{globals.COLOR_RESET}")
             if item == "verteidigung":
                 defence = next((weapon for weapon in weapons if weapon.name.lower().strip() == "verteidigung"), None)
-                defence.counter -= 1   
+                if defence.counter > 0:
+                    defence.counter -= 1
+                    self.lives -= shop[item]
+                    fightInventory.append(item)
+                    print("Du hast noch: " + str(self.lives) + " leben")
+                else:
+                    print("Du hast schon die maximale ausrüstung für deine Verteidigung")
             # Wenn man Items schon im shop begrenzen will: (aktuell wird gegner immun; haltbarkeit macht kein sinn)
             # i = [weapon for weapon in weapons if weapon.name.lower().strip() == item]
             # if i.counter != None:
@@ -221,13 +227,10 @@ class Player(Person):
             #   self.lives -= shop[item]
             #   fightInventory.append(item)
             #   print("item nichtmehr verfügbar")
-            if item in shop:
-                if defence.counter >= 0 or item != "verteidigung":
-                    self.lives -= shop[item]
-                    fightInventory.append(item)
-                    print("Du hast noch: " + str(self.lives) + " leben")
-                else:
-                    print("Du hast schon die maximale ausrüstung für deine Verteidigung")
+            elif item in shop:
+                self.lives -= shop[item]
+                fightInventory.append(item)
+                print("Du hast noch: " + str(self.lives) + " leben")
             else:
                 print("Diesen Artikel haben wir nicht im Angebot")
         print(f"{globals.COLOR_RESET}")
