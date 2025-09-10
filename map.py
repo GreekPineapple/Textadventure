@@ -79,8 +79,8 @@ class TownHall:
                     print(f"Du hast bereits diesen Artikel im {globals.COLOR_NOUN}Inventar{globals.COLOR_RESET}")
                 else:
                     player.inventory["Gutschein"] -= shop[item]
-                    player.inventory[item] += 1
-                    print(player.inventory)
+                    player.inventory.add(item)
+                    player.inventory.print_inventory()
             else:
                 if item in shop:
                     print("Scheint als hättest du nicht genug Gutscheine")
@@ -97,7 +97,7 @@ class Waterfall:
     def explore(self, player, rainer):
         rainer.talk(init_game.get_dependencies(init_game.quests))
         if rainer.quest.state.name == "done" and not "Bauteil1" in player.inventory:
-            player.inventory["Bauteil1"] += 1
+            player.inventory.add("Bauteil1")
         
 class Dam:
     def __init__(self):
@@ -107,7 +107,7 @@ class Dam:
     def explore(self, player, inge):
         inge.talk(init_game.get_dependencies(init_game.quests))
         if inge.quest.state.name == "active" and player.inventory["Aquarium"] > 0:
-            player.inventory["Aquarium"] -= 1
+            player.inventory.remove("Aquarium")
 
 class Aquarium:
     def __init__(self):
@@ -117,7 +117,7 @@ class Aquarium:
     def explore(self, player, aquilina):
         aquilina.talk(init_game.get_dependencies(init_game.quests))
         if aquilina.quest.state.name == "done" and aquilina.quest.prev_quest.state.name == "active" and not "Aquarium" in player.inventory:
-           player.inventory["Aquarium"] += 1
+           player.inventory.add("Aquarium")
 
 class BirdHouse:
     def __init__(self):

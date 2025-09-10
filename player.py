@@ -1,5 +1,6 @@
 import random, json, globals
 from collections import Counter
+from inventory import Inventory
 from person import Person
 from trivia import *
 
@@ -9,7 +10,7 @@ class Player(Person):
     
     def __init__(self, lives, strength, name, armmor_points, inventory, positionNow):
         self.armmor_points = armmor_points
-        self.inventory = Counter(inventory)
+        self.inventory = Inventory(inventory)
         self.positionNow = positionNow
         super().__init__(lives, strength, name)
 

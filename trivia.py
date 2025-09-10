@@ -76,7 +76,7 @@ class Trivia:
             print("Auf dem Weg findest du eine Kiste deren Inhalt du mitnimmst..")
             time.sleep(1)
             # weiteres Bauteil geben
-            player.inventory["Bauteil2"] += 1
+            player.inventory.add("Bauteil2")
             player.secretPath = True
             return True
         else:

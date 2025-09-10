@@ -6,6 +6,7 @@ from notes import *
 from states import *
 from state_manager import Statemanager
 from save_and_load import SaveAndLoad
+from inventory import Inventory
 from fight.attack import Attack
 from fight.weapons.bow import Bow
 from fight.weapons.sharp_rain import SharpRain
@@ -23,6 +24,7 @@ import globals
 
 notes = Notes()
 save_and_load = SaveAndLoad()
+inventory = Inventory()
 
 # --- Map --- #
 
