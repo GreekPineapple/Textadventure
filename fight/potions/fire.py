@@ -8,8 +8,7 @@ class Fire(Attack):
     used = False
 
     def __init__(self, counter, name=None, price=None, type=None, info=None):
-        super().__init__(name, price, type, info)
-        self.counter = counter
+        super().__init__(counter, name, price, type, info)
 
     def make_damage(self, enemy):
         enemy.apply_effect(self)

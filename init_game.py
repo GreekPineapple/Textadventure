@@ -6,6 +6,7 @@ from notes import *
 from states import *
 from state_manager import Statemanager
 from save_and_load import SaveAndLoad
+from fight.attack import Attack
 from fight.weapons.bow import Bow
 from fight.weapons.sharp_rain import SharpRain
 from fight.weapons.sword import Sword
@@ -65,7 +66,9 @@ sword = Sword(3)
 fire = Fire(1)
 poison = Poison(3)
 strength = Strength(3)
-attacks = [bow, sharp_rain, sword, fire, poison, strength]
+dodge = Attack(None, "ausweichmanöver", 10, "dodge", "   Schütze dich vor den Spezialattacken der Gegner")
+defence = Attack(5, "verteidigung", 8, "defence", "   Der gegner macht weniger schaden wenn er dich angreift. Bis zu 5x kannst du dich ausrüsten")
+attacks = [bow, sharp_rain, sword, fire, poison, strength, dodge, defence]
 
 # --- States --- #
 

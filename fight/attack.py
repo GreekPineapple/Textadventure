@@ -1,7 +1,8 @@
 import csv
 
 class Attack:
-    def __init__(self, name=None, price=None, type=None, info=None):
+    def __init__(self,counter=None, name=None, price=None, type=None, info=None):
+        self.counter = counter if counter is not None else getattr(self, "counter", None)
         self.name = name if name is not None else getattr(self, "name", None)
         self.price = price if price is not None else getattr(self, "price", None)
         self.type = type if type is not None else getattr(self, "type", None)

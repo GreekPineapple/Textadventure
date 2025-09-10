@@ -7,8 +7,7 @@ class Poison(Attack):
     info = "   Vorteil: Gegner macht in der nächsten Runde keinen Schaden an dir\n   Nachteil: Nur leichter schaden in der aktuellen Runde"
 
     def __init__(self, counter, name=None, price=None, type=None, info=None):
-        super().__init__(name, price, type, info)
-        self.counter = counter
+        super().__init__(counter, name, price, type, info)
         
     def make_damage(self, enemy):
         if self.counter > 0:

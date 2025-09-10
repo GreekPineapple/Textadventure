@@ -196,30 +196,38 @@ class Player(Person):
         damage = (proof + self.strength) * strength_bonus
         return damage, defencepoints, fire_counter
 
-    def shop(self, fightInventory):
-        defenceCount = 0
+    def shop(self, fightInventory, weapons):
         shop = {}
         print("Willkommen in der Kampfarena. Hier kaufst du Ausrüstung für den Kampf. Währung sind deine eigenen Leben. Die Aurüstung bleibt in der Arena, d.h. was übrig bleibt, landet nicht in deinem Inventar.")
         print("Gewinst du den Kampf, werden deine Leben wieder zurückgesetzt, und du bekommst eine Belohnung. Verlierst du den kampf allerdings, verlierst du 10 Leben außerhalb der Arena.")
         print("Tippe einfach den namen ein, und beende deinen Eimkauf mit 'ende'\n")
 
         # --- Print items--- #
-        items = self.filterJsonNightServants()
-        for item in items:
-            print(f"{item["type"]}: {item["name"]} (-{item["price"]} Leben) \n{item["info"]}\n")
-            shop[item["name"]] = item["price"]
+
+        for weapon in weapons:
+            print(f"{weapon.type}: {weapon.name} (-{weapon.price} Leben) \n{weapon.info}\n")
+            shop[weapon.name.lower().strip()] = weapon.price
 
         while (item := input(f"{globals.COLOR_INPUT}>").lower().strip()) != "ende":
             print(f"{globals.COLOR_RESET}")
-            if item == "defence":
-                defenceCount += 1
+            if item == "verteidigung":
+                defence = next((weapon for weapon in weapons if weapon.name.lower().strip() == "verteidigung"), None)
+                defence.counter -= 1   
+            # Wenn man Items schon im shop begrenzen will: (aktuell wird gegner immun; haltbarkeit macht kein sinn)
+            # i = [weapon for weapon in weapons if weapon.name.lower().strip() == item]
+            # if i.counter != None:
+            #   i.counter -= 1
+            # if item in shop and i.counter > 0:
+            #   self.lives -= shop[item]
+            #   fightInventory.append(item)
+            #   print("item nichtmehr verfügbar")
             if item in shop:
-                if defenceCount <= 5 or item != "defence":
+                if defence.counter >= 0 or item != "verteidigung":
                     self.lives -= shop[item]
                     fightInventory.append(item)
                     print("Du hast noch: " + str(self.lives) + " leben")
                 else:
-                    print("Du darfst nur 5 mal deine Verteidugng verbessern, wähle was anderes aus.")
+                    print("Du hast schon die maximale ausrüstung für deine Verteidigung")
             else:
                 print("Diesen Artikel haben wir nicht im Angebot")
         print(f"{globals.COLOR_RESET}")
