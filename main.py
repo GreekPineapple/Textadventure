@@ -33,11 +33,11 @@ def lookAround(block):
     fight = random.choices((True, False), weights = [1, 3])
     if fight[0] and not block:
         villain = random.choice(villains)
-        villain.printInfo()
+        villain.print_info()
         take_fight = input(f"Nimmst du den Kampf an?{globals.COLOR_COMMAND}ja/nein{globals.COLOR_INPUT}\n>")
         print(f"{globals.COLOR_RESET}")
         if take_fight.lower().strip() == "ja":
-            me.fight(villain)
+            me.fight(villain, attacks)
         else:
             print("Abgelehnt oder ungültige Antwort...")
         block = not block

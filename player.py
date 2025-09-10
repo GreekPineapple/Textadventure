@@ -7,7 +7,8 @@ class Player(Person):
     
     secretPath = False
     
-    def __init__(self, lives, strength, name, inventory, positionNow):
+    def __init__(self, lives, strength, name, armmor_points, inventory, positionNow):
+        self.armmor_points = armmor_points
         self.inventory = Counter(inventory)
         self.positionNow = positionNow
         super().__init__(lives, strength, name)
@@ -81,24 +82,11 @@ class Player(Person):
             print("Ungültige Eingabe")
         self.positionNow = position
 
-    def fight(self, villain): 
+    def fight(self, villain, angriffe): 
         tempLives = self.lives
         fightInventory = ["kick"]
-        defencepoints = 1
-        specialAttacks = []
-        attacks = {}
-        swordBonus = False
-        strength_bonus = 0
-        fire_counter = 0
 
-        # --- Filter attacks and special attacks --- #
-        items = self.filterJsonNightServants()
-        specialAttacks = [item["name"] for item in items if item["type"] == "Ausweichmanöver"]
-        attacks = {item["name"]: 0 for item in items if item["type"] in {"Angriff", "Verteidigung", "Trank"}}
-
-        print("attacks: ", attacks)
-
-        self.shop(fightInventory)
+        self.shop(fightInventory, angriffe)
         vc = Counter(fightInventory)
        
         while self.lives > 0 or villain.lives > 0:
@@ -106,46 +94,38 @@ class Player(Person):
             # --- Player attack --- #
             vc = +vc
             print(str(vc).replace("Counter", f"Dein {globals.COLOR_NOUN}Inventar{globals.COLOR_RESET} für den Kampf: "))
-            choose = self.choose(vc, specialAttacks)
-            round = choose[0]
-            vc = choose[1]
+            round, vc = self.choose(vc)
+            strength_bonus = 1
 
-            items = self.filterJsonNightServants()
-            for item in items:
-                if item["name"] in round:
-                    damage, defencepoints, fire_counter = self.checkDamage(item, attacks, villain, defencepoints, swordBonus, strength_bonus, fire_counter, round)
-                    villain.lives -= damage
-                    attacks[item["name"]] += 1
-                    if attacks[item["name"]] > 3:
-                        print("\nDu hast jetzt zu oft den selben angriff genutzt. Der Gegner lernt daraus und ist jetzt immun...\n")
-
+            damage = 0
+            for angriff in angriffe:
+                if angriff.type.lower().strip() == "defence":
+                    value = 0.2 if round[0] == round[1] else 0.1
+                    self.armmor_points -= value
+                elif round[0] == round[1]:
+                    print("Solch einen speziellen Angriff zu machen, raubt dir deine Kraft, du verlierts 10 Leben")
+                    strength_bonus = 2.5
+                    self.lives -= 10
+                elif angriff.name.lower().strip() in round and angriff.make_damage(villain) > 0:
+                    damage += angriff.make_damage(villain)                  
+                
             if "kick" in round:
-                villain.lives -= self.strength
-            if fire_counter > 0:
-                villain.lives -= 5
-                fire_counter -= 1
-                print("Gegner brennt und nimmt noch zusätzlich schaden")
+                damage += self.strength
+            
+            villain.lives -= damage * strength_bonus
+    
             print(f"Der Gegner hat noch {villain.lives} Leben übrig\n")
             
             # --- Villain attack --- #
-            if "gift" in round:
-                print("Der Gegner wurde vergiftet und kann nicht angreifen")
-            else:
-                print("Der Gegner greift dich an")
 
-                isSpecialAttack = random.random()
-                if isSpecialAttack < 0.20:
-                    print(f"Der gegner macht einen {globals.COLOR_NOUN}Spezialangriff{globals.COLOR_RESET},")
-                    if "ausweichmanöver" in vc:
-                        print(f"aber du weichst dem {globals.COLOR_NOUN}Spezialangriff{globals.COLOR_RESET} aus")
-                        vc["ausweichmanöver"] -= 1
-                    else:
-                        print("und du wirst getroffen")
-                        self.lives -= villain.strength * 2 * defencepoints
-                    print(f"Deine verbleibenden Leben: {self.lives}\n")
-                else:
-                    self.lives -= villain.strength * defencepoints
-                    print(f"Deine verbleibenden Leben: {self.lives}\n")
+            for effect in villain.active_effects:
+                effect.use_effect(villain)
+
+            if not villain.blocked:
+                villain.attack(self)
+            else:
+                print("Der Gegner wurde vergiftet und kann nicht angreifen")
+        
             if self.lives <= 0:
                 print("Du wurdest besiegt und verlierst 10 Leben")
                 self.lives = tempLives - 10
@@ -156,72 +136,42 @@ class Player(Person):
                 self.inventory[drop] += 1
                 self.lives = tempLives
                 break
-    
-    def checkDamage(self,item, attacks, villain, defencepoints, swordBonus, strength_bonus, fire_counter, round):
-        damage = 0
-        #TODO angriffe als klassen machen
-        if item["name"] == "defence":
-            value = 0.2 if round[0] == round[1] else 0.1
-            defencepoints -= value
-            print("defence", defencepoints)
-        elif item["type"] == "Trank":
-            match item["name"]:
-                case "gift":
-                    strength_bonus = 0
-                case "stärke":
-                   strength_bonus = 2
-                case "feuer":
-                    fire_counter = 3
-        elif attacks[item["name"]] > 3:
-            print(item["name"], " macht keinen Schaden mehr")
-        elif item["name"] == "arrow" and random.random() < 0.10:
-            print("Leider hast du daneben geschossen")
-        elif round[0] == round[1]:
-            print("Solch einen speziellen Angriff zu machen, raubt dir deine Kraft, du verlierts 10 Leben")
-            strength_bonus = 2.5
-            self.lives -= 10
-        elif not swordBonus:
-            strength_bonus = 1
-        elif swordBonus:
-            print("Durch den Angriff des Schwerts in der letzten Runde, macht dein Angriff mehr schaden")
-            print(item["name"] + " wurde benutzt")
-            strength_bonus = 1.2
-            swordBonus = False
-        if item["name"] == "sword":
-            swordBonus = True
-            print("Die Wunde des Gegners heilt sehr langsam, du wirst im Nächsten zug mehr schaden anrichten, wenn du die Wunde triffst.")
-        try:
-            proof = getattr(villain, f"{item['name']}Proof")
-        except AttributeError:
-            proof = 0
 
-        damage = (proof + self.strength) * strength_bonus
-        return damage, defencepoints, fire_counter
-
-    def shop(self, fightInventory):
-        defenceCount = 0
+    def shop(self, fightInventory, weapons):
         shop = {}
         print("Willkommen in der Kampfarena. Hier kaufst du Ausrüstung für den Kampf. Währung sind deine eigenen Leben. Die Aurüstung bleibt in der Arena, d.h. was übrig bleibt, landet nicht in deinem Inventar.")
         print("Gewinst du den Kampf, werden deine Leben wieder zurückgesetzt, und du bekommst eine Belohnung. Verlierst du den kampf allerdings, verlierst du 10 Leben außerhalb der Arena.")
         print("Tippe einfach den namen ein, und beende deinen Eimkauf mit 'ende'\n")
 
         # --- Print items--- #
-        items = self.filterJsonNightServants()
-        for item in items:
-            print(f"{item["type"]}: {item["name"]} (-{item["price"]} Leben) \n{item["info"]}\n")
-            shop[item["name"]] = item["price"]
+
+        for weapon in weapons:
+            print(f"{weapon.type}: {weapon.name} (-{weapon.price} Leben) \n{weapon.info}\n")
+            shop[weapon.name.lower().strip()] = weapon.price
 
         while (item := input(f"{globals.COLOR_INPUT}>").lower().strip()) != "ende":
             print(f"{globals.COLOR_RESET}")
-            if item == "defence":
-                defenceCount += 1
-            if item in shop:
-                if defenceCount <= 5 or item != "defence":
+            if item == "verteidigung":
+                defence = next((weapon for weapon in weapons if weapon.name.lower().strip() == "verteidigung"), None)
+                if defence.counter > 0:
+                    defence.counter -= 1
                     self.lives -= shop[item]
                     fightInventory.append(item)
                     print("Du hast noch: " + str(self.lives) + " leben")
                 else:
-                    print("Du darfst nur 5 mal deine Verteidugng verbessern, wähle was anderes aus.")
+                    print("Du hast schon die maximale ausrüstung für deine Verteidigung")
+            # Wenn man Items schon im shop begrenzen will: (aktuell wird gegner immun; haltbarkeit macht kein sinn)
+            # i = [weapon for weapon in weapons if weapon.name.lower().strip() == item]
+            # if i.counter != None:
+            #   i.counter -= 1
+            # if item in shop and i.counter > 0:
+            #   self.lives -= shop[item]
+            #   fightInventory.append(item)
+            #   print("item nichtmehr verfügbar")
+            elif item in shop:
+                self.lives -= shop[item]
+                fightInventory.append(item)
+                print("Du hast noch: " + str(self.lives) + " leben")
             else:
                 print("Diesen Artikel haben wir nicht im Angebot")
         print(f"{globals.COLOR_RESET}")
@@ -334,13 +284,13 @@ class Player(Person):
 
                 print(f"\nGegner Leben: {boss.lives} \n Deine Leben: {self.lives}\n")
 
-    def choose(self, inventory, specialAttacks):
+    def choose(self, inventory):
         print(f"Wähle 1-2 Items aus deinem {globals.COLOR_NOUN}Inventar{globals.COLOR_RESET} aus, die du nutzen möchtest. Wenn du 2 gleiche Angriffe auswählst, machst du automatisch einen Sepzialangriff. Dieser macht zwar mehr schaden, raubt dir allerdings 10 Leben.")
         print("Wenn du nur 1 Item verwenden willst, tippe beim 2. angriff 'none' ein.")
 
         # --- First Item --- #
 
-        while (first := input(f"{globals.COLOR_INPUT}1. Angriff: ").lower().strip()) not in inventory or inventory[first] <= 0 or first in specialAttacks:
+        while (first := input(f"{globals.COLOR_INPUT}1. Angriff: ").lower().strip()) not in inventory or inventory[first] <= 0 or first == "ausweichmanöver":
             print(f"{globals.COLOR_RESET}")
             print("ungültig")
         if not first == "kick":
@@ -351,7 +301,7 @@ class Player(Person):
         
         # --- Second Item --- #
 
-        while (bonus := input(f"{globals.COLOR_INPUT}2. Angriff: ").lower().strip()) != "none" and bonus not in inventory or bonus in specialAttacks:
+        while (bonus := input(f"{globals.COLOR_INPUT}2. Angriff: ").lower().strip()) != "none" and bonus not in inventory or bonus == "ausweichmanöver":
             print(f"{globals.COLOR_RESET}")
             print("ungültig")
         if not bonus == "kick":

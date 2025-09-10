@@ -1,0 +1,7 @@
+Weapon,         Goblin, Erdgolem, Magier, Luftgegner
+Bogen,          20,     20,       20,     20
+Scharfer Regen, 10,     20,       10,     5
+Schwert,        15,     10,       10,     0
+Feuer,          10,     10,       10,     10
+Gift,           5,      5,        5,      5
+Stärke,         0,      0,        0,      0
