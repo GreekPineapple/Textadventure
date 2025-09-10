@@ -11,10 +11,13 @@ class Strength(Attack):
 
     def make_damage(self, enemy):
         if self.counter > 0:
+            #verdoppelt deinen 2. Angriff?!
             self.counter -= 1
-            return super().make_damage(self,enemy)
+            enemy.apply_effect(self)
+            return super().make_damage(enemy)
         else:
-            return "\nDu hast jetzt zu oft den selben angriff genutzt. Der Gegner lernt daraus und ist jetzt immun...\n"
+            print("\nDu hast jetzt zu oft den selben angriff genutzt. Der Gegner lernt daraus und ist jetzt immun...\n")
+            return 0
         
     
     def use_effect(self, enemy):

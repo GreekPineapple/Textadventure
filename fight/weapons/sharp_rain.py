@@ -12,7 +12,8 @@ class SharpRain(Attack):
     def make_damage(self, enemy):
         if self.counter > 0:
             self.counter -= 1
-            return super().make_damage(self,enemy)
+            return super().make_damage(enemy)
         else:
-            return "\nDu hast jetzt zu oft den selben angriff genutzt. Der Gegner lernt daraus und ist jetzt immun...\n"
+            print("\nDu hast jetzt zu oft den selben angriff genutzt. Der Gegner lernt daraus und ist jetzt immun...\n")
+            return 0
     

@@ -8,12 +8,12 @@ class Attack:
         self.type = type if type is not None else getattr(self, "type", None)
         self.info = info if info is not None else getattr(self, "info", None)
 
-    def use(self):
+    def use_effect(self, enemy):
         pass
 
-    def make_damage(self, attack, enemy):
+    def make_damage(self, enemy):
         with open('fight/damage_table.csv', newline='') as csvfile:
             reader = csv.DictReader(csvfile, skipinitialspace=True, delimiter=',')
             for row in reader:
-                if row['Weapon'] == attack.name:
-                    return row[enemy.name]
+                if row['Weapon'] == self.name:
+                    return int(row[enemy.name])

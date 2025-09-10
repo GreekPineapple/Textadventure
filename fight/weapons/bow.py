@@ -17,7 +17,8 @@ class Bow(Attack):
                 print("Leider hast du daneben geschossen")
                 return 0
             else:
-                return super().make_damage(self,enemy)
+                return super().make_damage(enemy)
         else:
-            return "\nDu hast jetzt zu oft den selben angriff genutzt. Der Gegner lernt daraus und ist jetzt immun...\n"
+            print("\nDu hast jetzt zu oft den selben angriff genutzt. Der Gegner lernt daraus und ist jetzt immun...\n")
+            return 0
        

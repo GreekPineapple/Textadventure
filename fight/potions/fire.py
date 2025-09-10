@@ -11,8 +11,12 @@ class Fire(Attack):
         super().__init__(counter, name, price, type, info)
 
     def make_damage(self, enemy):
-        enemy.apply_effect(self)
-        return super().make_damage(self,enemy)
+        if not self.used:
+            enemy.apply_effect(self)
+            return super().make_damage(enemy)
+        else:
+            print("Dieser Trank wurde schon benutzt und kann nur einmal benutzt werden")
+            return 0
                    
     def use_effect(self, enemy):
         if self.used:

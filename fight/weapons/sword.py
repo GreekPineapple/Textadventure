@@ -8,16 +8,17 @@ class Sword(Attack):
     counter_next_round = 0
 
     def __init__(self, counter, name=None, price=None, type=None, info=None):
-        super().__init__( counter, name, price, type, info)
+        super().__init__(counter, name, price, type, info)
 
     def make_damage(self, enemy):
         if self.counter > 0:
             self.counter -= 1
             enemy.apply_effect(self)
             self.counter_next_round = 2
-            return super().make_damage(self,enemy)
+            return super().make_damage(enemy)
         else:
-            return "\nDu hast jetzt zu oft den selben angriff genutzt. Der Gegner lernt daraus und ist jetzt immun...\n"
+            print("\nDu hast jetzt zu oft den selben angriff genutzt. Der Gegner lernt daraus und ist jetzt immun...\n")
+            return 0
     
     def use_effect(self, enemy):
         print("enemy.lives before effect:", enemy.lives)
