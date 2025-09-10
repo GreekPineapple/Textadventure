@@ -135,24 +135,15 @@ class Player(Person):
             print(f"Der Gegner hat noch {villain.lives} Leben übrig\n")
             
             # --- Villain attack --- #
-            if "gift" in round:
-                print("Der Gegner wurde vergiftet und kann nicht angreifen")
-            else:
-                print("Der Gegner greift dich an")
 
-                isSpecialAttack = random.random()
-                if isSpecialAttack < 0.20:
-                    print(f"Der gegner macht einen {globals.COLOR_NOUN}Spezialangriff{globals.COLOR_RESET},")
-                    if "ausweichmanöver" in vc:
-                        print(f"aber du weichst dem {globals.COLOR_NOUN}Spezialangriff{globals.COLOR_RESET} aus")
-                        vc["ausweichmanöver"] -= 1
-                    else:
-                        print("und du wirst getroffen")
-                        self.lives -= villain.strength * 2 * defencepoints
-                    print(f"Deine verbleibenden Leben: {self.lives}\n")
-                else:
-                    self.lives -= villain.strength * defencepoints
-                    print(f"Deine verbleibenden Leben: {self.lives}\n")
+            for effect in villain.active_effects:
+                effect.use(villain)
+
+            if not villain.blocked:
+                villain.attack(self)
+            else:
+                print("Der Gegner wurde vergiftet und kann nicht angreifen")
+        
             if self.lives <= 0:
                 print("Du wurdest besiegt und verlierst 10 Leben")
                 self.lives = tempLives - 10
