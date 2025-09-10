@@ -7,8 +7,8 @@ class Player(Person):
     
     secretPath = False
     
-    def __init__(self, lives, strength, name, armmor, inventory, positionNow):
-        self.armmor = armmor
+    def __init__(self, lives, strength, name, armmor_points, inventory, positionNow):
+        self.armmor_points = armmor_points
         self.inventory = Counter(inventory)
         self.positionNow = positionNow
         super().__init__(lives, strength, name)

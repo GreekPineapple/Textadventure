@@ -41,7 +41,7 @@ fields = [townhall, woods, wf, dam, aquarium, square, birdhouse, ww, ew, sw]
 
 # --- Characters --- #
 
-me = Player(save_and_load.load()["lives"], 10, "myself", save_and_load.load()["inventory"], save_and_load.load()["position"]) #Start: Townhall
+me = Player(save_and_load.load()["lives"], 10, "myself", save_and_load.load()["armor_points"], save_and_load.load()["inventory"], save_and_load.load()["position"]) #Start: Townhall
 
 # goblin = Villain("Goblin", 90, 35, [10, 20, 15], "goblin überreste")
 # golem = Villain("Erdgolem", 140, 50, [20, 20, 10], "golem überreste")
