@@ -16,3 +16,6 @@ class Golem(Enemy):
 
     def attack(self, player):
         super().attack(player)
+
+    def print_info(self):
+        super().print_info()

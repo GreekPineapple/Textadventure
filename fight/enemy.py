@@ -3,6 +3,11 @@ import globals
 
 class Enemy:
     
+    def print_info (self):
+        print(f"\nDu wirst vom {globals.COLOR_NOUN}{self.name}{globals.COLOR_RESET} angegriffen")
+        print(f"Leben: {self.lives}")
+        print(f"Stärke: {self.strength}\n" )
+
     def apply_effect(self, effect):
         self.active_effects.append(effect)
         
@@ -24,4 +29,6 @@ class Enemy:
         else:
             player.lives -= self.strength * player.armmor_points
             print(f"Deine verbleibenden Leben: {player.lives}\n")
+    
+
         
