@@ -11,7 +11,7 @@ class Strength(Attack):
 
     def make_damage(self, enemy):
         if self.counter > 0:
-            #verdoppelt deinen 2. Angriff?!
+            #TODO verdoppelt deinen 2. Angriff?!
             self.counter -= 1
             enemy.apply_effect(self)
             return super().make_damage(enemy)
