@@ -85,6 +85,7 @@ class Player(Person):
 
     def fight(self, villain, angriffe): 
         tempLives = self.lives
+        temp_strength = self.strength
         fightInventory = ["kick"]
 
         self.shop(fightInventory, angriffe)
@@ -118,7 +119,8 @@ class Player(Person):
             print(f"Der Gegner hat noch {villain.lives} Leben übrig\n")
             
             # --- Villain attack --- #
-
+            
+            self.strength = temp_strength
             for effect in villain.active_effects:
                 effect.use_effect(villain)
 

@@ -19,7 +19,6 @@ class Inventory:
             print("Dein Inventar ist leer.")
         else:
             print("Dein Inventar:")
-            self.items = +self.items
             for item, quantity in self.items.items():
                 print(f"{item:.<18}{quantity}")
 

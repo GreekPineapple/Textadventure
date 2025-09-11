@@ -1,3 +1,4 @@
+import random
 from fight.enemy import Enemy
 
 class Wizard(Enemy):
@@ -15,6 +16,9 @@ class Wizard(Enemy):
         self.active_effects.remove(effect)
 
     def attack(self, player):
+        if random.random() < 0.25:
+            print("Der Magier schwächt dich mit einem Zauber")
+            player.strength -= 5
         super().attack(player)
 
     def print_info(self):

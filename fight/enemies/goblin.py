@@ -1,3 +1,4 @@
+import random
 from fight.enemy import Enemy
 
 class Goblin(Enemy):
@@ -15,7 +16,11 @@ class Goblin(Enemy):
         self.active_effects.remove(effect)
 
     def attack(self, player):
-        super().attack(player)  
+        if random.random() < 0.3 and player.inventory.items:
+            stolen_item = random.choice(list(player.inventory.items))
+            print(f"Der Goblin klaut dir '{stolen_item}' aus deinem Inventar!")
+            player.inventory.remove(stolen_item)
+        super().attack(player)
 
     def print_info(self):
         super().print_info()
