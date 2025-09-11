@@ -20,4 +20,4 @@ class Inventory:
         else:
             print("Dein Inventar:")
             for item, quantity in self.items.items():
-                print(f" - {item}: {quantity}")
+                print(f"{item:.<18}{quantity}")

@@ -53,9 +53,6 @@ notes.read()
 
 block = False # avoids two fights after another
 
-goblin.print_info()
-me.fight(goblin, attacks)
-
 while me.lives > 0:
     if globals.WINNING:
         print("Yaay du hast gewonnen")
@@ -69,8 +66,7 @@ while me.lives > 0:
         me.move(inge.quest.state)
         printposition(me.positionNow)
     elif doing == "inventar":
-        me.inventory = +me.inventory
-        print(str(me.inventory).replace("Counter", f"Dein {globals.COLOR_NOUN} Inventar: {globals.COLOR_RESET}"))
+        me.inventory.print_inventory()
     elif doing == "help":
         notes.read()
     elif doing == "map":
