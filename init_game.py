@@ -51,7 +51,7 @@ me = Player(save_and_load.load()["lives"], 10, "myself", save_and_load.load()["a
 # wizard = Villain("Magier", 135, 40,[10, 20, 10], "wizard überreste")
 # luftGegner = Villain("Luftgegner", 110, 30,[5, 20, 0], "vogel überreste")
 
-boss = Villain("Boss", 80, 200, [5, 0, 0], "special glitzer boss attacke")
+boss = Villain("Boss", 200, 80, [5, 0, 0], "special glitzer boss attacke")
 
 goblin = Goblin()
 golem = Golem()
