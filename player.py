@@ -222,6 +222,8 @@ class Player(Person):
 
         dot_rounds = 0
         dot_damage = boss.dpw[0]
+        healing_block = False
+        bomb_count = 3
         while self.lives > 0 or boss.lives > 0:
 
             # --- Player attack --- #
@@ -233,11 +235,20 @@ class Player(Person):
             for attack in attacks:
                 if attack in [item["name"] for item in items]:
                     if item["name"] == "heiltrank":
-                        self.lives = 250
+                        if not healing_block:
+                            self.lives = 250
+                            healing_block = True
+                        else:
+                            print("Du kannst den heiltrank nur einmal im kampf nutzen")
                     if item["name"] == "laehmungstrank":
                         paralize = True
                     if item["type"] == "Schutz":
                         protection += 10
+                    if item["name"] == "bombe":
+                        if bomb_count > 0:
+                            bomb_count -= 1
+                        else:
+                            print("Du hast keine Bomben mehr")
                     boss.lives -= item["damage"]
 
             print(f"\nGegner Leben: {boss.lives} \n Deine Leben: {self.lives}\n")
@@ -264,7 +275,7 @@ class Player(Person):
             else:
                 print("Du wirst angegriffen")
                 specialAttack = random.random()
-                if specialAttack < 0.30: #probabilty of 30% that enemy makes a special attack
+                if specialAttack < 0.25: #probabilty of 25% that enemy makes a special attack
                     print("Der gegner nutzt die Energie der Toten Gegner um einen Spezial angruff zu machen. Wehre ihn entweder mit den passenden Überresten ab, oder nutze den Lehmungstrank in der nächsten Runde.")
                     print("Hast du nichts von beiden, bekommst du doppelten Schaden.")
                     round = self.choose(inventory, [""])
