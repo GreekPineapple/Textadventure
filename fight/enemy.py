@@ -18,10 +18,10 @@ class Enemy:
 
         if random.random() < 0.20:
             print(f"Der gegner macht einen {globals.COLOR_NOUN}Spezialangriff{globals.COLOR_RESET},")
-            if "ausweichmanöver" in player.inventory:
+            if player.inventory.has_item("ausweichmanöver"):
                 
                 print(f"aber du weichst dem {globals.COLOR_NOUN}Spezialangriff{globals.COLOR_RESET} aus")
-                player.inventory["ausweichmanöver"] -= 1
+                player.inventory.remove("ausweichmanöver")
             else:
                 print("und du wirst getroffen")
                 player.lives -= self.strength * 2 * player.armmor_points

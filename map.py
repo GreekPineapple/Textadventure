@@ -41,7 +41,7 @@ class Square:
         action = input(f"{globals.COLOR_INPUT}>").lower().strip()
         print(f"{globals.COLOR_RESET}")
         if action == "bauteile":
-            if {"Bauteil1", "Bauteil2", "Bauteil3"}.issubset(player.inventory):
+            if all(player.inventory.has_item(part) for part in {"Bauteil1", "Bauteil2", "Bauteil3"}):
                 print("Super, du hast alle 3 bauteile gefunden. Als du diese zusammenbaust, merkst du dass es ein schlüssel für die schatzkammer ist, in der du ewigen reichtum findest!")
                 print("Herzlichen Glückwunsch du hast das Spiel gewonne :D")
                 globals.WINNING = True
@@ -75,10 +75,10 @@ class TownHall:
         while (item := input(f"{globals.COLOR_INPUT}>").lower().strip()) != "ende":
             print(f"{globals.COLOR_RESET}")
             if item in shop and (player.inventory["Gutschein"] - shop[item]) >= 0:
-                if (item == "schutzschild" or item == "rüstung") and item in player.inventory:
+                if (item == "schutzschild" or item == "rüstung") and player.inventory.has_item(item):
                     print(f"Du hast bereits diesen Artikel im {globals.COLOR_NOUN}Inventar{globals.COLOR_RESET}")
                 else:
-                    player.inventory["Gutschein"] -= shop[item]
+                    player.inventory.remove("Gutschein", shop[item])
                     player.inventory.add(item)
                     player.inventory.print_inventory()
             else:
@@ -96,7 +96,7 @@ class Waterfall:
 
     def explore(self, player, rainer):
         rainer.talk(init_game.get_dependencies(init_game.quests))
-        if rainer.quest.state.name == "done" and not "Bauteil1" in player.inventory:
+        if rainer.quest.state.name == "done" and not player.inventory.has_item("Bauteil1"):
             player.inventory.add("Bauteil1")
         
 class Dam:
@@ -106,7 +106,7 @@ class Dam:
 
     def explore(self, player, inge):
         inge.talk(init_game.get_dependencies(init_game.quests))
-        if inge.quest.state.name == "active" and player.inventory["Aquarium"] > 0:
+        if inge.quest.state.name == "active" and player.inventory.has_item("Aquarium"):
             player.inventory.remove("Aquarium")
 
 class Aquarium:
@@ -116,7 +116,7 @@ class Aquarium:
 
     def explore(self, player, aquilina):
         aquilina.talk(init_game.get_dependencies(init_game.quests))
-        if aquilina.quest.state.name == "done" and aquilina.quest.prev_quest.state.name == "active" and not "Aquarium" in player.inventory:
+        if aquilina.quest.state.name == "done" and aquilina.quest.prev_quest.state.name == "active" and not player.inventory.has_item("Aquarium"):
            player.inventory.add("Aquarium")
 
 class BirdHouse:
@@ -149,7 +149,7 @@ class WestWoods:
         self.number = 11
 
     def explore(self, player, villains, boss):
-        if "Bauteil1" in player.inventory and "Bauteil2" in player.inventory:
+        if player.inventory.has_item("Bauteil1") and player.inventory.has_item("Bauteil2"):
             player.boss(villains, boss, player)
         else:
             print("Hier passiert noch nichts...")

@@ -88,7 +88,7 @@ class Player(Person):
         fightInventory = ["kick"]
 
         self.shop(fightInventory, angriffe)
-        vc = Counter(fightInventory)
+        vc = Inventory(Counter(fightInventory))
        
         while self.lives > 0 or villain.lives > 0:
 
@@ -104,7 +104,7 @@ class Player(Person):
                     value = 0.2 if round[0] == round[1] else 0.1
                     self.armmor_points -= value
                 elif round[0] == round[1]:
-                    print("Solch einen speziellen Angriff zu machen, raubt dir deine Kraft, du verlierts 10 Leben")
+                    print("Solch einen speziellen Angriff zu machen, raubt dir deine Kraft, du verlierst 10 Leben")
                     strength_bonus = 2.5
                     self.lives -= 10
                 elif angriff.name.lower().strip() in round and angriff.make_damage(villain) > 0:
@@ -141,7 +141,7 @@ class Player(Person):
     def shop(self, fightInventory, weapons):
         shop = {}
         print("Willkommen in der Kampfarena. Hier kaufst du Ausrüstung für den Kampf. Währung sind deine eigenen Leben. Die Aurüstung bleibt in der Arena, d.h. was übrig bleibt, landet nicht in deinem Inventar.")
-        print("Gewinst du den Kampf, werden deine Leben wieder zurückgesetzt, und du bekommst eine Belohnung. Verlierst du den kampf allerdings, verlierst du 10 Leben außerhalb der Arena.")
+        print("Gewinst du den Kampf, werden deine leben wieder zurückgesetzt, und du bekommst eine Belohnung. Verlierst du den kampf allerdings, verlierst du 10 Leben außerhalb der Arena.")
         print("Tippe einfach den namen ein, und beende deinen Eimkauf mit 'ende'\n")
 
         # --- Print items--- #
@@ -192,7 +192,7 @@ class Player(Person):
             protectiveLayer.append(villain.drop)
 
         combinedList = set(possibleItems) | set(protectiveLayer)
-        inventory = +Counter({key: self.inventory[key] for key in combinedList})
+        inventory = Inventory(Counter({key: self.inventory.items[key] for key in combinedList}))
         print(str(inventory).replace("Counter", f"Dein {globals.COLOR_NOUN}Inventar{globals.COLOR_RESET} für den KAMPF: "))
 
         # --- Phase 1 --- #
@@ -306,7 +306,7 @@ class Player(Person):
             print(f"{globals.COLOR_RESET}")
             print("ungültig")
         if not first == "kick":
-            inventory[first] -= 1
+            inventory.remove(first)
         inventory = +inventory
         print(f"{globals.COLOR_RESET}")
         print(str(inventory).replace("Counter", f"Dein {globals.COLOR_NOUN}Inventar{globals.COLOR_RESET} nach einer Eingabe: ")+"\n")
@@ -317,7 +317,7 @@ class Player(Person):
             print(f"{globals.COLOR_RESET}")
             print("ungültig")
         if not bonus == "kick":
-            inventory[bonus] -= 1
+            inventory.remove(bonus)
         inventory = +inventory
         print(f"{globals.COLOR_RESET}")
         print(str(inventory).replace("Counter", f"Dein {globals.COLOR_NOUN}Inventar{globals.COLOR_RESET} nach zwei Eingaben: "))
