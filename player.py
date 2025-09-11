@@ -192,15 +192,16 @@ class Player(Person):
             protectiveLayer.append(villain.drop)
 
         combinedList = set(possibleItems) | set(protectiveLayer)
-        inventory = Inventory(Counter({key: self.inventory.items[key] for key in combinedList}))
-        print(str(inventory).replace("Counter", f"Dein {globals.COLOR_NOUN}Inventar{globals.COLOR_RESET} für den KAMPF: "))
-
+        inventory = Inventory(Counter({key: self.inventory.get_item(key) for key in combinedList}))
+        inventory.print_inventory()
         # --- Phase 1 --- #
         while remainingLayers > 0:
             print(f"Der Gegner hat ein {globals.COLOR_NOUN}Schutzschild{globals.COLOR_RESET} um sich herum, welches nur mit den {globals.COLOR_NOUN}überresten{globals.COLOR_RESET} der besiegten gener zerstört werden kann. Insgesammt gibt es noch {remainingLayers} Schutzschichten. Du kannst nicht zwei schichten mit den gleichen überresten zerstören, und immer nur eine schicht gleichzeitig pro angriff zerstören.\n")
             
-            round = self.choose(inventory, [""])
+            round = self.choose(inventory)
+            print("round:", round)
             attacks = round[0]
+            print("attacks:", attacks)
 
             if attacks[0] in protectiveLayer and attacks[1] in protectiveLayer and attacks[0] != attacks[1]:
                 print(f"die überreste vermischen sich und wirken nicht gegen das {globals.COLOR_NOUN}Schutzschild{globals.COLOR_RESET}, hättest du mal zugehört ")
@@ -227,7 +228,7 @@ class Player(Person):
         while self.lives > 0 or boss.lives > 0:
 
             # --- Player attack --- #
-            round, inventory = self.choose(inventory, [""])
+            round, inventory = self.choose(inventory)
             attacks = round[0]
             items = self.filterJsonBoss()
             paralize = False
@@ -278,7 +279,7 @@ class Player(Person):
                 if specialAttack < 0.25: #probabilty of 25% that enemy makes a special attack
                     print("Der gegner nutzt die Energie der Toten Gegner um einen Spezial angruff zu machen. Wehre ihn entweder mit den passenden Überresten ab, oder nutze den Lehmungstrank in der nächsten Runde.")
                     print("Hast du nichts von beiden, bekommst du doppelten Schaden.")
-                    round = self.choose(inventory, [""])
+                    round = self.choose(inventory)
                     attacks = round[0]
                     if any(element in attacks for element in protectiveLayer) or "laehmungstrank" in attacks[0]:
                         print("yaay Du whrst den schaden ab")
@@ -302,25 +303,27 @@ class Player(Person):
 
         # --- First Item --- #
 
-        while (first := input(f"{globals.COLOR_INPUT}1. Angriff: ").lower().strip()) not in inventory or inventory[first] <= 0 or first == "ausweichmanöver":
+        while (first := input(f"{globals.COLOR_INPUT}1. Angriff: ").lower().strip()) not in inventory.items or inventory.items[first] <= 0 or first == "ausweichmanöver":
             print(f"{globals.COLOR_RESET}")
             print("ungültig")
         if not first == "kick":
             inventory.remove(first)
-        inventory = +inventory
+       # inventory = +inventory
         print(f"{globals.COLOR_RESET}")
-        print(str(inventory).replace("Counter", f"Dein {globals.COLOR_NOUN}Inventar{globals.COLOR_RESET} nach einer Eingabe: ")+"\n")
+        inventory.print_inventory()
+       # print(str(inventory).replace("Counter", f"Dein {globals.COLOR_NOUN}Inventar{globals.COLOR_RESET} nach einer Eingabe: ")+"\n")
         
         # --- Second Item --- #
 
-        while (bonus := input(f"{globals.COLOR_INPUT}2. Angriff: ").lower().strip()) != "none" and bonus not in inventory or bonus == "ausweichmanöver":
+        while (bonus := input(f"{globals.COLOR_INPUT}2. Angriff: ").lower().strip()) != "none" and bonus not in inventory.items or bonus == "ausweichmanöver":
             print(f"{globals.COLOR_RESET}")
             print("ungültig")
         if not bonus == "kick":
             inventory.remove(bonus)
-        inventory = +inventory
+       # inventory = +inventory
         print(f"{globals.COLOR_RESET}")
-        print(str(inventory).replace("Counter", f"Dein {globals.COLOR_NOUN}Inventar{globals.COLOR_RESET} nach zwei Eingaben: "))
+        inventory.print_inventory()
+       # print(str(inventory).replace("Counter", f"Dein {globals.COLOR_NOUN}Inventar{globals.COLOR_RESET} nach zwei Eingaben: ")+"\n")
 
         round = [first, bonus]
 
