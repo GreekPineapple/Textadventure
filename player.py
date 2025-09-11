@@ -3,6 +3,7 @@ from collections import Counter
 from inventory import Inventory
 from person import Person
 from trivia import *
+import shop as shop
 
 class Player(Person):
     
@@ -88,15 +89,15 @@ class Player(Person):
         temp_strength = self.strength
         fightInventory = ["kick"]
 
-        self.shop(fightInventory, angriffe)
+        shop.shop(self, fightInventory, angriffe)
         vc = Inventory(Counter(fightInventory))
        
         while self.lives > 0 or villain.lives > 0:
 
             # --- Player attack --- #
-            vc = +vc
+          
             print(str(vc).replace("Counter", f"Dein {globals.COLOR_NOUN}Inventar{globals.COLOR_RESET} für den Kampf: "))
-            round, vc = self.choose(vc)
+            round, vc = shop.choose(vc)
             strength_bonus = 1
 
             damage = 0
@@ -119,7 +120,7 @@ class Player(Person):
             print(f"Der Gegner hat noch {villain.lives} Leben übrig\n")
             
             # --- Villain attack --- #
-            
+
             self.strength = temp_strength
             for effect in villain.active_effects:
                 effect.use_effect(villain)
@@ -140,45 +141,7 @@ class Player(Person):
                 self.lives = tempLives
                 break
 
-    def shop(self, fightInventory, weapons):
-        shop = {}
-        print("Willkommen in der Kampfarena. Hier kaufst du Ausrüstung für den Kampf. Währung sind deine eigenen Leben. Die Aurüstung bleibt in der Arena, d.h. was übrig bleibt, landet nicht in deinem Inventar.")
-        print("Gewinst du den Kampf, werden deine leben wieder zurückgesetzt, und du bekommst eine Belohnung. Verlierst du den kampf allerdings, verlierst du 10 Leben außerhalb der Arena.")
-        print("Tippe einfach den namen ein, und beende deinen Eimkauf mit 'ende'\n")
-
-        # --- Print items--- #
-
-        for weapon in weapons:
-            print(f"{weapon.type}: {weapon.name} (-{weapon.price} Leben) \n{weapon.info}\n")
-            shop[weapon.name.lower().strip()] = weapon.price
-
-        while (item := input(f"{globals.COLOR_INPUT}>").lower().strip()) != "ende":
-            print(f"{globals.COLOR_RESET}")
-            if item == "verteidigung":
-                defence = next((weapon for weapon in weapons if weapon.name.lower().strip() == "verteidigung"), None)
-                if defence.counter > 0:
-                    defence.counter -= 1
-                    self.lives -= shop[item]
-                    fightInventory.append(item)
-                    print("Du hast noch: " + str(self.lives) + " leben")
-                else:
-                    print("Du hast schon die maximale ausrüstung für deine Verteidigung")
-            # Wenn man Items schon im shop begrenzen will: (aktuell wird gegner immun; haltbarkeit macht kein sinn)
-            # i = [weapon for weapon in weapons if weapon.name.lower().strip() == item]
-            # if i.counter != None:
-            #   i.counter -= 1
-            # if item in shop and i.counter > 0:
-            #   self.lives -= shop[item]
-            #   fightInventory.append(item)
-            #   print("item nichtmehr verfügbar")
-            elif item in shop:
-                self.lives -= shop[item]
-                fightInventory.append(item)
-                print("Du hast noch: " + str(self.lives) + " leben")
-            else:
-                print("Diesen Artikel haben wir nicht im Angebot")
-        print(f"{globals.COLOR_RESET}")
-
+ 
     def boss(self, villains, boss, player):
         protection = 0
         remainingLayers = len(villains)
@@ -200,7 +163,7 @@ class Player(Person):
         while remainingLayers > 0:
             print(f"Der Gegner hat ein {globals.COLOR_NOUN}Schutzschild{globals.COLOR_RESET} um sich herum, welches nur mit den {globals.COLOR_NOUN}überresten{globals.COLOR_RESET} der besiegten gener zerstört werden kann. Insgesammt gibt es noch {remainingLayers} Schutzschichten. Du kannst nicht zwei schichten mit den gleichen überresten zerstören, und immer nur eine schicht gleichzeitig pro angriff zerstören.\n")
             
-            round = self.choose(inventory)
+            round = shop.choose(inventory)
             attacks = round[0]
 
             if attacks[0] in protectiveLayer and attacks[1] in protectiveLayer and attacks[0] != attacks[1]:
@@ -228,7 +191,7 @@ class Player(Person):
         while self.lives > 0 or boss.lives > 0:
 
             # --- Player attack --- #
-            round, inventory = self.choose(inventory)
+            round, inventory = shop.choose(inventory)
             attacks = round[0]
             items = self.filterJsonBoss()
             paralize = False
@@ -279,7 +242,7 @@ class Player(Person):
                 if specialAttack < 0.25: #probabilty of 25% that enemy makes a special attack
                     print("Der gegner nutzt die Energie der Toten Gegner um einen Spezial angruff zu machen. Wehre ihn entweder mit den passenden Überresten ab, oder nutze den Lehmungstrank in der nächsten Runde.")
                     print("Hast du nichts von beiden, bekommst du doppelten Schaden.")
-                    round = self.choose(inventory)
+                    round = shop.choose(inventory)
                     attacks = round[0]
                     if any(element in attacks for element in protectiveLayer) or "laehmungstrank" in attacks[0]:
                         print("yaay Du whrst den schaden ab")
@@ -296,45 +259,6 @@ class Player(Person):
                     break
 
                 print(f"\nGegner Leben: {boss.lives} \n Deine Leben: {self.lives}\n")
-
-    def choose(self, inventory):
-        print(f"Wähle 1-2 Items aus deinem {globals.COLOR_NOUN}Inventar{globals.COLOR_RESET} aus, die du nutzen möchtest. Wenn du 2 gleiche Angriffe auswählst, machst du automatisch einen Sepzialangriff. Dieser macht zwar mehr schaden, raubt dir allerdings 10 Leben.")
-        print("Wenn du nur 1 Item verwenden willst, tippe beim 2. angriff 'none' ein.")
-
-        # --- First Item --- #
-
-        while (first := input(f"{globals.COLOR_INPUT}1. Angriff: ").lower().strip()) not in inventory.items or inventory.items[first] <= 0 or first == "ausweichmanöver":
-            print(f"{globals.COLOR_RESET}")
-            print("ungültig")
-        if not first == "kick":
-            inventory.remove(first)
-       # inventory = +inventory
-        print(f"{globals.COLOR_RESET}")
-        inventory.print_inventory()
-       # print(str(inventory).replace("Counter", f"Dein {globals.COLOR_NOUN}Inventar{globals.COLOR_RESET} nach einer Eingabe: ")+"\n")
-        
-        # --- Second Item --- #
-
-        while (bonus := input(f"{globals.COLOR_INPUT}2. Angriff: ").lower().strip()) != "none" and bonus not in inventory.items or bonus == "ausweichmanöver":
-            print(f"{globals.COLOR_RESET}")
-            print("ungültig")
-        if not bonus == "kick":
-            inventory.remove(bonus)
-       # inventory = +inventory
-        print(f"{globals.COLOR_RESET}")
-        inventory.print_inventory()
-       # print(str(inventory).replace("Counter", f"Dein {globals.COLOR_NOUN}Inventar{globals.COLOR_RESET} nach zwei Eingaben: ")+"\n")
-
-        round = [first, bonus]
-
-        return round, inventory
-    
-    def filterJsonNightServants(self):
-        items = []
-        with open("shop.json", "r") as f:
-            data = json.load(f)
-            items = [item for res in data["res"] if res["villain"] == "nightServants" for item in res["items"]]
-        return items
 
     def filterJsonBoss(self):
         items = []
