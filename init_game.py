@@ -18,6 +18,7 @@ from fight.enemies.goblin import Goblin
 from fight.enemies.golem import Golem
 from fight.enemies.wizard import Wizard
 from fight.enemies.air_attack import AirEnemy
+from fight.enemies.boss import Boss
 import globals
 
 # --- Notes / Save and Load --- #
@@ -45,13 +46,7 @@ fields = [townhall, woods, wf, dam, aquarium, square, birdhouse, ww, ew, sw]
 # --- Characters --- #
 
 me = Player(save_and_load.load()["lives"], 10, "myself", save_and_load.load()["armor_points"], save_and_load.load()["inventory"], save_and_load.load()["position"]) #Start: Townhall
-
-# goblin = Villain("Goblin", 90, 35, [10, 20, 15], "goblin überreste")
-# golem = Villain("Erdgolem", 140, 50, [20, 20, 10], "golem überreste")
-# wizard = Villain("Magier", 135, 40,[10, 20, 10], "wizard überreste")
-# luftGegner = Villain("Luftgegner", 110, 30,[5, 20, 0], "vogel überreste")
-
-boss = Villain("Boss", 200, 80, [5, 0, 0], "special glitzer boss attacke")
+boss = Boss()
 
 goblin = Goblin()
 golem = Golem()
