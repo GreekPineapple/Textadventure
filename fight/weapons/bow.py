@@ -10,7 +10,7 @@ class Bow(Attack):
     def __init__(self, counter, name=None, price=None, type=None, info=None):
         super().__init__(counter, name, price, type, info)
 
-    def make_damage(self, enemy):
+    def make_damage(self, enemy, player):
         if self.counter > 0:
             self.counter -= 1
             if random.random() < 0.10:

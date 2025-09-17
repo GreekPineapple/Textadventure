@@ -10,7 +10,7 @@ class Fire(Attack):
     def __init__(self, counter, name=None, price=None, type=None, info=None):
         super().__init__(counter, name, price, type, info)
 
-    def make_damage(self, enemy):
+    def make_damage(self, enemy, player):
         if not self.used:
             enemy.apply_effect(self)
             return super().make_damage(enemy)

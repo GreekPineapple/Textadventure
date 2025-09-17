@@ -4,16 +4,15 @@ class Strength(Attack):
     name = "Stärke"
     price = 6
     type = "Potion"
-    info = "   Vorteil: Verdoppelten deinen 2. Angriff\n   Nachteil: Nützt nur als erster Angriff was"
+    info = "   Vorteil: Erhöt deine Stärke um 5\n   Nachteil: Betrifft nur deine reine kick stärke, ohne Waffen"
 
     def __init__(self, counter, name=None, price=None, type=None, info=None):
         super().__init__(counter, name, price, type, info)
 
-    def make_damage(self, enemy):
+    def make_damage(self, enemy, player):
         if self.counter > 0:
-            #TODO verdoppelt deinen 2. Angriff?!
+            player.strength += 5
             self.counter -= 1
-            enemy.apply_effect(self)
             return super().make_damage(enemy)
         else:
             print("\nDu hast jetzt zu oft den selben angriff genutzt. Der Gegner lernt daraus und ist jetzt immun...\n")

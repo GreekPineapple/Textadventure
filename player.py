@@ -107,11 +107,11 @@ class Player(Person):
                     break
                 elif round[0] == round[1]:
                     print("Solch einen speziellen Angriff zu machen, raubt dir deine Kraft, du verlierst 10 Leben")
-                    damage = obj.make_damage(villain) * 2.5
+                    damage = obj.make_damage(villain, self) * 2.5
                     self.lives -= 10
                     break
-                elif obj.make_damage(villain) > 0:
-                    damage += obj.make_damage(villain)                  
+                elif obj.make_damage(villain, self) > 0:
+                    damage += obj.make_damage(villain, self)                  
             if "kick" in round:
                 damage += self.strength if round[0] != round[1] else self.strength * 2
             villain.lives -= damage
