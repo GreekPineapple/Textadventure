@@ -23,7 +23,7 @@ class Inventory:
                 print(f"{item:.<18}{quantity}")
 
     def has_item(self, item):
-        return item in self.items and self.items[item] > 0
-    
+        return True  if self.items.get(item, 0) > 0 else False
+
     def get_item(self, item):
         return self.items.get(item, 0)

@@ -3,7 +3,7 @@ from fight.enemy import Enemy
 class Golem(Enemy):
     name = "Erdgolem"
     lives = 140
-    strength = 50
+    strength = 45
     drop = "golem überreste"
     active_effects = []
     blocked = False
@@ -14,8 +14,8 @@ class Golem(Enemy):
     def remove_effect(self, effect):
         self.active_effects.remove(effect)
 
-    def attack(self, player):
-        super().attack(player)
+    def attack(self, player, fight_inventory):
+        super().attack(player, fight_inventory)
 
     def print_info(self):
         super().print_info()

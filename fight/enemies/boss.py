@@ -1,8 +1,8 @@
 from collections import Counter
-import json
-import random
-import globals
-import shop
+import json, random
+import globals, shop
+from inventory import Inventory
+
 class Boss:
 
     def __init__(self):
@@ -31,8 +31,9 @@ class Boss:
             protectiveLayer.append(villain.drop)
 
         combinedList = set(possibleItems) | set(protectiveLayer)
-        inventory = inventory.Inventory(Counter({key: player.inventory.get_item(key) for key in combinedList}))
+        inventory = Inventory(Counter({key: player.inventory.get_item(key) for key in combinedList}))
         inventory.print_inventory()
+
         # --- Phase 1 --- #
         while remainingLayers > 0:
             print(f"Der Gegner hat ein {globals.COLOR_NOUN}Schutzschild{globals.COLOR_RESET} um sich herum, welches nur mit den {globals.COLOR_NOUN}überresten{globals.COLOR_RESET} der besiegten gener zerstört werden kann. Insgesammt gibt es noch {remainingLayers} Schutzschichten. Du kannst nicht zwei schichten mit den gleichen überresten zerstören, und immer nur eine schicht gleichzeitig pro angriff zerstören.\n")
@@ -65,12 +66,13 @@ class Boss:
 
             # --- Player attack --- #
             round, inventory = shop.choose(inventory)
-            attacks = round[0]
+          #  attacks = round[0]
             items = self.filterJsonBoss()
             paralize = False
-
-            for attack in attacks:
+            for attack in round:
+                print(attack)
                 if attack in [item["name"] for item in items]:
+                    print(item["name"], "ist der name")
                     if item["name"] == "heiltrank":
                         if not healing_block:
                             player.lives = 250
@@ -86,6 +88,7 @@ class Boss:
                             bomb_count -= 1
                         else:
                             print("Du hast keine Bomben mehr")
+                    print(item["name"])
                     self.lives -= item["damage"]
 
             print(f"\nGegner Leben: {self.lives} \n Deine Leben: {player.lives}\n")

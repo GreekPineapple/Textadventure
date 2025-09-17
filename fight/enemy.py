@@ -14,14 +14,14 @@ class Enemy:
     def remove_effect(self, effect):
         self.active_effects.remove(effect)
 
-    def attack(self, player):
+    def attack(self, player, fight_inventory):
 
         if random.random() < 0.20:
             print(f"Der gegner macht einen {globals.COLOR_NOUN}Spezialangriff{globals.COLOR_RESET},")
-            if player.inventory.has_item("ausweichmanöver"):
+            if fight_inventory.has_item("ausweichmanöver"):
                 
                 print(f"aber du weichst dem {globals.COLOR_NOUN}Spezialangriff{globals.COLOR_RESET} aus")
-                player.inventory.remove("ausweichmanöver")
+                fight_inventory.remove("ausweichmanöver")
             else:
                 print("und du wirst getroffen")
                 player.lives -= self.strength * 2 * player.armmor_points

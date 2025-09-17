@@ -150,7 +150,7 @@ class WestWoods:
 
     def explore(self, player, villains, boss):
         if player.inventory.has_item("Bauteil1") and player.inventory.has_item("Bauteil2"):
-            player.boss(villains, boss, player)
+            boss.fight(villains, player)
         else:
             print("Hier passiert noch nichts...")
 

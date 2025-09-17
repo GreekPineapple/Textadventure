@@ -4,7 +4,7 @@ from fight.enemy import Enemy
 class Wizard(Enemy):
     name = "Magier"
     lives = 135
-    strength = 40
+    strength = 35
     drop = "wizard überreste"
     active_effects = []
     blocked = False
@@ -15,11 +15,11 @@ class Wizard(Enemy):
     def remove_effect(self, effect):
         self.active_effects.remove(effect)
 
-    def attack(self, player):
+    def attack(self, player, fight_inventory):
         if random.random() < 0.25:
             print("Der Magier schwächt dich mit einem Zauber")
             player.strength -= 5
-        super().attack(player)
+        super().attack(player, fight_inventory)
 
     def print_info(self):
         super().print_info()

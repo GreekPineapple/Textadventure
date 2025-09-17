@@ -98,24 +98,23 @@ class Player(Person):
           
             print(str(vc).replace("Counter", f"Dein {globals.COLOR_NOUN}Inventar{globals.COLOR_RESET} für den Kampf: "))
             round, vc = shop.choose(vc)
-            strength_bonus = 1
-
             damage = 0
-            for angriff in angriffe:
-                if angriff.type.lower().strip() == "defence":
+            objects = [a for a in angriffe if a.name.lower() in round]
+            for obj in objects:
+                if obj.type.lower().strip() == "defence":
                     value = 0.2 if round[0] == round[1] else 0.1
                     self.armmor_points -= value
+                    break
                 elif round[0] == round[1]:
                     print("Solch einen speziellen Angriff zu machen, raubt dir deine Kraft, du verlierst 10 Leben")
-                    strength_bonus = 2.5
+                    damage = obj.make_damage(villain) * 2.5
                     self.lives -= 10
-                elif angriff.name.lower().strip() in round and angriff.make_damage(villain) > 0:
-                    damage += angriff.make_damage(villain)                  
-                
+                    break
+                elif obj.make_damage(villain) > 0:
+                    damage += obj.make_damage(villain)                  
             if "kick" in round:
-                damage += self.strength
-            
-            villain.lives -= damage * strength_bonus
+                damage += self.strength if round[0] != round[1] else self.strength * 2
+            villain.lives -= damage
     
             print(f"Der Gegner hat noch {villain.lives} Leben übrig\n")
             
@@ -126,7 +125,7 @@ class Player(Person):
                 effect.use_effect(villain)
 
             if not villain.blocked:
-                villain.attack(self)
+                villain.attack(self, vc)
             else:
                 print("Der Gegner wurde vergiftet und kann nicht angreifen")
         
