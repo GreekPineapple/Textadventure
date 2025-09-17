@@ -7,19 +7,19 @@
           "name": "schussattacke",
           "price": 2,
           "type": "Angriff",
-          "damage": 40
+          "damage": 30
         },
         {
           "name": "sebelattacke",
           "price": 2,
           "type": "Angriff",
-          "damage": 40
+          "damage": 30
         },
         {
           "name": "bombe",
           "price": 8,
           "type": "Mehrfachangriff",
-          "damage": 70
+          "damage": 60
         },
         {
           "name": "schutzschild",

@@ -1,5 +1,5 @@
 from quest import *
-from person import NPC, Villain
+from person import NPC
 from player import Player
 from map import *
 from notes import *
