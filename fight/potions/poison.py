@@ -10,14 +10,17 @@ class Poison(Attack):
         super().__init__(counter, name, price, type, info)
         
     def make_damage(self, enemy, player):
-        if self.counter > 0:
-            self.counter -= 1
-            enemy.apply_effect(self)
-            return super().make_damage(enemy)
+        if enemy.name == "Boss":
+            enemy.paralize = True
+            print("Der Boss ist jetzt für die nächste Runde gelähmt")
         else:
-            print("\nDu hast jetzt zu oft den selben angriff genutzt. Der Gegner lernt daraus und ist jetzt immun...\n")
-            return 0
-        
+            if self.counter > 0:
+                self.counter -= 1
+                enemy.apply_effect(self)
+                return super().make_damage(enemy)
+            else:
+                print("\nDu hast jetzt zu oft den selben angriff genutzt. Der Gegner lernt daraus und ist jetzt immun...\n")
+                return 0
     
     def use_effect(self, enemy):
         if enemy.blocked:

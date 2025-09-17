@@ -148,9 +148,9 @@ class WestWoods:
         self.name = "Wald(West)"        
         self.number = 11
 
-    def explore(self, player, villains, boss):
+    def explore(self, player, villains, boss, boss_attacks):
         if player.inventory.has_item("Bauteil1") and player.inventory.has_item("Bauteil2"):
-            boss.fight(villains, player)
+            boss.fight(villains, player, boss_attacks)
         else:
             print("Hier passiert noch nichts...")
 

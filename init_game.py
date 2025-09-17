@@ -18,7 +18,12 @@ from fight.enemies.goblin import Goblin
 from fight.enemies.golem import Golem
 from fight.enemies.wizard import Wizard
 from fight.enemies.air_attack import AirEnemy
-from fight.enemies.boss import Boss
+from fight.boss.boss import Boss
+from fight.boss.shooting import Shooting
+from fight.boss.machete import Machete
+from fight.boss.bomb import Bomb
+from fight.boss.protection import Protection
+from fight.boss.healing import Healing
 import globals
 
 # --- Notes / Save and Load --- #
@@ -66,6 +71,16 @@ strength = Strength(3)
 dodge = Attack(None, "ausweichmanöver", 10, "dodge", "   Schütze dich vor den Spezialattacken der Gegner")
 defence = Attack(5, "verteidigung", 8, "defence", "   Der gegner macht weniger schaden wenn er dich angreift. Bis zu 5x kannst du dich ausrüsten")
 attacks = [bow, sharp_rain, sword, fire, poison, strength, dodge, defence]
+
+shooting = Shooting()
+machete = Machete()
+bomb = Bomb()
+shield = Protection()
+armor = Protection()
+healing = Healing()
+paralize_potion = Poison(1000)
+hunting_bow = Bow(1000, "Jagdbogen")
+boss_attacks = [shooting, machete, bomb, shield, armor, healing, paralize_potion, hunting_bow]
 
 # --- States --- #
 

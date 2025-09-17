@@ -4,7 +4,7 @@ from init_game import *
 def checkAction(position):
     match position:
         case 11:
-            ww.explore(me, villains, boss)
+            ww.explore(me, villains, boss, boss_attacks)
         case 12:
             woods.explore(berndTheBird)
         case 13:

@@ -1,5 +1,5 @@
 from collections import Counter
-import json, random
+import random
 import globals, shop
 from inventory import Inventory
 
@@ -10,13 +10,14 @@ class Boss:
         self.strength = 80
         self.name = "Boss"
         self.dot_damage = 5
-
+        self.paralize = False
+    
     def printInfo (self):
         print(f"\nDu wirst vom {globals.COLOR_NOUN}{self.name}{globals.COLOR_RESET} angegriffen")
         print(f"Leben: {self.lives}")
         print(f"Stärke: {self.strength}\n" )
 
-    def fight(self, villains, player):
+    def fight(self, villains, player, boss_attacks):
         protection = 0
         remainingLayers = len(villains)
         print(f"Für den {globals.COLOR_NOUN}Bosskampf{globals.COLOR_RESET} nutzt du die Angriffe aus deinem {globals.COLOR_NOUN}Inventar{globals.COLOR_RESET} und deine tatsächlichen Leben")
@@ -35,6 +36,7 @@ class Boss:
         inventory.print_inventory()
 
         # --- Phase 1 --- #
+
         while remainingLayers > 0:
             print(f"Der Gegner hat ein {globals.COLOR_NOUN}Schutzschild{globals.COLOR_RESET} um sich herum, welches nur mit den {globals.COLOR_NOUN}überresten{globals.COLOR_RESET} der besiegten gener zerstört werden kann. Insgesammt gibt es noch {remainingLayers} Schutzschichten. Du kannst nicht zwei schichten mit den gleichen überresten zerstören, und immer nur eine schicht gleichzeitig pro angriff zerstören.\n")
             
@@ -60,42 +62,22 @@ class Boss:
         # --- Phase 2 --- #
 
         dot_rounds = 0
-        healing_block = False
-        bomb_count = 3
+        damage = 0
         while player.lives > 0 or self.lives > 0:
 
             # --- Player attack --- #
-            round, inventory = shop.choose(inventory)
-          #  attacks = round[0]
-            items = self.filterJsonBoss()
-            paralize = False
-            for attack in round:
-                print(attack)
-                if attack in [item["name"] for item in items]:
-                    print(item["name"], "ist der name")
-                    if item["name"] == "heiltrank":
-                        if not healing_block:
-                            player.lives = 250
-                            healing_block = True
-                        else:
-                            print("Du kannst den heiltrank nur einmal im kampf nutzen")
-                    if item["name"] == "laehmungstrank":
-                        paralize = True
-                    if item["type"] == "Schutz":
-                        protection += 10
-                    if item["name"] == "bombe":
-                        if bomb_count > 0:
-                            bomb_count -= 1
-                        else:
-                            print("Du hast keine Bomben mehr")
-                    print(item["name"])
-                    self.lives -= item["damage"]
 
+            round, inventory = shop.choose(inventory)
+            for attack in [a for a in boss_attacks if a.name.lower() in round]:
+                damage += attack.make_damage(self, player)
+                if attack.type == "schutz":
+                    protection += 10
+            self.lives -= damage
             print(f"\nGegner Leben: {self.lives} \n Deine Leben: {player.lives}\n")
 
             if self.lives <= 0:
                 print("Glückwunsch, Gegner ist tot, hier ist das letzte fehlende Bauteil")
-                player.inventory["Bauteil3"] += 1
+                player.inventory.add("Bauteil3")
                 break
             
             # --- Villain attack --- #
@@ -109,9 +91,9 @@ class Boss:
                 dot_rounds -= 1
                 print(f"Du bist vergiftet! -{self.dot_damage} Leben.")
 
-            if paralize:
+            if self.paralize:
                 print("Der Gegner ist gelähmt und kann dich für eine Runde nicht angreifen")
-                paralize = False
+                self.paralize = False
             else:
                 print("Du wirst angegriffen")
                 specialAttack = random.random()
@@ -135,10 +117,3 @@ class Boss:
                     break
 
                 print(f"\nGegner Leben: {self.lives} \n Deine Leben: {player.lives}\n")
-
-    def filterJsonBoss(self):
-        items = []
-        with open("shop.json", "r") as f:
-            data = json.load(f)
-            items = [item for res in data["res"] if res["villain"] == "boss" for item in res["items"]]
-        return items
