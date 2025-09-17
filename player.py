@@ -86,7 +86,6 @@ class Player(Person):
 
     def fight(self, villain, angriffe): 
         tempLives = self.lives
-        temp_strength = self.strength
         fightInventory = ["kick"]
 
         shop.shop(self, fightInventory, angriffe)
@@ -105,7 +104,7 @@ class Player(Person):
                     value = 0.2 if round[0] == round[1] else 0.1
                     self.armmor_points -= value
                     break
-                elif round[0] == round[1]:
+                elif round[0] == round[1] and not obj.name.lower().strip() == "stärke":
                     print("Solch einen speziellen Angriff zu machen, raubt dir deine Kraft, du verlierst 10 Leben")
                     damage = obj.make_damage(villain, self) * 2.5
                     self.lives -= 10
@@ -120,7 +119,6 @@ class Player(Person):
             
             # --- Villain attack --- #
 
-            self.strength = temp_strength
             for effect in villain.active_effects:
                 effect.use_effect(villain)
 
