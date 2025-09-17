@@ -15,7 +15,7 @@ class Strength(Attack):
             self.counter -= 1
             return super().make_damage(enemy)
         else:
-            print("\nDu hast jetzt zu oft den selben angriff genutzt. Der Gegner lernt daraus und ist jetzt immun...\n")
+            print("\nDeine Stärke ist schon auf dem Maximum\n")
             return 0
         
     
