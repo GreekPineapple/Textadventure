@@ -12,18 +12,6 @@ class Person:
         print(f"Leben: {self.lives}")
         print(f"Stärke: {self.strength}\n" )
 
-class Villain (Person):
-    def __init__(self, name, lives, strength, dpw, drop): #Damage Per Weapon (dpw)
-        self.dpw = dpw
-        self.waterProof = dpw[0]
-        self.arrowProof = dpw[1]
-        self.swordProof = dpw[2]
-        self.drop = drop
-        super().__init__(lives, strength, name)
-
-    def printInfo(self):
-        super().printInfo()
-
 class NPC (Person):
     def __init__(self, name, lives, strength, quest: Quest, dialogues: dict, choices: dict):
         self.quest = quest
