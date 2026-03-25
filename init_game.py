@@ -97,6 +97,7 @@ quest3 = Quest("Aquariumquest", " - Gehe zum Vogelhaus um rauszufinden wo sich d
 quest4 = Quest("Birdhousequest", " - Suche den Vogel und bringe ihn in das Vogelzucht haus"," - Gehe zum Aquarium shop und hohle dir ein Aquarium", notes, state_manager, prev_quest=quest3)
 quest5 = Quest("Vogelquest", " - Fange den Vogel"," - Bringe den Vogel in das Vogelzucht haus", notes, state_manager, prev_quest=quest4)
 
+quest6 = Quest("Klimaquest", " - Hilf beim Aufbau eines nachhaltigen Dorfes", "", notes, state_manager, prev_quest=None)
 quests = [quest1, quest2, quest3, quest4, quest5]
 
 # --- NPCs --- #
@@ -225,6 +226,17 @@ berndTheBird = NPC("Bernd the Bird", 100, 5, quest5, {
         "b": "Glükwunssch du hast in gefangen quest_done",
         "c": "Du bist vom Baum gefallen und gestorben, lol"
     }
+})
+
+clara = NPC("Clara", 100, 5, quest6, {
+    "open": { 
+        "ready": ""
+    },
+    "active": { 
+        "ready": "",
+        "done": ""
+    },
+    "done": ""
 })
 
 def get_dependencies(quests):
