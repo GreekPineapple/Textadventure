@@ -25,9 +25,13 @@ class FormApp(App):
         self.widget2.styles.border = ("heavy", "blue")
         self.widget2.styles.padding = (1,3)
         
+        self.countdownThread = threading.Thread(target=countdown.countdown, args=(5, self.update_countdown))
+        self.countdownThread.start()
+        
+        
+    def update_countdown(self, timer):
+        self.call_from_thread(self.widget2.update, timer)
+        
 if __name__ == "__main__":
-    countdownThread = threading.Thread(target=countdown.countdown, args=(10,))
-    countdownThread.start()
     FormApp().run()
-    countdownThread.join()
     
