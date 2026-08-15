@@ -30,7 +30,7 @@ def printposition(position):
             print(f"\n--{field.name.strip()}--\n")
 
 def lookAround(block):
-    fight = random.choices((True, False), weights = [1, 3])
+    fight = random.choices((True, False), weights = [1, 3]) # 1/3 change that a fight will happen
     if fight[0] and not block:
         villain = random.choice(villains)
         villain.print_info()
