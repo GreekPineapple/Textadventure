@@ -1,10 +1,8 @@
-import time
+import threading
 from typing import Container
-
 from textual.app import App, ComposeResult, on
 from textual.widgets import Static, Input
 from textual.containers import Container
-import countdown, threading
 
 class FormApp(App):
     def compose(self) -> ComposeResult:
@@ -42,31 +40,28 @@ class FormApp(App):
         self.widget3.styles.border = ("heavy", "green")
         self.widget3.styles.padding = (1,3)
         
-        # self.countdownThread = threading.Thread(target=countdown.countdown, args=(5, self.update_countdown))
-        # self.countdownThread.start()
-        
-        self.playerThread = threading.Thread(target=self.player_action, args=())
-        self.playerThread.start()
+        self.stop = threading.Event()
         self.villainThread = threading.Thread(target=self.villain_action, args=())
         self.villainThread.start()
-        
-    # def update_countdown(self, timer):
-    #     self.call_from_thread(self.widget2.update, timer)
-        
-        
+   
     def villain_action(self):
-        pass
-        # self.call_from_thread(self.widget1.update, "Whoooo Ich bin der Geist")
-        # time.sleep(2)
-        # self.call_from_thread(self.widget1.update, "Ich gehe bis in deinen Raum")
-        # time.sleep(2)
-        # self.call_from_thread(self.widget1.update, "Boohoo")
+        while not self.stop.is_set():
+            self.call_from_thread(self.widget2.update, "Whoooo Ich bin der Geist")
+            if self.stop.wait(1): break
+            
+            self.call_from_thread(self.widget2.update, "Ich gehe bis in deinen Raum")
+            if self.stop.wait(1): break
+            
+        self.call_from_thread(self.widget2.update, "Boooo")
         
     @on(Input.Submitted)
-    def player_action(self):
-        self.widget1.update(self.widget3.value)
+    def player_action(self, event: Input.Submitted):
+        text = event.value
+        self.widget1.update(text)
         self.widget3.value = ""
-       # self.call_from_thread(self.widget3.update, "input")
+        
+        if text == "stop":
+            self.stop.set()
     
 if __name__ == "__main__":
     FormApp().run()
