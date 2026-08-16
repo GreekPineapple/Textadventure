@@ -1,7 +1,7 @@
 import time
 from typing import Container
 
-from textual.app import App, ComposeResult
+from textual.app import App, ComposeResult, on
 from textual.widgets import Static, Input
 from textual.containers import Container
 import countdown, threading
@@ -62,9 +62,12 @@ class FormApp(App):
         # time.sleep(2)
         # self.call_from_thread(self.widget1.update, "Boohoo")
         
+    @on(Input.Submitted)
     def player_action(self):
-        self.call_from_thread(self.widget3.update, "input")
-
+        self.widget1.update(self.widget3.value)
+        self.widget3.value = ""
+       # self.call_from_thread(self.widget3.update, "input")
+    
 if __name__ == "__main__":
     FormApp().run()
     
