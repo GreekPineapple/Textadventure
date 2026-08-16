@@ -228,16 +228,16 @@ berndTheBird = NPC("Bernd the Bird", 100, 5, quest5, {
     }
 })
 
-clara = NPC("Clara", 100, 5, quest6, {
-    "open": { 
-        "ready": ""
-    },
-    "active": { 
-        "ready": "",
-        "done": ""
-    },
-    "done": ""
-})
+# clara = NPC("Clara", 100, 5, quest6, {
+#     "open": { 
+#         "ready": ""
+#     },
+#     "active": { 
+#         "ready": "",
+#         "done": ""
+#     },
+#     "done": ""
+# })
 
 def get_dependencies(quests):
     dependencies = {}

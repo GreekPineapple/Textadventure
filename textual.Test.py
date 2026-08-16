@@ -1,3 +1,5 @@
+import time
+
 from textual.app import App
 from textual.widgets import Input, Label, Button, Digits, Placeholder, Static
 from textual import on
@@ -28,9 +30,20 @@ class FormApp(App):
         self.countdownThread = threading.Thread(target=countdown.countdown, args=(5, self.update_countdown))
         self.countdownThread.start()
         
+        self.villainThread = threading.Thread(target=self.villain_action, args=())
+        self.villainThread.start()
+        
         
     def update_countdown(self, timer):
         self.call_from_thread(self.widget2.update, timer)
+        
+        
+    def villain_action(self):
+        self.call_from_thread(self.widget1.update, "Whoooo Ich bin der Geist")
+        time.sleep(2)
+        self.call_from_thread(self.widget1.update, "Ich gehe bis in deinen Raum")
+        time.sleep(2)
+        self.call_from_thread(self.widget1.update, "Boohoo")
         
 if __name__ == "__main__":
     FormApp().run()
