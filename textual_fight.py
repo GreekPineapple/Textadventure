@@ -30,7 +30,7 @@ class FormApp(App):
         
         self.villainText = self.query_one("#villain")
         self.villainText.styles.width = "100%"
-        self.villainText.styles.height = "30%"
+        self.villainText.styles.margin = (2,0,0,0)
         
         self.villainContainer = self.query_one("#villain_container")
         self.villainContainer.styles.layout = "vertical"
@@ -41,7 +41,6 @@ class FormApp(App):
         
         self.progressBar = self.query_one("#progress_bar")
         self.progressBar.styles.width = "100%"
-        self.progressBar.styles.height = "20%"
         
         first_row = self.query_one("#first_row")
         first_row.styles.layout = "horizontal"
@@ -62,7 +61,10 @@ class FormApp(App):
         x=10
         while not self.stop.is_set():
             self.call_from_thread(self.progressBar.update, progress=x)
-            if self.stop.wait(1): break
+            if self.stop.wait(1): 
+                self.villainText.update("Gegner wurde angegriffen") 
+                self.call_from_thread(self.progressBar.update, progress=0)
+                break
             x+=10
         
     @on(Input.Submitted)
@@ -71,7 +73,7 @@ class FormApp(App):
         self.playerText.update(text)
         self.inputBox.value = ""
         
-        if text == "stop":
+        if text == "angriff":
             self.stop.set()
     
 if __name__ == "__main__":
