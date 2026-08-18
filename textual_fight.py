@@ -52,20 +52,23 @@ class FormApp(App):
         self.inputBox.styles.border = ("heavy", "green")
         self.inputBox.styles.padding = (1,3)
         
-        self.stop = threading.Event()
+        self.player_attack = threading.Event()
+        self.villain_attack = threading.Event()
         self.villainThread = threading.Thread(target=self.villain_action, args=())
         self.villainThread.start()
    
     def villain_action(self):
-        
-        x=10
-        while not self.stop.is_set():
+        x=0
+        while not self.player_attack.is_set():
+            x+=10
             self.call_from_thread(self.progressBar.update, progress=x)
-            if self.stop.wait(1): 
+            if self.player_attack.wait(1): 
                 self.villainText.update("Gegner wurde angegriffen") 
                 self.call_from_thread(self.progressBar.update, progress=0)
                 break
-            x+=10
+            if self.progressBar.progress == self.progressBar.total:
+                self.playerText.update("Du wurdest angegreift") 
+                self.villain_attack.set()
         
     @on(Input.Submitted)
     def player_action(self, event: Input.Submitted):
@@ -74,8 +77,12 @@ class FormApp(App):
         self.inputBox.value = ""
         
         if text == "angriff":
-            self.stop.set()
+            self.player_attack.set()
     
+        ## wird nur bei input submitted ausgeführt
+        if self.villain_attack.is_set():
+            self.playerText.update("Du wurdest angegriffen")
+           
 if __name__ == "__main__":
     FormApp().run()
     
