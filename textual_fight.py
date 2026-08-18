@@ -3,8 +3,13 @@ from typing import Container
 from textual.app import App, ComposeResult, on
 from textual.widgets import Label, ProgressBar, Static, Input
 from textual.containers import Container
+from textual.message import Message
 
 class FormApp(App):
+    
+    class VillainAttack(Message):
+        pass
+    
     def compose(self) -> ComposeResult:
         yield Container(
             Static("Wähle einen Angriff", id="player"),
@@ -53,7 +58,6 @@ class FormApp(App):
         self.inputBox.styles.padding = (1,3)
         
         self.player_attack = threading.Event()
-        self.villain_attack = threading.Event()
         self.villainThread = threading.Thread(target=self.villain_action, args=())
         self.villainThread.start()
    
@@ -67,9 +71,9 @@ class FormApp(App):
                 self.call_from_thread(self.progressBar.update, progress=0)
                 break
             if self.progressBar.progress == self.progressBar.total:
-                self.playerText.update("Du wurdest angegreift") 
-                self.villain_attack.set()
+                self.post_message(self.VillainAttack())
         
+    # Villain listens for Input
     @on(Input.Submitted)
     def player_action(self, event: Input.Submitted):
         text = event.value
@@ -78,10 +82,11 @@ class FormApp(App):
         
         if text == "angriff":
             self.player_attack.set()
-    
-        ## wird nur bei input submitted ausgeführt
-        if self.villain_attack.is_set():
-            self.playerText.update("Du wurdest angegriffen")
+        
+    #Player listens to VillainAttack, a Message postet after progressbar is on 100%
+    @on(VillainAttack)
+    def handle_villain_attack(self):
+        self.playerText.update("Du wurdest angegriffen")
            
 if __name__ == "__main__":
     FormApp().run()
