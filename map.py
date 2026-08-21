@@ -52,7 +52,7 @@ class Square:
             quests_dict = {}
             for quest in init_game.quests:
                 quests_dict[quest.name] = quest.state.name
-            init_game.save_and_load.save(player.positionNow, player.inventory, player.lives, quests_dict)
+            init_game.save_and_load.save(player.positionNow, player.inventory, player.lives, player.armmor_points, quests_dict)
             print("Dein Spielstand wurde gespeichert!")
 
 class TownHall:
@@ -74,7 +74,7 @@ class TownHall:
 
         while (item := input(f"{globals.COLOR_INPUT}>").lower().strip()) != "ende":
             print(f"{globals.COLOR_RESET}")
-            if item in shop and (player.inventory["Gutschein"] - shop[item]) >= 0:
+            if item in shop and (player.inventory.get_item("Gutschein") - shop[item]) >= 0:
                 if (item == "schutzschild" or item == "rüstung") and player.inventory.has_item(item):
                     print(f"Du hast bereits diesen Artikel im {globals.COLOR_NOUN}Inventar{globals.COLOR_RESET}")
                 else:
@@ -86,7 +86,7 @@ class TownHall:
                     print("Scheint als hättest du nicht genug Gutscheine")
                 else:
                     print("Diesen Artikel haben wir nicht im Angebot")
-            print("Du hast noch " + str(player.inventory["Gutschein"]) + " Gutscheine zur verfügung")
+            print("Du hast noch " + str(player.inventory.get_item("Gutschein")) + " Gutscheine zur verfügung")
         print(f"{globals.COLOR_RESET}")
 
 class Waterfall:

@@ -134,6 +134,6 @@ class Player(Person):
             elif villain.lives <= 0:
                 drop = "Gutschein" if random.random() < 0.20 else villain.drop
                 print(f"Glückwunsch, du hast den Gegner besiegt, zur belohnung bekommst du: {drop}")
-                self.inventory[drop] += 1
+                self.inventory.add(drop)
                 self.lives = tempLives
                 break

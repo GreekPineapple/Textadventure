@@ -4,9 +4,9 @@ class SaveAndLoad:
     def save(self, position, inventory, lives, armor, quess_dict):
         snapshot = {
             "position": position,
-            "inventory": inventory,
+            "inventory": dict(inventory.items),
             "lives": lives,
-            "armor": armor,
+            "armor_points": armor,
             "quests": quess_dict 
         }
         with open("checkpoint.json", "w") as f:

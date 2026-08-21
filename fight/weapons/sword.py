@@ -21,9 +21,7 @@ class Sword(Attack):
             return 0
     
     def use_effect(self, enemy):
-        print("enemy.lives before effect:", enemy.lives)
         if self.counter_next_round == 1:
             enemy.lives -= 5
-            print("enemy.lives after effect:", enemy.lives)
             enemy.remove_effect(self)
         self.counter_next_round -= 1

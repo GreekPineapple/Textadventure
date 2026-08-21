@@ -3,7 +3,7 @@ from collections import Counter
 class Inventory:
 
     def __init__(self, counter=None):
-        self.items = Counter() if counter is None else counter
+        self.items = Counter() if counter is None else Counter(counter)
 
     def add(self, item, quantity=1):
         self.items[item] += quantity
