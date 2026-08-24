@@ -7,6 +7,8 @@ from textual.message import Message
 
 class FormApp(App):
     
+    CSS_PATH = "styles.tcss"
+    
     class VillainAttack(Message):
         pass
     
@@ -24,39 +26,15 @@ class FormApp(App):
         yield Input(placeholder="Input here", type="text", id="input_field")
 
     def on_mount(self) -> None:
-        self.screen.styles.layout = "vertical"
         
         self.playerText = self.query_one("#player")
-        self.playerText.styles.width = "50%"
-        self.playerText.styles.height = "100%"
-        self.playerText.border_title = "Player"
-        self.playerText.styles.border = ("heavy", "blue")
-        self.playerText.styles.padding = (1,3)
-        
         self.villainText = self.query_one("#villain")
-        self.villainText.styles.width = "100%"
-        self.villainText.styles.margin = (2,0,0,0)
-        
         self.villainContainer = self.query_one("#villain_container")
-        self.villainContainer.styles.layout = "vertical"
-        self.villainContainer.styles.width = "50%"
-        self.villainContainer.border_title = "Villain"
-        self.villainContainer.styles.border = ("heavy", "yellow")
-        self.villainContainer.styles.padding = (1,3)
-        
-        self.progressBar = self.query_one("#progress_bar")
-        self.progressBar.styles.width = "100%"
-        
-        first_row = self.query_one("#first_row")
-        first_row.styles.layout = "horizontal"
-        first_row.styles.height = "70%"
-        
+        self.progressBar = self.query_one("#progress_bar")        
         self.inputBox = self.query_one("#input_field")
-        self.inputBox.styles.width = "100%"
-        self.inputBox.styles.height = "30%"
-        self.inputBox.styles.border = ("heavy", "green")
-        self.inputBox.styles.padding = (1,3)
-        
+        self.villainContainer.border_title = "Villain"
+        self.playerText.border_title =  "Player"
+
         self.player_attack = threading.Event()
         self.villainThread = threading.Thread(target=self.villain_action, args=())
         self.villainThread.start()

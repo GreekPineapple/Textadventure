@@ -1,0 +1,38 @@
+Screen {
+  layout: vertical;
+}
+
+#villain_container {
+    layout: vertical;
+    width: 50%;
+    border: heavy yellow;
+    padding: 1 3;
+}
+
+#villain {
+    width: 100%;
+    margin: 2 0 0 0;
+}
+
+#progress_bar {
+    width: 100%;
+}
+
+#player {
+    width: 50%;
+    height: 100%;
+    border: heavy blue;
+    padding: 1 3;
+}
+
+#first_row {
+  layout: horizontal;
+  height: 70%;
+}
+
+#input_field {
+    width: 100%;
+    height: 30%;
+    border: heavy green;
+    padding: 1 3;
+}
