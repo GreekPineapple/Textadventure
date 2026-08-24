@@ -63,16 +63,18 @@ class FormApp(App):
    
     def villain_action(self):
         x=0
-        while not self.player_attack.is_set():
+        while True:
             x+=10
             self.call_from_thread(self.progressBar.update, progress=x)
             if self.player_attack.wait(1): 
                 self.villainText.update("Gegner wurde angegriffen") 
                 self.call_from_thread(self.progressBar.update, progress=0)
-                break
+                self.player_attack.clear()
+                x=0
             if self.progressBar.progress == self.progressBar.total:
                 self.post_message(self.VillainAttack())
-        
+                x=0
+            
     # Villain listens for Input
     @on(Input.Submitted)
     def player_action(self, event: Input.Submitted):
