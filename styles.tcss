@@ -20,7 +20,7 @@ VillainContainer {
 
 .live-sidebar {
     dock: right;
-
+    width: 30%;
 }
 
 PlayerContainer {
@@ -28,6 +28,10 @@ PlayerContainer {
     height: 100%;
     border: heavy blue;
     padding: 1 3;
+}
+
+#player {
+    
 }
 
 #first_row {

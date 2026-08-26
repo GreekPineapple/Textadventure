@@ -9,7 +9,7 @@ class PlayerContainer(Container):
     
     def compose(self) -> ComposeResult:
         yield Static("Wähle einen Angriff", id="player")
-      #  yield Static("Leben:", classes="live-sidebar")
+        yield Static("Leben:", classes="live-sidebar")
 
 class VillainContainer(Container):
     
@@ -17,7 +17,7 @@ class VillainContainer(Container):
         yield Label("Dauer bis Gegner angreift: ")
         yield ProgressBar(total=100, show_eta=False, id="progress_bar")
         yield Static("", id="villain")
-      #  yield Static("Leben:", classes="live-sidebar")
+        yield Static("Leben:", classes="live-sidebar")
 
 class FormApp(App):
     
@@ -44,6 +44,7 @@ class FormApp(App):
         self.inputBox = self.query_one("#input_field")
         self.villainContainer.border_title = "Villain"
         self.playerContainer.border_title =  "Player"
+        self.lives = self.query(".live-sidebar")
 
         self.player_attack = threading.Event()
         self.villainThread = threading.Thread(target=self.villain_action, args=())
