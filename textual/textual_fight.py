@@ -1,23 +1,10 @@
 import threading
-from typing import Container
 from textual.app import App, ComposeResult, on
-from textual.widgets import Label, ProgressBar, Static, Input
-from textual.containers import Container, Horizontal
+from textual.widgets import Input
+from textual.containers import Horizontal
 from textual.message import Message
-
-class PlayerContainer(Container):
-    
-    def compose(self) -> ComposeResult:
-        yield Static("Wähle einen Angriff", id="player")
-        yield Static("Leben:", classes="live-sidebar")
-
-class VillainContainer(Container):
-    
-    def compose(self) -> ComposeResult:
-        yield Label("Dauer bis Gegner angreift: ")
-        yield ProgressBar(total=100, show_eta=False, id="progress_bar")
-        yield Static("", id="villain")
-        yield Static("Leben:", classes="live-sidebar")
+from player_container import PlayerContainer
+from villain_container import VillainContainer
 
 class FormApp(App):
     
