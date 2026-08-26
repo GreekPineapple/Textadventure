@@ -23,6 +23,7 @@ class FormApp(App):
 
     def on_mount(self) -> None:
         
+        self.last_input = ""
         self.playerText = self.query_one("#player")
         self.villainText = self.query_one("#villain")
         self.villainContainer = self.query_one("#villain_container")
@@ -54,17 +55,20 @@ class FormApp(App):
     # Villain listens for Input
     @on(Input.Submitted)
     def player_action(self, event: Input.Submitted):
-        text = event.value
-        self.playerText.update(text)
+        self.last_input = event.value
+        self.playerText.update(self.last_input)
         self.inputBox.value = ""
         
-        if text == "angriff":
+        if self.last_input == "angriff":
             self.player_attack.set()
         
     #Player listens to VillainAttack, a Message postet after progressbar is on 100%
     @on(VillainAttack)
     def handle_villain_attack(self):
-        self.playerText.update("Du wurdest angegriffen")
+        if self.last_input == "abwehr":
+            self.playerText.update("Du wurdest nicht angegriffen")
+        else:
+            self.playerText.update("Du wurdest angegriffen")
            
 if __name__ == "__main__":
     FormApp().run()
