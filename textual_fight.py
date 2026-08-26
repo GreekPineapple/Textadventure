@@ -2,27 +2,36 @@ import threading
 from typing import Container
 from textual.app import App, ComposeResult, on
 from textual.widgets import Label, ProgressBar, Static, Input
-from textual.containers import Container
+from textual.containers import Container, Horizontal
 from textual.message import Message
+
+class PlayerContainer(Container):
+    
+    def compose(self) -> ComposeResult:
+        yield Static("Wähle einen Angriff", id="player")
+      #  yield Static("Leben:", classes="live-sidebar")
+
+class VillainContainer(Container):
+    
+    def compose(self) -> ComposeResult:
+        yield Label("Dauer bis Gegner angreift: ")
+        yield ProgressBar(total=100, show_eta=False, id="progress_bar")
+        yield Static("", id="villain")
+      #  yield Static("Leben:", classes="live-sidebar")
 
 class FormApp(App):
     
-    CSS_PATH = "styles.tcss"
-    
     class VillainAttack(Message):
         pass
+
+    CSS_PATH = "styles.tcss"
     
     def compose(self) -> ComposeResult:
-        yield Container(
-            Static("Wähle einen Angriff", id="player"),
-            Container(
-                Label("Dauer bis Gegner angreift: "),
-                ProgressBar(total=100, show_eta=False, id="progress_bar"),
-                Static("", id="villain"),
-                id="villain_container"
-            ), 
-            id="first_row"
-        )
+
+        with Horizontal(id="first_row"):
+            yield PlayerContainer(id="player_container")
+            yield VillainContainer(id="villain_container")
+        
         yield Input(placeholder="Input here", type="text", id="input_field")
 
     def on_mount(self) -> None:
@@ -30,10 +39,11 @@ class FormApp(App):
         self.playerText = self.query_one("#player")
         self.villainText = self.query_one("#villain")
         self.villainContainer = self.query_one("#villain_container")
+        self.playerContainer = self.query_one("#player_container")
         self.progressBar = self.query_one("#progress_bar")        
         self.inputBox = self.query_one("#input_field")
         self.villainContainer.border_title = "Villain"
-        self.playerText.border_title =  "Player"
+        self.playerContainer.border_title =  "Player"
 
         self.player_attack = threading.Event()
         self.villainThread = threading.Thread(target=self.villain_action, args=())

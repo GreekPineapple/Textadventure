@@ -2,7 +2,7 @@ Screen {
   layout: vertical;
 }
 
-#villain_container {
+VillainContainer {
     layout: vertical;
     width: 50%;
     border: heavy yellow;
@@ -18,7 +18,12 @@ Screen {
     width: 100%;
 }
 
-#player {
+.live-sidebar {
+    dock: right;
+
+}
+
+PlayerContainer {
     width: 50%;
     height: 100%;
     border: heavy blue;
