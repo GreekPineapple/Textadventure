@@ -28,7 +28,8 @@ class FormApp(App):
         self.villainText = self.query_one("#villain")
         self.villainContainer = self.query_one("#villain_container")
         self.playerContainer = self.query_one("#player_container")
-        self.progressBar = self.query_one("#progress_bar")        
+        self.progressBar = self.query_one("#progress_bar")  
+        self.playerInfo = self.query_one("#player-info")      
         self.inputBox = self.query_one("#input_field")
         self.villainContainer.border_title = "Villain"
         self.playerContainer.border_title =  "Player"
